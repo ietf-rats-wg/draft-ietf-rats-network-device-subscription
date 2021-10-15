@@ -24,7 +24,7 @@
 #
 title: "TODO - Your title"
 abbrev: "TODO - Abbreviation"
-docname: draft-todo-yourname-protocol-latest
+docname: draft-ietf-rats-network-device-subscription-latest
 category: info
 
 ipr: trust200902
