@@ -42,7 +42,7 @@ author:
 
 normative:
   I-D.ietf-rats-architecture: rats-arch
-  I-D.ietf-rats-tpm-based-network-device-attest: rats-riv 
+  I-D.ietf-rats-tpm-based-network-device-attest: rats-riv
   I-D.ietf-rats-yang-tpm-charra: rats-yang-tpm-charra
   I-D.ietf-rats-reference-interaction-models: rats-models
   RFC8639:
