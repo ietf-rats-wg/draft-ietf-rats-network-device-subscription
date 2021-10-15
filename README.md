@@ -1,6 +1,6 @@
-# TODO - Your title
+# Attestation Event Stream Subscription
 
-This is the working area for the IETF [RATS Working Group](https://datatracker.ietf.org/wg/rats/documents/) Internet-Draft, "TODO - Your title".
+This is the working area for the IETF [RATS Working Group](https://datatracker.ietf.org/wg/rats/documents/) Internet-Draft, "Attestation Event Stream Subscription".
 
 * [Editor's Copy](https://ietf-rats-wg.github.io/draft-ietf-rats-network-device-subscription/#go.draft-ietf-rats-network-device-subscription.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-rats-network-device-subscription)
