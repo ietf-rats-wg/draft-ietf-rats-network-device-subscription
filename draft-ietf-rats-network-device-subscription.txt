@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 18 April 2022                                             Cisco
+Expires: 13 August 2022                                            Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                         15 October 2021
+                                                         9 February 2022
 
 
                  Attestation Event Stream Subscription
@@ -53,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 April 2022.
+   This Internet-Draft will expire on 13 August 2022.
 
 Copyright Notice
 
-   Copyright (c) 2021 IETF Trust and the persons identified as the
+   Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -65,9 +65,9 @@ Copyright Notice
    license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
-   extracted from this document must include Simplified BSD License text
-   as described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Simplified BSD License.
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
 
 Table of Contents
 
@@ -544,7 +544,7 @@ Table of Contents
    <event-details> object.  The format of any included <event-details>
    is identified by the <event-type>.  This document includes two YANG
    structures which may be inserted into the <event-details>.  These two
-   structures are: <ima-event-log< and <bios-event-log>.
+   structures are: <ima-event-log> and <bios-event-log>.
    Implementations wanting to provide additional documentation of a type
    of PCR extension may choose to define additional YANG structures
    which can be placed into <event-details>.
@@ -1017,47 +1017,48 @@ Table of Contents
               Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
               W. Pan, "Remote Attestation Procedures Architecture", Work
               in Progress, Internet-Draft, draft-ietf-rats-architecture-
-              12, 23 April 2021, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-architecture-12>.
+              15, 8 February 2022,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              architecture-15>.
 
    [I-D.ietf-rats-reference-interaction-models]
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
               Interaction Models for Remote Attestation Procedures",
               Work in Progress, Internet-Draft, draft-ietf-rats-
-              reference-interaction-models-04, 26 July 2021,
+              reference-interaction-models-05, 26 January 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              reference-interaction-models-04>.
+              reference-interaction-models-05>.
 
    [I-D.ietf-rats-tpm-based-network-device-attest]
               Fedorkow, G., Voit, E., and J. Fitzgerald-McKay, "TPM-
               based Network Device Remote Integrity Verification", Work
               in Progress, Internet-Draft, draft-ietf-rats-tpm-based-
-              network-device-attest-08, 26 July 2021,
+              network-device-attest-11, 29 January 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              tpm-based-network-device-attest-08>.
+              tpm-based-network-device-attest-11>.
 
    [I-D.ietf-rats-yang-tpm-charra]
               Birkholz, H., Eckel, M., Bhandari, S., Voit, E., Sulzen,
               B., (Frank), L. X., Laffey, T., and G. C. Fedorkow, "A
               YANG Data Model for Challenge-Response-based Remote
               Attestation Procedures using TPMs", Work in Progress,
-              Internet-Draft, draft-ietf-rats-yang-tpm-charra-11, 26
-              August 2021, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-rats-yang-tpm-charra-11>.
+              Internet-Draft, draft-ietf-rats-yang-tpm-charra-13, 2
+              February 2022, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-rats-yang-tpm-charra-13>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <https://datatracker.ietf.org/doc/html/rfc2119>.
+              <https://www.rfc-editor.org/rfc/rfc2119>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://datatracker.ietf.org/doc/html/rfc8174>.
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
    [RFC8639]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Subscription to YANG Notifications",
               RFC 8639, DOI 10.17487/RFC8639, September 2019,
-              <https://datatracker.ietf.org/doc/html/rfc8639>.
+              <https://www.rfc-editor.org/rfc/rfc8639>.
 
    [TPM2.0]   TCG, "TPM 2.0 Library Specification", n.d.,
               <https://trustedcomputinggroup.org/resource/tpm-library-
@@ -1068,9 +1069,9 @@ Table of Contents
    [I-D.birkholz-rats-tuda]
               Fuchs, A., Birkholz, H., McDonald, I. E., and C. Bormann,
               "Time-Based Uni-Directional Attestation", Work in
-              Progress, Internet-Draft, draft-birkholz-rats-tuda-05, 12
-              July 2021, <https://datatracker.ietf.org/doc/html/draft-
-              birkholz-rats-tuda-05>.
+              Progress, Internet-Draft, draft-birkholz-rats-tuda-06, 12
+              January 2022, <https://datatracker.ietf.org/doc/html/
+              draft-birkholz-rats-tuda-06>.
 
    [KGV]      TCG, "KGV", October 2003,
               <https://trustedcomputinggroup.org/wp-content/uploads/TCG-
