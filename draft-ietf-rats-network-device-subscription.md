@@ -71,7 +71,7 @@ This memo defines how to subscribe to YANG Event Streams for Remote Attestation 
 
 # Introduction
 
-{{-rats-riv}} and {{-rats-yang-tpm-charra}} define the operational prerequisites and a YANG Model for the acquisition of Evidence and other Conceptional Messages from a TPM-based network device. However, there are limitations inherent in the challenge-response based remote attestation (CHARRA {{-rats-models}}) upon which these documents are based. One of these limitation is that it is a RATS role's duty to request Conceptional Messages, such as Evidence as provided by {{-rats-yang-tpm-charra}}, from another RATS entity. The result is that the interval between the occurrence of a security-relevant change event, and the event's visibility within the interested RATS entity, such as a Verifier or a Relying Party, can be unacceptably long. It is common to convey Conceptual Messages ad-hoc or periodically via requests. As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need of continuous polling. Subscription to YANG Notifications {{RFC8639}} provides a set of standardized tools to facilitate these emerging requirements. This memo specifies a YANG augment to subscribe to YANG modeled remote attestation Evidence as defined in {{-rats-yang-tpm-charra}}. Additionally, this memo provides the means to define further Event Streams to convey Conceptional Messages other than Evidence, such as Attestation Results, Endorsements, or Event Logs.
+{{-rats-riv}} and {{-rats-yang-tpm-charra}} define the operational prerequisites and a YANG Model for the acquisition of Evidence and other Conceptional Messages from a TPM-based network device. However, there are limitations inherent in the challenge-response based conceptual interaction model (CHARRA {{-rats-models}}) upon which these documents are based. One of these limitation is that it is up to a Verifier to request signed Evidence as provided by {{-rats-yang-tpm-charra}}, from a separate Attester which contains a TPM. The result is that the interval between the occurrence of a security-relevant change event, and the event's visibility within the interested RATS entity, such as a Verifier or a Relying Party, can be unacceptably long. It is common to convey Conceptual Messages ad-hoc or periodically via requests. As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need of continuous polling. Subscription to YANG Notifications {{RFC8639}} provides a set of standardized tools to facilitate these emerging requirements. This memo specifies a YANG augment to subscribe to YANG modeled remote attestation Evidence as defined in {{-rats-yang-tpm-charra}}. Additionally, this memo provides the means to define further Event Streams to convey Conceptional Messages other than Evidence, such as Attestation Results, Endorsements, or Event Logs.
 
 In essence, the limitation of poll-based interactions results in two adverse effects:
 
@@ -337,16 +337,9 @@ To be written.
 
 # Change Log
 
-v01-v02
-
-* Match YANG changes/simplifications made to charra
-
 v00-v01
 
-* rename notification: pcr-extended, which supports multiple PCRs
-* netequip boot added
-* YANG structure extension removed
-* Matched to structural changes made within charra
+* minor updates, party based on the dependent Charra going through IESG.
 
 
 # Acknowledgements
