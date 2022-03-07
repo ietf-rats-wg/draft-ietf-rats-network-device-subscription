@@ -1484,43 +1484,45 @@ generateEvidence(handle, PcrSelection, collectedClaims)        |
 <p id="section-4.3.1-1">This notification documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It <span class="bcp14">SHOULD</span> be emmitted no less than the &lt;marshalling-period&gt; after an the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification <span class="bcp14">MUST</span> be emmitted prior to a &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification, the marshalling period <span class="bcp14">MUST</span> be extended so that a new &lt;pcr-extend&gt; is not sent until the corresponding notifications have been sent.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3.1-2">
 <pre>
-    +---n pcr-extend
-       +--ro certificate-name     certificate-name-ref
-       +--ro pcr-index-changed*   tpm:pcr
-       +--ro attested-event* []
-          +--ro attested-event
-             +--ro extended-with             binary
-             +--ro (event-details)?
-                +--:(bios-event-log)
-                |  +--ro bios-event-entry* [event-number]
-                |     +--ro event-number    uint32
-                |     +--ro event-type?     uint32
-                |     +--ro pcr-index?      pcr
-                |     +--ro digest-list* []
-                |     |  +--ro hash-algo?   identityref
-                |     |  +--ro digest*      binary
-                |     +--ro event-size?     uint32
-                |     +--ro event-data*     uint8
-                +--:(ima-event-log)
-                |  +--ro ima-event-entry* [event-number]
-                |     +--ro event-number               uint64
-                |     +--ro ima-template?              string
-                |     +--ro filename-hint?             string
-                |     +--ro filedata-hash?             binary
-                |     +--ro filedata-hash-algorithm?   string
-                |     +--ro template-hash-algorithm?   string
-                |     +--ro template-hash?             binary
-                |     +--ro pcr-index?                 pcr
-                |     +--ro signature?                 binary
-                +--:(netequip-boot-event-log)
-                   +--ro boot-event-entry* [event-number]
-                      +--ro event-number               uint64
-                      +--ro filename-hint?             string
-                      +--ro filedata-hash?             binary
-                      +--ro filedata-hash-algorithm?   string
-                      +--ro file-version?              string
-                      +--ro file-type?                 string
-                      +--ro pcr-index?                 pcr
++---n pcr-extend
+   +--ro certificate-name     certificate-name-ref
+   +--ro pcr-index-changed*   tpm:pcr
+   +--ro attested-event* []
+      +--ro attested-event
+         +--ro extended-with             binary
+         +--ro (event-details)?
+            +--:(bios-event-log) {tpm:bios}?
+            |  +--ro bios-event-entry* [event-number]
+            |     +--ro event-number    uint32
+            |     +--ro event-type?     uint32
+            |     +--ro pcr-index?      pcr
+            |     +--ro digest-list* []
+            |     |  +--ro hash-algo?   identityref
+            |     |  +--ro digest*      binary
+            |     +--ro event-size?     uint32
+            |     +--ro event-data*     uint8
+            +--:(ima-event-log) {tpm:ima}?
+            |  +--ro ima-event-entry* [event-number]
+            |     +--ro event-number               uint64
+            |     +--ro ima-template?              string
+            |     +--ro filename-hint?             string
+            |     +--ro filedata-hash?             binary
+            |     +--ro filedata-hash-algorithm?   string
+            |     +--ro template-hash-algorithm?   string
+            |     +--ro template-hash?             binary
+            |     +--ro pcr-index?                 pcr
+            |     +--ro signature?                 binary
+            +--:(netequip-boot-event-log) {tpm:netequip_boot}?
+               +--ro boot-event-entry* [event-number]
+                  +--ro event-number               uint64
+                  +--ro ima-template?              string
+                  +--ro filename-hint?             string
+                  +--ro filedata-hash?             binary
+                  +--ro filedata-hash-algorithm?   string
+                  +--ro template-hash-algorithm?   string
+                  +--ro template-hash?             binary
+                  +--ro pcr-index?                 pcr
+                  +--ro signature?                 binary
 </pre><a href="#section-4.3.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4.3.1-3">Each &lt;pcr-extend&gt; <span class="bcp14">MUST</span> include one or more values being extended into the PCR.   These are passed within the &lt;extended-with&gt; object.  For each extension, details of the event <span class="bcp14">SHOULD</span> be provided within the &lt;event-details&gt; object.
