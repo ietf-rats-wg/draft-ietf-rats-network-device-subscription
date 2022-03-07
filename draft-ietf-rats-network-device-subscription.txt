@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 13 August 2022                                            Cisco
+Expires: 8 September 2022                                          Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                         9 February 2022
+                                                            7 March 2022
 
 
                  Attestation Event Stream Subscription
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 August 2022.
+   This Internet-Draft will expire on 8 September 2022.
 
 Copyright Notice
 
@@ -107,12 +107,13 @@ Table of Contents
    [I-D.ietf-rats-yang-tpm-charra] define the operational prerequisites
    and a YANG Model for the acquisition of Evidence and other
    Conceptional Messages from a TPM-based network device.  However,
-   there are limitations inherent in the challenge-response based remote
-   attestation (CHARRA [I-D.ietf-rats-reference-interaction-models])
-   upon which these documents are based.  One of these limitation is
-   that it is a RATS role's duty to request Conceptional Messages, such
-   as Evidence as provided by [I-D.ietf-rats-yang-tpm-charra], from
-   another RATS entity.  The result is that the interval between the
+   there are limitations inherent in the challenge-response based
+   conceptual interaction model (CHARRA
+   [I-D.ietf-rats-reference-interaction-models]) upon which these
+   documents are based.  One of these limitation is that it is up to a
+   Verifier to request signed Evidence as provided by
+   [I-D.ietf-rats-yang-tpm-charra], from a separate Attester which
+   contains a TPM.  The result is that the interval between the
    occurrence of a security-relevant change event, and the event's
    visibility within the interested RATS entity, such as a Verifier or a
    Relying Party, can be unacceptably long.  It is common to convey
@@ -1033,18 +1034,18 @@ Table of Contents
               Fedorkow, G., Voit, E., and J. Fitzgerald-McKay, "TPM-
               based Network Device Remote Integrity Verification", Work
               in Progress, Internet-Draft, draft-ietf-rats-tpm-based-
-              network-device-attest-11, 29 January 2022,
+              network-device-attest-13, 1 March 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              tpm-based-network-device-attest-11>.
+              tpm-based-network-device-attest-13>.
 
    [I-D.ietf-rats-yang-tpm-charra]
               Birkholz, H., Eckel, M., Bhandari, S., Voit, E., Sulzen,
               B., (Frank), L. X., Laffey, T., and G. C. Fedorkow, "A
               YANG Data Model for Challenge-Response-based Remote
               Attestation Procedures using TPMs", Work in Progress,
-              Internet-Draft, draft-ietf-rats-yang-tpm-charra-13, 2
-              February 2022, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-yang-tpm-charra-13>.
+              Internet-Draft, draft-ietf-rats-yang-tpm-charra-16, 2
+              March 2022, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-yang-tpm-charra-16>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1079,19 +1080,10 @@ Table of Contents
 
 Appendix A.  Change Log
 
-   v01-v02
-
-   *  Match YANG changes/simplifications made to charra
-
    v00-v01
 
-   *  rename notification: pcr-extended, which supports multiple PCRs
-
-   *  netequip boot added
-
-   *  YANG structure extension removed
-
-   *  Matched to structural changes made within charra
+   *  minor updates, party based on the dependent Charra going through
+      IESG.
 
 Acknowledgements
 
@@ -1104,13 +1096,11 @@ Authors' Addresses
    Rheinstrasse 75
    64295 Darmstadt
    Germany
-
    Email: henk.birkholz@sit.fraunhofer.de
 
 
    Eric Voit
    Cisco Systems, Inc.
-
    Email: evoit@cisco.com
 
 
@@ -1120,5 +1110,4 @@ Authors' Addresses
    Nanjing, Jiangsu
    210012
    China
-
    Email: william.panwei@huawei.com

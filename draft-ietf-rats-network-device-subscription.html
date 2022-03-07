@@ -11,11 +11,11 @@
 <meta content="
        This memo defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS). In RATS, Conceptional Messages, are defined. Analogously, the YANG module defined in this memo augments the YANG module for TPM-based Challenge-Response based Remote Attestation (CHARRA) to allow for subscription to remote attestation Evidence. Additionally, this memo provides the methods and means to define additional Event Streams for other Conceptual Message as illustrated in the RATS Architecture, e.g. Attestation Results, Endorsements, or Event Logs. 
     " name="description">
-<meta content="xml2rfc 3.12.1" name="generator">
+<meta content="xml2rfc 3.12.3" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-rats-network-device-subscription-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.12.1
+  xml2rfc 3.12.3
     Python 3.9.7
     appdirs 1.4.4
     ConfigArgParse 1.3
@@ -25,6 +25,7 @@
     Jinja2 2.11.3
     kitchen 1.2.6
     lxml 4.6.5
+    MarkupSafe 2.0.1
     pycountry 20.7.3
     pyflakes 2.3.1
     PyYAML 5.4.1
@@ -1014,11 +1015,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">RATS Subscription</td>
-<td class="right">February 2022</td>
+<td class="right">March 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 13 August 2022</td>
+<td class="center">Expires 8 September 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1031,12 +1032,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-ietf-rats-network-device-subscription-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-02-09" class="published">9 February 2022</time>
+<time datetime="2022-03-07" class="published">7 March 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-08-13">13 August 2022</time></dd>
+<dd class="expires"><time datetime="2022-09-08">8 September 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1089,7 +1090,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 August 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 September 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1228,7 +1229,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1"><span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span> and <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="xref">I-D.ietf-rats-yang-tpm-charra</a>]</span> define the operational prerequisites and a YANG Model for the acquisition of Evidence and other Conceptional Messages from a TPM-based network device. However, there are limitations inherent in the challenge-response based remote attestation (CHARRA <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="xref">I-D.ietf-rats-reference-interaction-models</a>]</span>) upon which these documents are based. One of these limitation is that it is a RATS role's duty to request Conceptional Messages, such as Evidence as provided by <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>, from another RATS entity. The result is that the interval between the occurrence of a security-relevant change event, and the event's visibility within the interested RATS entity, such as a Verifier or a Relying Party, can be unacceptably long. It is common to convey Conceptual Messages ad-hoc or periodically via requests. As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need of continuous polling. Subscription to YANG Notifications <span>[<a href="#RFC8639" class="xref">RFC8639</a>]</span> provides a set of standardized tools to facilitate these emerging requirements. This memo specifies a YANG augment to subscribe to YANG modeled remote attestation Evidence as defined in <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. Additionally, this memo provides the means to define further Event Streams to convey Conceptional Messages other than Evidence, such as Attestation Results, Endorsements, or Event Logs.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1"><span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span> and <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="xref">I-D.ietf-rats-yang-tpm-charra</a>]</span> define the operational prerequisites and a YANG Model for the acquisition of Evidence and other Conceptional Messages from a TPM-based network device. However, there are limitations inherent in the challenge-response based conceptual interaction model (CHARRA <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="xref">I-D.ietf-rats-reference-interaction-models</a>]</span>) upon which these documents are based. One of these limitation is that it is up to a Verifier to request signed Evidence as provided by <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>, from a separate Attester which contains a TPM. The result is that the interval between the occurrence of a security-relevant change event, and the event's visibility within the interested RATS entity, such as a Verifier or a Relying Party, can be unacceptably long. It is common to convey Conceptual Messages ad-hoc or periodically via requests. As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need of continuous polling. Subscription to YANG Notifications <span>[<a href="#RFC8639" class="xref">RFC8639</a>]</span> provides a set of standardized tools to facilitate these emerging requirements. This memo specifies a YANG augment to subscribe to YANG modeled remote attestation Evidence as defined in <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. Additionally, this memo provides the means to define further Event Streams to convey Conceptional Messages other than Evidence, such as Attestation Results, Endorsements, or Event Logs.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">In essence, the limitation of poll-based interactions results in two adverse effects:<a href="#section-1-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-1-3">
 <li id="section-1-3.1">Conceptual Messages are not streamed to an interested consumer of information, e.g., Verifiers or Relying Parties, as soon as they are generated.<a href="#section-1-3.1" class="pilcrow">¶</a>
@@ -2005,11 +2006,11 @@ module ietf-tpm-remote-attestation-stream {
 <dd class="break"></dd>
 <dt id="I-D.ietf-rats-tpm-based-network-device-attest">[I-D.ietf-rats-tpm-based-network-device-attest]</dt>
         <dd>
-<span class="refAuthor">Fedorkow, G.</span>, <span class="refAuthor">Voit, E.</span>, and <span class="refAuthor">J. Fitzgerald-McKay</span>, <span class="refTitle">"TPM-based Network Device Remote Integrity Verification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-tpm-based-network-device-attest-11</span>, <time datetime="2022-01-29" class="refDate">29 January 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-tpm-based-network-device-attest-11">https://datatracker.ietf.org/doc/html/draft-ietf-rats-tpm-based-network-device-attest-11</a>&gt;</span>. </dd>
+<span class="refAuthor">Fedorkow, G.</span>, <span class="refAuthor">Voit, E.</span>, and <span class="refAuthor">J. Fitzgerald-McKay</span>, <span class="refTitle">"TPM-based Network Device Remote Integrity Verification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-tpm-based-network-device-attest-13</span>, <time datetime="2022-03-01" class="refDate">1 March 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-tpm-based-network-device-attest-13">https://datatracker.ietf.org/doc/html/draft-ietf-rats-tpm-based-network-device-attest-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-rats-yang-tpm-charra">[I-D.ietf-rats-yang-tpm-charra]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Bhandari, S.</span>, <span class="refAuthor">Voit, E.</span>, <span class="refAuthor">Sulzen, B.</span>, <span class="refAuthor">(Frank), L. X.</span>, <span class="refAuthor">Laffey, T.</span>, and <span class="refAuthor">G. C. Fedorkow</span>, <span class="refTitle">"A YANG Data Model for Challenge-Response-based Remote Attestation Procedures using TPMs"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-yang-tpm-charra-13</span>, <time datetime="2022-02-02" class="refDate">2 February 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-yang-tpm-charra-13">https://datatracker.ietf.org/doc/html/draft-ietf-rats-yang-tpm-charra-13</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Bhandari, S.</span>, <span class="refAuthor">Voit, E.</span>, <span class="refAuthor">Sulzen, B.</span>, <span class="refAuthor">(Frank), L. X.</span>, <span class="refAuthor">Laffey, T.</span>, and <span class="refAuthor">G. C. Fedorkow</span>, <span class="refTitle">"A YANG Data Model for Challenge-Response-based Remote Attestation Procedures using TPMs"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-yang-tpm-charra-16</span>, <time datetime="2022-03-02" class="refDate">2 March 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-yang-tpm-charra-16">https://datatracker.ietf.org/doc/html/draft-ietf-rats-yang-tpm-charra-16</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2050,20 +2051,9 @@ module ietf-tpm-remote-attestation-stream {
       <h2 id="name-change-log">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-change-log" class="section-name selfRef">Change Log</a>
       </h2>
-<p id="appendix-A-1">v01-v02<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">v00-v01<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-A-2.1">Match YANG changes/simplifications made to charra<a href="#appendix-A-2.1" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="appendix-A-3">v00-v01<a href="#appendix-A-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A-4.1">rename notification: pcr-extended, which supports multiple PCRs<a href="#appendix-A-4.1" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="appendix-A-4.2">netequip boot added<a href="#appendix-A-4.2" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="appendix-A-4.3">YANG structure extension removed<a href="#appendix-A-4.3" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="appendix-A-4.4">Matched to structural changes made within charra<a href="#appendix-A-4.4" class="pilcrow">¶</a>
+<li class="normal" id="appendix-A-2.1">minor updates, party based on the dependent Charra going through IESG.<a href="#appendix-A-2.1" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>
