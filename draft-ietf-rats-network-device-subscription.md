@@ -315,7 +315,7 @@ Almost all YANG objects below are defined via reference from {{-rats-yang-tpm-ch
 This YANG module imports modules from {{-rats-yang-tpm-charra}} and {{RFC8639}}.  It is also work-in-progress.
 
 ~~~~ YANG
-<CODE BEGINS> ietf-rats-attestation-stream@2020-12-15.yang
+<CODE BEGINS> ietf-rats-attestation-stream@2022-10-25.yang
 {::include ietf-tpm-remote-attestation-stream@2020-12-15.yang}
 <CODE ENDS>
 ~~~~
