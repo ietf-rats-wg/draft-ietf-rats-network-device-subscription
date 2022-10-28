@@ -65,7 +65,7 @@ informative:
 
 --- abstract
 
-This memo defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS). In RATS, Conceptional Messages, are defined. Analogously, the YANG module defined in this memo augments the YANG module for TPM-based Challenge-Response based Remote Attestation (CHARRA) to allow for subscription to remote attestation Evidence. Additionally, this memo provides the methods and means to define additional Event Streams for other Conceptual Message as illustrated in the RATS Architecture, e.g. Attestation Results, Endorsements, or Event Logs.
+This memo defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS). In RATS, Conceptional Messages, are defined. Analogously, the YANG module defined in this memo augments the YANG module for TPM-based Challenge-Response based Remote Attestation (CHARRA) to allow for subscription to remote attestation Evidence. Additionally, this memo provides the methods and means to define additional Event Streams for other Conceptual Messages as illustrated in the RATS Architecture, e.g. Attestation Results, Endorsements, or Event Logs.
 
 --- middle
 
@@ -107,7 +107,7 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 ## Sequence Diagram
 
-{{sequence}} below is a sequence diagram which updates Figure 5 of {{-rats-riv}}. This sequence diagram replaces the {{-rats-riv}} TPM-specific challenge-response interaction model with a {{RFC8639}} Dynamic Subscription to an \<attestation\> Event Stream. The contents of the \<attestation\> Event Stream are defined below within {{attestationstream}}.
+{{sequence}} below is a sequence diagram which updates Figure 5 of {{-rats-riv}}. This sequence diagram adapts {{-rats-riv}} by replacing the TPM-specific challenge-response interaction model with a {{RFC8639}} Dynamic Subscription to an \<attestation\> Event Stream. The contents of the \<attestation\> Event Stream are defined below within {{attestationstream}}.
 
 ~~~~
 .----------.                            .--------------------------.
