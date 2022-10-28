@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 12 August 2022                                            Cisco
+Expires: 1 May 2023                                                Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                         8 February 2022
+                                                         28 October 2022
 
 
                  Attestation Event Stream Subscription
@@ -22,7 +22,7 @@ Abstract
    the YANG module for TPM-based Challenge-Response based Remote
    Attestation (CHARRA) to allow for subscription to remote attestation
    Evidence.  Additionally, this memo provides the methods and means to
-   define additional Event Streams for other Conceptual Message as
+   define additional Event Streams for other Conceptual Messages as
    illustrated in the RATS Architecture, e.g.  Attestation Results,
    Endorsements, or Event Logs.
 
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 August 2022.
+   This Internet-Draft will expire on 1 May 2023.
 
 Copyright Notice
 
@@ -227,10 +227,11 @@ Table of Contents
 
    Figure 1 below is a sequence diagram which updates Figure 5 of
    [I-D.ietf-rats-tpm-based-network-device-attest].  This sequence
-   diagram replaces the [I-D.ietf-rats-tpm-based-network-device-attest]
-   TPM-specific challenge-response interaction model with a [RFC8639]
-   Dynamic Subscription to an <attestation> Event Stream.  The contents
-   of the <attestation> Event Stream are defined below within Section 4.
+   diagram adapts [I-D.ietf-rats-tpm-based-network-device-attest] by
+   replacing the TPM-specific challenge-response interaction model with
+   a [RFC8639] Dynamic Subscription to an <attestation> Event Stream.
+   The contents of the <attestation> Event Stream are defined below
+   within Section 4.
 
    .----------.                            .--------------------------.
    | Attester |                            | Relying Party / Verifier |
@@ -501,43 +502,45 @@ Table of Contents
    extended so that a new <pcr-extend> is not sent until the
    corresponding notifications have been sent.
 
-       +---n pcr-extend
-          +--ro certificate-name     certificate-name-ref
-          +--ro pcr-index-changed*   tpm:pcr
-          +--ro attested-event* []
-             +--ro attested-event
-                +--ro extended-with             binary
-                +--ro (event-details)?
-                   +--:(bios-event-log)
-                   |  +--ro bios-event-entry* [event-number]
-                   |     +--ro event-number    uint32
-                   |     +--ro event-type?     uint32
-                   |     +--ro pcr-index?      pcr
-                   |     +--ro digest-list* []
-                   |     |  +--ro hash-algo?   identityref
-                   |     |  +--ro digest*      binary
-                   |     +--ro event-size?     uint32
-                   |     +--ro event-data*     uint8
-                   +--:(ima-event-log)
-                   |  +--ro ima-event-entry* [event-number]
-                   |     +--ro event-number               uint64
-                   |     +--ro ima-template?              string
-                   |     +--ro filename-hint?             string
-                   |     +--ro filedata-hash?             binary
-                   |     +--ro filedata-hash-algorithm?   string
-                   |     +--ro template-hash-algorithm?   string
-                   |     +--ro template-hash?             binary
-                   |     +--ro pcr-index?                 pcr
-                   |     +--ro signature?                 binary
-                   +--:(netequip-boot-event-log)
-                      +--ro boot-event-entry* [event-number]
-                         +--ro event-number               uint64
-                         +--ro filename-hint?             string
-                         +--ro filedata-hash?             binary
-                         +--ro filedata-hash-algorithm?   string
-                         +--ro file-version?              string
-                         +--ro file-type?                 string
-                         +--ro pcr-index?                 pcr
+   +---n pcr-extend
+      +--ro certificate-name     certificate-name-ref
+      +--ro pcr-index-changed*   tpm:pcr
+      +--ro attested-event* []
+         +--ro attested-event
+            +--ro extended-with             binary
+            +--ro (event-details)?
+               +--:(bios-event-log) {tpm:bios}?
+               |  +--ro bios-event-entry* [event-number]
+               |     +--ro event-number    uint32
+               |     +--ro event-type?     uint32
+               |     +--ro pcr-index?      pcr
+               |     +--ro digest-list* []
+               |     |  +--ro hash-algo?   identityref
+               |     |  +--ro digest*      binary
+               |     +--ro event-size?     uint32
+               |     +--ro event-data*     uint8
+               +--:(ima-event-log) {tpm:ima}?
+               |  +--ro ima-event-entry* [event-number]
+               |     +--ro event-number               uint64
+               |     +--ro ima-template?              string
+               |     +--ro filename-hint?             string
+               |     +--ro filedata-hash?             binary
+               |     +--ro filedata-hash-algorithm?   string
+               |     +--ro template-hash-algorithm?   string
+               |     +--ro template-hash?             binary
+               |     +--ro pcr-index?                 pcr
+               |     +--ro signature?                 binary
+               +--:(netequip-boot-event-log) {tpm:netequip_boot}?
+                  +--ro boot-event-entry* [event-number]
+                     +--ro event-number               uint64
+                     +--ro ima-template?              string
+                     +--ro filename-hint?             string
+                     +--ro filedata-hash?             binary
+                     +--ro filedata-hash-algorithm?   string
+                     +--ro template-hash-algorithm?   string
+                     +--ro template-hash?             binary
+                     +--ro pcr-index?                 pcr
+                     +--ro signature?                 binary
 
    Each <pcr-extend> MUST include one or more values being extended into
    the PCR.  These are passed within the <extended-with> object.  For
@@ -545,7 +548,7 @@ Table of Contents
    <event-details> object.  The format of any included <event-details>
    is identified by the <event-type>.  This document includes two YANG
    structures which may be inserted into the <event-details>.  These two
-   structures are: <ima-event-log< and <bios-event-log>.
+   structures are: <ima-event-log> and <bios-event-log>.
    Implementations wanting to provide additional documentation of a type
    of PCR extension may choose to define additional YANG structures
    which can be placed into <event-details>.
@@ -646,23 +649,25 @@ Table of Contents
    contain a TPM2.
 
      augment /tpm:rats-support-structures:
-       +--rw marshalling-period?                  uint8
-       +--rw tpm12-subscribed-signature-scheme?
+       +--rw tras:marshalling-period?                  uint8
+       +--rw tras:tpm12-subscribed-signature-scheme?
        |   -> ../tpm:attester-supported-algos/tpm12-asymmetric-signing
        |      {taa:TPM12}?
-       +--rw tpm20-subscribed-signature-scheme?
+       +--rw tras:tpm20-subscribed-signature-scheme?
        |   -> ../tpm:attester-supported-algos/tpm20-asymmetric-signing
        |      {taa:TPM20}?
-       +--rw tpm20-subscription-heartbeat?        uint16
+       +--rw tras:tpm20-subscription-heartbeat?        uint16
+              {taa:TPM20}?
+
      augment /tpm:rats-support-structures/tpm:tpms:
-       +--rw subscription-aik?        tpm:certificate-name-ref
-       +--rw (subscribable)?
-          +--:(tpm12-stream) {taa:TPM12}?
-          |  +--rw TPM12-hash-algo?   identityref
-          |  +--rw tpm12-pcr-index*   tpm:pcr
-          +--:(tpm20-stream) {taa:TPM20}?
-             +--rw TPM20-hash-algo?   identityref
-             +--rw tpm20-pcr-index*   tpm:pcr
+        +--rw tras:subscription-aik?        tpm:certificate-name-ref
+        +--rw (tras:subscribable)?
+           +--:(tras:tpm12-stream) {taa:tpm12}?
+           |  +--rw tras:tpm12-hash-algo?   identityref
+           |  +--rw tras:tpm12-pcr-index*   tpm:pcr
+           +--:(tras:tpm20-stream) {taa:tpm20}?
+              +--rw tras:tpm20-hash-algo?   identityref
+              +--rw tras:tpm20-pcr-index*   tpm:pcr
 
            Figure 2: Configuring the \<attestation\> Event Stream
 
@@ -1018,34 +1023,34 @@ Table of Contents
               Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
               W. Pan, "Remote Attestation Procedures Architecture", Work
               in Progress, Internet-Draft, draft-ietf-rats-architecture-
-              15, 8 February 2022,
+              22, 28 September 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              architecture-15>.
+              architecture-22>.
 
    [I-D.ietf-rats-reference-interaction-models]
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
               Interaction Models for Remote Attestation Procedures",
               Work in Progress, Internet-Draft, draft-ietf-rats-
-              reference-interaction-models-05, 26 January 2022,
+              reference-interaction-models-06, 7 September 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              reference-interaction-models-05>.
+              reference-interaction-models-06>.
 
    [I-D.ietf-rats-tpm-based-network-device-attest]
               Fedorkow, G., Voit, E., and J. Fitzgerald-McKay, "TPM-
               based Network Device Remote Integrity Verification", Work
               in Progress, Internet-Draft, draft-ietf-rats-tpm-based-
-              network-device-attest-11, 29 January 2022,
+              network-device-attest-14, 22 March 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              tpm-based-network-device-attest-11>.
+              tpm-based-network-device-attest-14>.
 
    [I-D.ietf-rats-yang-tpm-charra]
               Birkholz, H., Eckel, M., Bhandari, S., Voit, E., Sulzen,
-              B., (Frank), L. X., Laffey, T., and G. C. Fedorkow, "A
-              YANG Data Model for Challenge-Response-based Remote
-              Attestation Procedures using TPMs", Work in Progress,
-              Internet-Draft, draft-ietf-rats-yang-tpm-charra-13, 2
-              February 2022, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-yang-tpm-charra-13>.
+              B., Xia, L., Laffey, T., and G. Fedorkow, "A YANG Data
+              Model for Challenge-Response-based Remote Attestation
+              Procedures using TPMs", Work in Progress, Internet-Draft,
+              draft-ietf-rats-yang-tpm-charra-21, 18 May 2022,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              yang-tpm-charra-21>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1068,11 +1073,11 @@ Table of Contents
 9.2.  Informative References
 
    [I-D.birkholz-rats-tuda]
-              Fuchs, A., Birkholz, H., McDonald, I. E., and C. Bormann,
+              Fuchs, A., Birkholz, H., McDonald, I., and C. Bormann,
               "Time-Based Uni-Directional Attestation", Work in
-              Progress, Internet-Draft, draft-birkholz-rats-tuda-06, 12
-              January 2022, <https://datatracker.ietf.org/doc/html/
-              draft-birkholz-rats-tuda-06>.
+              Progress, Internet-Draft, draft-birkholz-rats-tuda-07, 10
+              July 2022, <https://datatracker.ietf.org/doc/html/draft-
+              birkholz-rats-tuda-07>.
 
    [KGV]      TCG, "KGV", October 2003,
               <https://trustedcomputinggroup.org/wp-content/uploads/TCG-
@@ -1096,13 +1101,11 @@ Authors' Addresses
    Rheinstrasse 75
    64295 Darmstadt
    Germany
-
    Email: henk.birkholz@sit.fraunhofer.de
 
 
    Eric Voit
    Cisco Systems, Inc.
-
    Email: evoit@cisco.com
 
 
@@ -1112,5 +1115,4 @@ Authors' Addresses
    Nanjing, Jiangsu
    210012
    China
-
    Email: william.panwei@huawei.com
