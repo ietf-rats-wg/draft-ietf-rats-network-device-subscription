@@ -5,6 +5,7 @@ docname: draft-ietf-rats-network-device-subscription-latest
 wg: RATS Working Group
 stand_alone: true
 ipr: trust200902
+stream: IETF
 area: Security
 kw: Internet-Draft
 cat: std
@@ -95,7 +96,7 @@ This memo enables to remove the two adverse effects described by using the YANG 
 
 # Terminology
 
-The following terms are imported from {{-rats-arch}}: Attester, Conceptual Message, Evidence, Relying Party, and Verifier.  Also imported are the time definitions time(VG), time(NS), time(EG), time(RG), and time(RA) from that document's Appendix A.  The following terms are imported from {{RFC8639}}: Event Stream, Subscription, Event Stream Filter, Dynamic Subscription.
+The following terms are imported from {{-rats-arch}}: Attester, Conceptual Message, Evidence, Relying Party, and Verifier.  Also imported are the time definitions time(VG), time(NS), time(EG), time(RG), and time(RA) from that document's Appendix A.  The following terms are imported from {{RFC8639}}: Event Stream, Subscription, Publisher, Event Stream Filter, Dynamic Subscription.
 
 ## Requirements Notation
 
@@ -210,7 +211,7 @@ The relevant internal time-related counters defined within {{TPM2.0}} can be see
 {: #attestationstream}
 # Remote Attestation Event Stream
 
-The \<attestation\> Event Stream is an {{RFC8639}} compliant Event Stream which is defined within this section and within the YANG Module of {{-rats-yang-tpm-charra}}. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within {{configuring}} allow the configuration of this Event Stream’s contents on an Attester.
+The \<attestation\> Event Stream is an {{RFC8639}} compliant Event Stream which is defined within this section and within the YANG Module of {{-rats-yang-tpm-charra}}. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within {{configuring}} allow the configuration of this Event Stream's contents on an Attester.
 
 This \<attestation\> Event Stream may only be exposed on Attesters supporting {{-rats-riv}}. As with {{-rats-riv}}, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.
 
@@ -295,7 +296,7 @@ To accomplish this reduction, when an RFC8639 \<establish-subscription\> RPC is 
 
 ## Replaying previous PCR Extend events
 
-To verify the value of a PCR, a Verifier must either know that the value is a known good value {{KGV}} or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \<attestation\> Event Stream MUST support the RFC8639 \<replay\> feature. Through the \<replay\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR’s current value.
+To verify the value of a PCR, a Verifier must either know that the value is a known good value {{KGV}} or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \<attestation\> Event Stream MUST support the RFC8639 \<replay\> feature. Through the \<replay\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.
 
 {: #configuring "Configuring the Attestation Stream"}
 ## Configuring the \<attestation\> Event Stream
@@ -337,9 +338,9 @@ To be written.
 
 # Change Log
 
-v00-v01
+v00-v05
 
-* minor updates, party based on the dependent Charra going through IESG.
+* minor updates as Charra goes through IESG.
 
 
 # Acknowledgements
