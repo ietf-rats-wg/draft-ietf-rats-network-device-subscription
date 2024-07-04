@@ -676,7 +676,7 @@ Table of Contents
    This YANG module imports modules from [I-D.ietf-rats-yang-tpm-charra]
    and [RFC8639].  It is also work-in-progress.
 
-   <CODE BEGINS> ietf-rats-attestation-stream@2020-12-15.yang
+   <CODE BEGINS> ietf-rats-attestation-stream@2024-07-06.yang
    module ietf-tpm-remote-attestation-stream {
      yang-version 1.1;
      namespace
