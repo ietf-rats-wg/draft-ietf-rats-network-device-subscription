@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 8 September 2022                                          Cisco
+Expires: 5 January 2025                                            Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                            7 March 2022
+                                                             4 July 2024
 
 
                  Attestation Event Stream Subscription
@@ -22,7 +22,7 @@ Abstract
    the YANG module for TPM-based Challenge-Response based Remote
    Attestation (CHARRA) to allow for subscription to remote attestation
    Evidence.  Additionally, this memo provides the methods and means to
-   define additional Event Streams for other Conceptual Message as
+   define additional Event Streams for other Conceptual Messages as
    illustrated in the RATS Architecture, e.g.  Attestation Results,
    Endorsements, or Event Logs.
 
@@ -53,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 September 2022.
+   This Internet-Draft will expire on 5 January 2025.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -227,10 +227,11 @@ Table of Contents
 
    Figure 1 below is a sequence diagram which updates Figure 5 of
    [I-D.ietf-rats-tpm-based-network-device-attest].  This sequence
-   diagram replaces the [I-D.ietf-rats-tpm-based-network-device-attest]
-   TPM-specific challenge-response interaction model with a [RFC8639]
-   Dynamic Subscription to an <attestation> Event Stream.  The contents
-   of the <attestation> Event Stream are defined below within Section 4.
+   diagram adapts [I-D.ietf-rats-tpm-based-network-device-attest] by
+   replacing the TPM-specific challenge-response interaction model with
+   a [RFC8639] Dynamic Subscription to an <attestation> Event Stream.
+   The contents of the <attestation> Event Stream are defined below
+   within Section 4.
 
    .----------.                            .--------------------------.
    | Attester |                            | Relying Party / Verifier |
@@ -280,7 +281,7 @@ Table of Contents
       times from Figure 5 in
       [I-D.ietf-rats-tpm-based-network-device-attest].
 
-   *  time(NS) - the subscriber generates a nonce and makes an [RFC8639]
+   *  time(NS) – the subscriber generates a nonce and makes an [RFC8639]
       <establish-subscription> request based on a nonce.  This request
       also includes the augmentations defined in this document's YANG
       model.  Key subscription RPC parameters include:
@@ -292,7 +293,7 @@ Table of Contents
       -  an optional filter which can reduce the logged events on the
          <attestation> stream pushed to the Verifier.
 
-   *  time(EG) - an initial response of Evidence is returned to the
+   *  time(EG) – an initial response of Evidence is returned to the
       Verifier.  This includes:
 
       -  a replay of filtered log entries which have extended into a PCR
@@ -304,7 +305,7 @@ Table of Contents
          <tpm12-attestation> or <tpm20-attestation>).  This quote must
          have included the nonce provided at time(NS).
 
-   *  time(VG',EG') - this occurs when a PCR is extended subsequent to
+   *  time(VG',EG') – this occurs when a PCR is extended subsequent to
       time(EG).  Immediately after the extension, the following
       information needs to be pushed to the Verifier:
 
@@ -395,7 +396,7 @@ Table of Contents
    [I-D.ietf-rats-yang-tpm-charra].  This Event Stream contains YANG
    notifications which carry Evidence to assists a Verifier in
    appraising the Trustworthiness Level of an Attester.  Data Nodes
-   within Section 4.6 allow the configuration of this Event Stream's
+   within Section 4.6 allow the configuration of this Event Stream’s
    contents on an Attester.
 
    This <attestation> Event Stream may only be exposed on Attesters
@@ -630,7 +631,7 @@ Table of Contents
    <replay> feature, it is possible for a Verifier to retrieve and
    sequentially hash all of the PCR extending events since an Attester
    booted.  And thus, the Verifier has access to all the evidence needed
-   to verify a PCR's current value.
+   to verify a PCR’s current value.
 
 4.6.  Configuring the <attestation> Event Stream
 
@@ -1020,36 +1021,36 @@ Table of Contents
 
    [I-D.ietf-rats-architecture]
               Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
-              W. Pan, "Remote Attestation Procedures Architecture", Work
-              in Progress, Internet-Draft, draft-ietf-rats-architecture-
-              15, 8 February 2022,
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", Work in Progress, Internet-Draft, draft-
+              ietf-rats-architecture-22, 28 September 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              architecture-15>.
+              architecture-22>.
 
    [I-D.ietf-rats-reference-interaction-models]
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
               Interaction Models for Remote Attestation Procedures",
               Work in Progress, Internet-Draft, draft-ietf-rats-
-              reference-interaction-models-05, 26 January 2022,
+              reference-interaction-models-09, 4 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              reference-interaction-models-05>.
+              reference-interaction-models-09>.
 
    [I-D.ietf-rats-tpm-based-network-device-attest]
               Fedorkow, G., Voit, E., and J. Fitzgerald-McKay, "TPM-
               based Network Device Remote Integrity Verification", Work
               in Progress, Internet-Draft, draft-ietf-rats-tpm-based-
-              network-device-attest-13, 1 March 2022,
+              network-device-attest-14, 22 March 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              tpm-based-network-device-attest-13>.
+              tpm-based-network-device-attest-14>.
 
    [I-D.ietf-rats-yang-tpm-charra]
               Birkholz, H., Eckel, M., Bhandari, S., Voit, E., Sulzen,
-              B., (Frank), L. X., Laffey, T., and G. C. Fedorkow, "A
-              YANG Data Model for Challenge-Response-based Remote
-              Attestation Procedures using TPMs", Work in Progress,
-              Internet-Draft, draft-ietf-rats-yang-tpm-charra-16, 2
-              March 2022, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-rats-yang-tpm-charra-16>.
+              B., Xia, L., Laffey, T., and G. Fedorkow, "A YANG Data
+              Model for Challenge-Response-based Remote Attestation
+              Procedures using TPMs", Work in Progress, Internet-Draft,
+              draft-ietf-rats-yang-tpm-charra-22, 27 February 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              yang-tpm-charra-22>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1072,11 +1073,11 @@ Table of Contents
 9.2.  Informative References
 
    [I-D.birkholz-rats-tuda]
-              Fuchs, A., Birkholz, H., McDonald, I. E., and C. Bormann,
+              Fuchs, A., Birkholz, H., McDonald, I., and C. Bormann,
               "Time-Based Uni-Directional Attestation", Work in
-              Progress, Internet-Draft, draft-birkholz-rats-tuda-06, 12
-              January 2022, <https://datatracker.ietf.org/doc/html/
-              draft-birkholz-rats-tuda-06>.
+              Progress, Internet-Draft, draft-birkholz-rats-tuda-07, 10
+              July 2022, <https://datatracker.ietf.org/doc/html/draft-
+              birkholz-rats-tuda-07>.
 
    [KGV]      TCG, "KGV", October 2003,
               <https://trustedcomputinggroup.org/wp-content/uploads/TCG-
