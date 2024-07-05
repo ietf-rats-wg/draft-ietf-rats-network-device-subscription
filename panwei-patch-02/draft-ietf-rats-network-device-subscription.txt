@@ -156,11 +156,12 @@ Table of Contents
    of Conceptual Messages (the publisher).  In the case of a Verifier's
    subscription to an Attester's Evidence, the Attester will
    continuously stream a requested set of freshly generated Evidence to
-   the subscribing Verifier.  For example, when the network device's
-   Evidence changes after the occurrence of events like booting,
+   the subscribing Verifier.  For example, when a network device's
+   Evidence changes after the occurrence of events, such as booting,
    updating, control unit fall-over, plugging in or out forwarding
-   units, being attacked, and certificate lifetime change, the network
-   device will generate the new Evidence to the subscribing Verifier.
+   units, being attacked, or certificate lifetime change, the network
+   device will generate fresh Evidence available to the subscribing
+   Verifier.
 
    The second adverse effect results from the use of nonces in the
    challenge-response interaction model
