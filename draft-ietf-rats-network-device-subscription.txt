@@ -201,7 +201,7 @@ Table of Contents
    Also imported are the time definitions time(VG), time(NS), time(EG),
    time(RG), and time(RA) from that document's Appendix A.  The
    following terms are imported from [RFC8639]: Event Stream,
-   Subscription, Event Stream Filter, Dynamic Subscription.
+   Subscription, Publisher, Event Stream Filter, Dynamic Subscription.
 
 2.1.  Requirements Notation
 
@@ -396,7 +396,7 @@ Table of Contents
    [I-D.ietf-rats-yang-tpm-charra].  This Event Stream contains YANG
    notifications which carry Evidence to assists a Verifier in
    appraising the Trustworthiness Level of an Attester.  Data Nodes
-   within Section 4.6 allow the configuration of this Event Stream’s
+   within Section 4.6 allow the configuration of this Event Stream's
    contents on an Attester.
 
    This <attestation> Event Stream may only be exposed on Attesters
@@ -631,7 +631,7 @@ Table of Contents
    <replay> feature, it is possible for a Verifier to retrieve and
    sequentially hash all of the PCR extending events since an Attester
    booted.  And thus, the Verifier has access to all the evidence needed
-   to verify a PCR’s current value.
+   to verify a PCR's current value.
 
 4.6.  Configuring the <attestation> Event Stream
 
@@ -1087,10 +1087,9 @@ Table of Contents
 
 Appendix A.  Change Log
 
-   v00-v01
+   v00-v05
 
-   *  minor updates, party based on the dependent Charra going through
-      IESG.
+   *  minor updates as Charra goes through IESG.
 
 Acknowledgements
 

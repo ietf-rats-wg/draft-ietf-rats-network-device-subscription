@@ -1270,7 +1270,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-terminology">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
       </h2>
-<p id="section-2-1">The following terms are imported from <span>[<a href="#I-D.ietf-rats-architecture" class="cite xref">I-D.ietf-rats-architecture</a>]</span>: Attester, Conceptual Message, Evidence, Relying Party, and Verifier.  Also imported are the time definitions time(VG), time(NS), time(EG), time(RG), and time(RA) from that document's Appendix A.  The following terms are imported from <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>: Event Stream, Subscription, Event Stream Filter, Dynamic Subscription.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">The following terms are imported from <span>[<a href="#I-D.ietf-rats-architecture" class="cite xref">I-D.ietf-rats-architecture</a>]</span>: Attester, Conceptual Message, Evidence, Relying Party, and Verifier.  Also imported are the time definitions time(VG), time(NS), time(EG), time(RG), and time(RA) from that document's Appendix A.  The following terms are imported from <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>: Event Stream, Subscription, Publisher, Event Stream Filter, Dynamic Subscription.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <div id="requirements-notation">
 <section id="section-2.1">
         <h3 id="name-requirements-notation">
@@ -1452,7 +1452,7 @@ generateEvidence(handle, PcrSelection, collectedClaims)        |
       <h2 id="name-remote-attestation-event-st">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-remote-attestation-event-st" class="section-name selfRef">Remote Attestation Event Stream</a>
       </h2>
-<p id="section-4-1">The &lt;attestation&gt; Event Stream is an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant Event Stream which is defined within this section and within the YANG Module of <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within <a href="#configuring" class="auto internal xref">Section 4.6</a> allow the configuration of this Event Stream’s contents on an Attester.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">The &lt;attestation&gt; Event Stream is an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant Event Stream which is defined within this section and within the YANG Module of <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within <a href="#configuring" class="auto internal xref">Section 4.6</a> allow the configuration of this Event Stream's contents on an Attester.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">This &lt;attestation&gt; Event Stream may only be exposed on Attesters supporting <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>. As with <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <div id="subscription-to-the-attestation-event-stream">
 <section id="section-4.1">
@@ -1628,7 +1628,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
         <h3 id="name-replaying-previous-pcr-exte">
 <a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-replaying-previous-pcr-exte" class="section-name selfRef">Replaying previous PCR Extend events</a>
         </h3>
-<p id="section-4.5-1">To verify the value of a PCR, a Verifier must either know that the value is a known good value <span>[<a href="#KGV" class="cite xref">KGV</a>]</span> or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the &lt;attestation&gt; Event Stream <span class="bcp14">MUST</span> support the RFC8639 &lt;replay&gt; feature. Through the &lt;replay&gt; feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR’s current value.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-1">To verify the value of a PCR, a Verifier must either know that the value is a known good value <span>[<a href="#KGV" class="cite xref">KGV</a>]</span> or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the &lt;attestation&gt; Event Stream <span class="bcp14">MUST</span> support the RFC8639 &lt;replay&gt; feature. Through the &lt;replay&gt; feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="configuring">
@@ -2094,10 +2094,10 @@ module ietf-tpm-remote-attestation-stream {
       <h2 id="name-change-log">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-change-log" class="section-name selfRef">Change Log</a>
       </h2>
-<p id="appendix-A-1">v00-v01<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">v00-v05<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A-2.1">
-          <p id="appendix-A-2.1.1">minor updates, party based on the dependent Charra going through IESG.<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-A-2.1.1">minor updates as Charra goes through IESG.<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
