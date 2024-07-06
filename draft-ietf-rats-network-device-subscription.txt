@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 5 January 2025                                            Cisco
+Expires: 7 January 2025                                            Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                             4 July 2024
+                                                             6 July 2024
 
 
                  Attestation Event Stream Subscription
@@ -23,8 +23,8 @@ Abstract
    Attestation (CHARRA) to allow for subscription to remote attestation
    Evidence.  Additionally, this memo provides the methods and means to
    define additional Event Streams for other Conceptual Messages as
-   illustrated in the RATS Architecture, e.g.  Attestation Results,
-   Endorsements, or Event Logs.
+   illustrated in the RATS Architecture, e.g., Attestation Results,
+   Reference Values, or Endorsements.
 
 Discussion Venues
 
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2025.
+   This Internet-Draft will expire on 7 January 2025.
 
 Copyright Notice
 
