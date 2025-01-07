@@ -42,9 +42,9 @@ author:
   email: william.panwei@huawei.com
 
 normative:
-  I-D.ietf-rats-architecture: rats-arch
-  I-D.ietf-rats-tpm-based-network-device-attest: rats-riv
-  I-D.ietf-rats-yang-tpm-charra: rats-yang-tpm-charra
+  RFC9334: rats-arch
+  RFC9683: rats-riv
+  RFC9684: charra
   I-D.ietf-rats-reference-interaction-models: rats-models
   RFC8639:
   TPM2.0:
@@ -76,8 +76,8 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
 
 # Introduction
 
-{{-rats-riv}} and {{-rats-yang-tpm-charra}} define the operational prerequisites and a YANG Model for the acquisition of Evidence and other Conceptional Messages from a network device containing at least one TPM 1.2 or TPM 2.0 or equivalent hardware implementations that include the protected capabilities as provided by TPMs.
-However, there are limitations inherent in the challenge-response based conceptual interaction model (CHARRA {{-rats-models}}) upon which these documents are based. One of these limitation is that it is up to a Verifier to request signed Evidence as provided by {{-rats-yang-tpm-charra}}, from a separate Attester which contains a TPM. The result is that the interval between the occurrence of a security-relevant change event, and the event's visibility within the interested RATS entity, such as a Verifier or a Relying Party, can be unacceptably long. It is common to convey Conceptual Messages ad-hoc or periodically via requests. As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need of continuous polling. Subscription to YANG Notifications {{RFC8639}} provides a set of standardized tools to facilitate these emerging requirements. This memo specifies a YANG augment to subscribe to YANG modeled remote attestation Evidence as defined in {{-rats-yang-tpm-charra}}. Additionally, this memo provides the means to define further Event Streams to convey Conceptional Messages other than Evidence, such as Attestation Results, Endorsements, or Event Logs.
+{{-rats-riv}} and {{-charra}} define the operational prerequisites and a YANG Model for the acquisition of Evidence and other Conceptional Messages from a network device containing at least one TPM 1.2 or TPM 2.0 or equivalent hardware implementations that include the protected capabilities as provided by TPMs.
+However, there are limitations inherent in the challenge-response based conceptual interaction model (CHARRA {{-rats-models}}) upon which these documents are based. One of these limitation is that it is up to a Verifier to request signed Evidence as provided by {{-charra}}, from a separate Attester which contains a TPM. The result is that the interval between the occurrence of a security-relevant change event, and the event's visibility within the interested RATS entity, such as a Verifier or a Relying Party, can be unacceptably long. It is common to convey Conceptual Messages ad-hoc or periodically via requests. As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need of continuous polling. Subscription to YANG Notifications {{RFC8639}} provides a set of standardized tools to facilitate these emerging requirements. This memo specifies a YANG augment to subscribe to YANG modeled remote attestation Evidence as defined in {{-charra}}. Additionally, this memo provides the means to define further Event Streams to convey Conceptional Messages other than Evidence, such as Attestation Results, Endorsements, or Event Logs.
 
 In essence, the limitation of poll-based interactions results in two adverse effects:
 
@@ -87,13 +87,13 @@ In essence, the limitation of poll-based interactions results in two adverse eff
 
 This specification addresses the first adverse effect by enabling a consumer of Conceptual Messages (the subscriber) to request a continuous stream of new or updated Conceptual Messages via an {{RFC8639}} subscription to an \<attestation\> Event Stream. This new Event Stream is defined in this document and exists upon the producer of Conceptual Messages (the publisher). In the case of a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier. For example, when a network device's Evidence changes after the occurrence of events, such as booting, updating, control unit fall-over, plugging in or out forwarding units, being attacked, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.
 
-The second adverse effect results from the use of nonces in the challenge-response interaction model {{-rats-models}} realized in {{-rats-yang-tpm-charra}}. In {{-rats-yang-tpm-charra}}, an Attester must wait for a new nonce from a Verifier before it generates a new TPM Quote. To address delays resulting from such a wait, this specification enables freshness to be asserted asynchronously via the streaming attestation interaction model {{-rats-models}}. To convey a RATS Conceptual Message, an initial nonce is provided during the subscription to an Event Stream.
+The second adverse effect results from the use of nonces in the challenge-response interaction model {{-rats-models}} realized in {{-charra}}. In {{-charra}}, an Attester must wait for a new nonce from a Verifier before it generates a new TPM Quote. To address delays resulting from such a wait, this specification enables freshness to be asserted asynchronously via the streaming attestation interaction model {{-rats-models}}. To convey a RATS Conceptual Message, an initial nonce is provided during the subscription to an Event Stream.
 
 There are several options to refresh a nonce provided by the initial subscription or its freshness characteristics. All of these methods are out-of-band of an established subscription to YANG Notifications. Two complementary methods are taken into account by this memo:
 
 1. a central provider supplies new fresh nonces, e.g. via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in {{-rats-arch}} and as facilitated by the Uni-Directional Remote Attestation described in {{-rats-models}} or
 
-2. the freshness characteristics of a received nonce are updated by -- potentially periodic or ad-hoc -- out-of-band TPM Quote requests as facilitated by {{-rats-yang-tpm-charra}}.
+2. the freshness characteristics of a received nonce are updated by -- potentially periodic or ad-hoc -- out-of-band TPM Quote requests as facilitated by {{-charra}}.
 
 Both approaches to update the freshness characteristics of the Conceptual Messages conveyed via subscription to YANG Notification that are taken into account by this memo assume that clock drift between involved entities can occur. In consequence, in some usage scenarios the timing considerations for freshness {{-rats-arch}} might have to be updated in some regular interval. Analogously, there are can be additional methods that are not describe by but nevertheless supported by this memo.
 
@@ -109,7 +109,7 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 # Operational Model
 
-{{-rats-riv}} describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model {{-rats-models}}. The operational model and corresponding sequence diagram described in this section is based on {{-rats-yang-tpm-charra}}. The basis for interoperability required for additional types of Event Streams is covered in {{otherstreams}}. The following sub-section focuses on subscription to YANG Notifications to the \<attestation\> Event Stream.
+{{-rats-riv}} describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model {{-rats-models}}. The operational model and corresponding sequence diagram described in this section is based on {{-charra}}. The basis for interoperability required for additional types of Event Streams is covered in {{otherstreams}}. The following sub-section focuses on subscription to YANG Notifications to the \<attestation\> Event Stream.
 
 ## Sequence Diagram
 
@@ -184,7 +184,7 @@ As there is no new Verifier nonce provided at time(EG'), it is important to vali
 
 ### TPM 1.2 Quote
 
-The {{RFC8639}} notification format includes the \<eventTime\> object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However this time is not part of the signed results which are returned from the Quote, and therefore is not trustworthy as objects returned in the Quote.  Therefore a Verifier MUST periodically issue a new nonce, and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the \<tpm12-challenge-response-attestation\> RPC from {{-rats-yang-tpm-charra}}.
+The {{RFC8639}} notification format includes the \<eventTime\> object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However this time is not part of the signed results which are returned from the Quote, and therefore is not trustworthy as objects returned in the Quote.  Therefore a Verifier MUST periodically issue a new nonce, and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the \<tpm12-challenge-response-attestation\> RPC from {{-charra}}.
 
 ### TPM 2 Quote
 
@@ -216,7 +216,7 @@ The relevant internal time-related counters defined within {{TPM2.0}} can be see
 {: #attestationstream}
 # Remote Attestation Event Stream
 
-The \<attestation\> Event Stream is an {{RFC8639}} compliant Event Stream which is defined within this section and within the YANG Module of {{-rats-yang-tpm-charra}}. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within {{configuring}} allow the configuration of this Event Stream's contents on an Attester.
+The \<attestation\> Event Stream is an {{RFC8639}} compliant Event Stream which is defined within this section and within the YANG Module of {{-charra}}. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within {{configuring}} allow the configuration of this Event Stream's contents on an Attester.
 
 This \<attestation\> Event Stream may only be exposed on Attesters supporting {{-rats-riv}}. As with {{-rats-riv}}, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.
 
@@ -277,7 +277,7 @@ This notification contains an instance of a TPM1.2 style signed cryptoprocessor 
 {::include ietf-tpm-remote-attestation-stream_tpm12-attestation.tree}
 ~~~~
 
-All YANG objects above are defined within {{-rats-yang-tpm-charra}}.  The \<tpm12-attestation\> is not replayable.
+All YANG objects above are defined within {{-charra}}.  The \<tpm12-attestation\> is not replayable.
 
 ### tpm20-attestation
 
@@ -291,7 +291,7 @@ This notification contains an instance of TPM2 style signed cryptoprocessor meas
 {::include ietf-tpm-remote-attestation-stream_tpm20-attestation.tree}
 ~~~~
 
-All YANG objects above are defined within {{-rats-yang-tpm-charra}}.  The \<tpm20-attestation\> is not replayable.
+All YANG objects above are defined within {{-charra}}.  The \<tpm20-attestation\> is not replayable.
 
 ## Filtering Evidence at the Attester
 
@@ -308,7 +308,7 @@ To verify the value of a PCR, a Verifier must either know that the value is a kn
 
 {{attestationconfig}} is tree diagram which exposes the operator configurable elements of the \<attestation\> Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of stream.
 
-Almost all YANG objects below are defined via reference from {{-rats-yang-tpm-charra}}. There is one object which is new with this model however. \<tpm2-heartbeat\> defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a \<tpm20-attestation\> notification from devices which contain a TPM2.
+Almost all YANG objects below are defined via reference from {{-charra}}. There is one object which is new with this model however. \<tpm2-heartbeat\> defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a \<tpm20-attestation\> notification from devices which contain a TPM2.
 
 ~~~~
 {::include ietf-tpm-remote-attestation-stream_attestation-config.tree}
@@ -318,7 +318,7 @@ Almost all YANG objects below are defined via reference from {{-rats-yang-tpm-ch
 {: #YANG-Module}
 # YANG Module
 
-This YANG module imports modules from {{-rats-yang-tpm-charra}} and {{RFC8639}}.  It is also work-in-progress.
+This YANG module imports modules from {{-charra}} and {{RFC8639}}.  It is also work-in-progress.
 
 ~~~~ YANG
 <CODE BEGINS> ietf-rats-attestation-stream@2024-07-06.yang
