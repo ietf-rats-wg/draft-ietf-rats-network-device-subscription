@@ -63,6 +63,12 @@ informative:
     date: 2003-10
     target: https://trustedcomputinggroup.org/wp-content/uploads/TCG-NetEq-Attestation-Workflow-Outline_v1r9b_pubrev.pdf
     seriesinfo:
+  xml-registry:
+    target: https://www.iana.org/assignments/xml-registry/xml-registry.xhtml
+    title: IETF XML Registry
+  yang-parameters:
+    target: https://www.iana.org/assignments/yang-parameters/yang-parameters.xhtml
+    title: YANG Parameters
 
 --- abstract
 
@@ -331,13 +337,42 @@ This YANG module imports modules from {{-charra}} and {{RFC8639}}.  It is also w
 
 Analogous to the {{RFC8639}} compliant \<attestation\> Event Stream for the conveyance of remote attestation Evidence as defined in Section {{attestationstream}}, additional Event Streams can be defined for this YANG augment. Additional Event Streams require separate YANG augment specifications that provide the Event Stream definition and optionally a content format definition either via subscriptions to YANG datastores or dedicated YANG Notifications. It is possible to use either YANG subscription methods to other YANG modules for RATS Conceptual Messages or to define Event Streams for other none-YANG-modeled data. In the context of RATS Conceptual Messages, both options MUST be a specified via YANG augments to this specification.
 
+# Privacy Considerations
+
+The Privacy Considerations of {{-RIV}} apply.
+
 # Security Considerations
 
-To be written.
+The Security Considerations of {{-CHARRA}} and {{-RIV}} apply.
 
 # IANA Considerations {#IANA}
 
-To be written.
+This document registers the following namespace URIs in the
+{{xml-registry}} as per {{RFC3688}}:
+
+URI:
+: urn:ietf:params:xml:ns:yang:ietf-tpm-remote-attestation-stream
+
+  Registrant Contact:
+  : The IESG.
+
+  XML:
+  : N/A; the requested URI is an XML namespace.
+
+This document registers the following YANG module in the
+registry {{yang-parameters}} as per Section 14 of {{RFC6020}}:
+
+Name:
+: ietf-tpm-remote-attestation-stream
+
+  Namespace:
+  : urn:ietf:params:xml:ns:yang:ietf-tpm-remote-attestation-stream
+
+  Prefix:
+  : tras
+
+  Reference:
+  : draft-ietf-rats-network-device-subscription (RFC form)
 
 --- back
 
