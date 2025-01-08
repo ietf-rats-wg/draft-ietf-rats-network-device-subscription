@@ -69,7 +69,7 @@ informative:
 This document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS).
 In RATS, the Conceptional Messages defined can potentially be subscribed to.
 Specifically, the YANG module defined in this document augments the YANG module for TPM-based Challenge-Response based Remote Attestation (CHARRA) to allow for subscription to the Conceptual Message type Evidence.
-Additionally, this memo provides the methods and means to define additional Event Streams for other Conceptual Messages than Evidence as illustrated in the RATS Architecture, e.g., Attestation Results, Reference Values, or Endorsements.
+Additionally, this document provides the methods and means to define additional Event Streams for other Conceptual Messages than Evidence as illustrated in the RATS Architecture, e.g., Attestation Results, Reference Values, or Endorsements.
 The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardware implementation providing the same protected capabilities as TPMs to be available in the Attester the YANG server is running on.
 
 --- middle
@@ -89,15 +89,15 @@ This specification addresses the first adverse effect by enabling a consumer of 
 
 The second adverse effect results from the use of nonces in the challenge-response interaction model {{-rats-models}} realized in {{-charra}}. In {{-charra}}, an Attester must wait for a new nonce from a Verifier before it generates a new TPM Quote. To address delays resulting from such a wait, this specification enables freshness to be asserted asynchronously via the streaming attestation interaction model {{-rats-models}}. To convey a RATS Conceptual Message, an initial nonce is provided during the subscription to an Event Stream.
 
-There are several options to refresh a nonce provided by the initial subscription or its freshness characteristics. All of these methods are out-of-band of an established subscription to YANG Notifications. Two complementary methods are taken into account by this memo:
+There are several options to refresh a nonce provided by the initial subscription or its freshness characteristics. All of these methods are out-of-band of an established subscription to YANG Notifications. Two complementary methods are taken into account by this document:
 
 1. a central provider supplies new fresh nonces, e.g. via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in {{-rats-arch}} and as facilitated by the Uni-Directional Remote Attestation described in {{-rats-models}} or
 
 2. the freshness characteristics of a received nonce are updated by -- potentially periodic or ad-hoc -- out-of-band TPM Quote requests as facilitated by {{-charra}}.
 
-Both approaches to update the freshness characteristics of the Conceptual Messages conveyed via subscription to YANG Notification that are taken into account by this memo assume that clock drift between involved entities can occur. In consequence, in some usage scenarios the timing considerations for freshness {{-rats-arch}} might have to be updated in some regular interval. Analogously, there are can be additional methods that are not describe by but nevertheless supported by this memo.
+Both approaches to update the freshness characteristics of the Conceptual Messages conveyed via subscription to YANG Notification that are taken into account by this document assume that clock drift between involved entities can occur. In consequence, in some usage scenarios the timing considerations for freshness {{-rats-arch}} might have to be updated in some regular interval. Analogously, there are can be additional methods that are not describe by but nevertheless supported by this document.
 
-This memo enables to remove the two adverse effects described by using the YANG augment specified. The YANG augment supports, for example, a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.
+This document enables to remove the two adverse effects described by using the YANG augment specified. The YANG augment supports, for example, a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.
 
 # Terminology
 
@@ -321,7 +321,7 @@ Almost all YANG objects below are defined via reference from {{-charra}}. There 
 This YANG module imports modules from {{-charra}} and {{RFC8639}}.  It is also work-in-progress.
 
 ~~~~ YANG
-<CODE BEGINS> ietf-rats-attestation-stream@2024-07-06.yang
+<CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-01-06.yang
 {::include ietf-tpm-remote-attestation-stream@2020-12-15.yang}
 <CODE ENDS>
 ~~~~
