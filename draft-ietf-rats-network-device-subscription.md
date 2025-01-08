@@ -42,6 +42,8 @@ author:
   email: william.panwei@huawei.com
 
 normative:
+  RFC3688:
+  RFC6020:
   RFC9334: rats-arch
   RFC9683: rats-riv
   RFC9684: charra
@@ -339,11 +341,11 @@ Analogous to the {{RFC8639}} compliant \<attestation\> Event Stream for the conv
 
 # Privacy Considerations
 
-The Privacy Considerations of {{-RIV}} apply.
+The Privacy Considerations of {{-rats-riv}} apply.
 
 # Security Considerations
 
-The Security Considerations of {{-CHARRA}} and {{-RIV}} apply.
+The Security Considerations of {{-charra}} and {{-rats-riv}} apply.
 
 # IANA Considerations {#IANA}
 
