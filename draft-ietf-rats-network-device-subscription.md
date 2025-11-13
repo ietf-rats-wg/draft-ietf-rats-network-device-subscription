@@ -133,7 +133,7 @@ The terminology mapping is as follows:
 * `claimsSelection` is substituted with `PcrSelection`, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in {{!RFC9684}}. If no PCR is selected, all PCR banks are returned.
 * `claims` is substituted with `PcrQuotes`, which is the "output" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.
 * `eventLogs` represents "system-event-logs" that are in the "output" of the log-retrieval RPC, as defined in {{!RFC9684}}.
-* 'eventLogsDelta' represents "system-event-logs" as specified in the "output" of the log-retrieval RPC as defined in {{!RFC9684}} where the "output" is limited as if the "input" is parameterized via an index type (last-entry, index, timestamp) set to the last event in the previously conveyed 'eventLogs'.
+* `eventLogsDelta` represents "system-event-logs" as specified in the "output" of the log-retrieval RPC as defined in {{!RFC9684}} where the "output" is limited as if the "input" were parameterized via an index type (last-entry, index, timestamp) set to the last event in the previously conveyed `eventLogs`.
 
 ~~~~ aasvg
 .----------.                                 .-------------------------.
