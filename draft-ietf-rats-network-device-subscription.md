@@ -199,7 +199,7 @@ The terminology mapping is as follows:
 ~~~~
 {: #newsequence title="YANG Subscription Model for Remote Attestation"}
 
-### Mapping Time Considerations
+### Time Considerations Mapping
 
 {{-rats-arch}} defines "Relevant Events over Time" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party. The event "Claims Collection" defined in {{-rats-models}} are not defined by {{-rats-arch}} and therefore cannot be matched.
 
