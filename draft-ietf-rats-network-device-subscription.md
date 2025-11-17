@@ -136,9 +136,9 @@ The terminology specialization is as follows:
 * `eventLogsDelta` represents "system-event-logs" as specified in the "output" of the log-retrieval RPC as defined in {{!RFC9684}} where the "output" is limited as if the "input" were parameterized via an index type (last-entry, index, timestamp) set to the last event in the previously conveyed `eventLogs`.
 
 ~~~~ aasvg
-.----------.                                 .-------------------------.
-| Attester |                                 | Verifying Relying Party |
-'----+-----'                                 '--------------------+----'
+.----------.                                .--------------------------.
+| Attester |                                | Verifier / Relying Party |
+'----+-----'                                '---------------------+----'
      |                                                            |
  .--------[loop]------------------------------------------------------.
 |    |                                                            |    |
