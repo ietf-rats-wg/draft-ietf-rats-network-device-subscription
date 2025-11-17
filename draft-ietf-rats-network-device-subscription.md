@@ -123,7 +123,7 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 {{sequence}} below is a sequence diagram which updates Figure 5 of {{-rats-riv}}. This sequence diagram adapts {{-rats-riv}} by replacing the TPM-specific challenge-response interaction model with a {{RFC8639}} Dynamic Subscription to an \<attestation\> Event Stream. The contents of the \<attestation\> Event Stream are defined below within {{attestationstream}}.
 
-### Term Mapping
+### Term Specialization 
 
 The terms defined in {{!RFC9684}} are mapped to the model described in {{Section 7.3.1 of -rats-models}} (Streaming Remote Attestation without a Broker) to produce the sequence diagram {{newsequence}}.
 
