@@ -142,7 +142,7 @@ The terminology specialization is as follows:
      |                                                            |
  .--------[loop]------------------------------------------------------.
 |    |                                                            |    |
-| ========================[Handle Generation]========================= |
+| =========================[Nonce Generation]========================= |
 |    |                                                            |    |
 |    |                                                 generateNonce() |
 |    |                                                    nonce<= |    |
