@@ -181,7 +181,7 @@ The terminology specialization is as follows:
 || collectClaims(PcrQuotes, ?PcrSelection)                        |   ||
 ||   | => collectedClaimsDelta                                    |   ||
 ||   |                                                            |   ||
-|| generateEvidence(handle, TpmName, collectedClaimsDelta)        |   ||
+|| generateEvidence(nonce, TpmName, collectedClaimsDelta)        |   ||
 ||   | => evidence                                                |   ||
 ||   |                                                            |   ||
 ||   | {evidence, eventLogsDelta} ------------------------------->|   ||
