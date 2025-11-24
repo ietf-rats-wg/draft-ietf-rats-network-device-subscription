@@ -82,28 +82,46 @@ The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardw
 
 # Introduction
 
-{{-rats-riv}} and {{-charra}} define the operational prerequisites and a YANG Model for the acquisition of Evidence and other Conceptional Messages from a network device containing at least one TPM 1.2 or TPM 2.0 or equivalent hardware implementations that include the protected capabilities as provided by TPMs.
-However, there are limitations inherent in the challenge-response based conceptual interaction model (CHARRA {{-rats-models}}) upon which these documents are based. One of these limitation is that it is up to a Verifier to request signed Evidence as provided by {{-charra}}, from a separate Attester which contains a TPM. The result is that the interval between the occurrence of a security-relevant change event, and the event's visibility within the interested RATS entity, such as a Verifier or a Relying Party, can be unacceptably long. It is common to convey Conceptual Messages ad-hoc or periodically via requests. As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need of continuous polling. Subscription to YANG Notifications {{RFC8639}} provides a set of standardized tools to facilitate these emerging requirements. This memo specifies a YANG augment to subscribe to YANG modeled remote attestation Evidence as defined in {{-charra}}. Additionally, this memo provides the means to define further Event Streams to convey Conceptional Messages other than Evidence, such as Attestation Results, Endorsements, or Event Logs.
+{{-rats-riv}} and {{-charra}} define the operational prerequisites and a YANG Model for acquiring Evidence from a network device containing at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations providing the same protected capabilities as a TPM).
+However, these documents are based on the challenge-response interaction model (CHARRA {{-rats-models}}), which has limitations.
+One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
+This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as a Verifiers or a Relying Parties, can be unacceptably long.
+It is common to convey Conceptual Messages ad-hoc or periodically via requests.
+As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need for continuous polling.
+Subscription to YANG Notifications {{RFC8639}} provides a set of standardized tools to facilitate these emerging requirements.
+This memo specifies a YANG augmentation for subscribing to YANG-modelled remote attestation Evidence, as defined in {{-charra}}.
 
-In essence, the limitation of poll-based interactions results in two adverse effects:
+Essentially, the limitation of poll-based interactions has two adverse effects:
 
-1. Conceptual Messages are not streamed to an interested consumer of information, e.g., Verifiers or Relying Parties, as soon as they are generated.
+1. Conceptual Messages are not streamed to interested consumers of information (e.g., Verifiers or Relying Parties) as soon as they are generated.
 
-2. If they were to be streamed, Conceptual Messages are not appraisable for their freshness in every scenario. This becomes more important with Conceptional Messages that have a strong dependency on freshness, such as Evidence and corresponding Attestation Results.
+2. Even if they were streamed, the freshness of Conceptual Messages cannot be appraised in every scenario.
+This is particularly important for Conceptual Messages that depend heavily on freshness, such as Evidence and the corresponding Attestation Results.
 
-This specification addresses the first adverse effect by enabling a consumer of Conceptual Messages (the subscriber) to request a continuous stream of new or updated Conceptual Messages via an {{RFC8639}} subscription to an \<attestation\> Event Stream. This new Event Stream is defined in this document and exists upon the producer of Conceptual Messages (the publisher). In the case of a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier. For example, when a network device's Evidence changes after the occurrence of events, such as booting, updating, control unit fall-over, plugging in or out forwarding units, being attacked, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.
+This specification addresses the first adverse effect by enabling consumers of Conceptual Messages (subscribers) to request a continuous stream of new or updated Conceptual Messages via an {{RFC8639}} subscription to an \<attestation\> Event Stream.
+This new Event Stream is defined in this document and is provided by the producer of Conceptual Messages (the publisher).
+In the case of a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier.
+For example, when a network device's Evidence changes following events such as booting, updating, control unit fallover, plugging in or out of forwarding units, an attack, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.
 
-The second adverse effect results from the use of nonces in the challenge-response interaction model {{-rats-models}} realized in {{-charra}}. In {{-charra}}, an Attester must wait for a new nonce from a Verifier before it generates a new TPM Quote. To address delays resulting from such a wait, this specification enables freshness to be asserted asynchronously via the streaming attestation interaction model {{-rats-models}}. To convey a RATS Conceptual Message, an initial nonce is provided during the subscription to an Event Stream.
+The second adverse effect stems from the use of nonces in the challenge-response interaction model {{-rats-models}} realized in {{-charra}}.
+According to {{-charra}}, an Attester must wait for a new nonce from a Verifier before generating a new TPM Quote.
+To address delays resulting from this wait, this specification allows freshness to be asserted asynchronously via the streaming attestation interaction model {{-rats-models}}.
+To convey a RATS Conceptual Message, an initial nonce is provided when subscribing to an Event Stream.
 
-There are several options to refresh a nonce provided by the initial subscription or its freshness characteristics. All of these methods are out-of-band of an established subscription to YANG Notifications. Two complementary methods are taken into account by this document:
+There are several options for refreshing a nonce provided by the initial subscription or its freshness characteristics.
+All of these methods are out-of-band of an established subscription to YANG Notifications.
+Two alternative methods are taken into account by this document:
 
-1. a central provider supplies new fresh nonces, e.g. via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in {{-rats-arch}} and as facilitated by the Uni-Directional Remote Attestation described in {{-rats-models}} or
+1. A central provider supplies new, fresh nonces (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in {{-rats-arch}} and as facilitated by the Uni-Directional Remote Attestation described in {{-rats-models}}), or
 
-2. the freshness characteristics of a received nonce are updated by -- potentially periodic or ad-hoc -- out-of-band TPM Quote requests as facilitated by {{-charra}}.
+2. The freshness characteristics of a received nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by {{-charra}}.
 
-Both approaches to update the freshness characteristics of the Conceptual Messages conveyed via subscription to YANG Notification that are taken into account by this document assume that clock drift between involved entities can occur. In consequence, in some usage scenarios the timing considerations for freshness {{-rats-arch}} might have to be updated in some regular interval. Analogously, there are can be additional methods that are not describe by but nevertheless supported by this document.
+Both approaches assume that clock drift can occur between the entities involved.
+Consequently, the timing considerations for freshness {{RFC9334}} may need to be updated at regular intervals in some usage scenarios.
+Similarly, there may be additional methods not described by this document that are nevertheless supported.
 
-This document enables to remove the two adverse effects described by using the YANG augment specified. The YANG augment supports, for example, a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.
+This document enables the removal of the two adverse effects described when using the specified YANG augmentation.
+For example, the YANG augmentation enables a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.
 
 # Terminology
 
@@ -121,7 +139,7 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 {{sequence}} below is a sequence diagram which updates Figure 5 of {{-rats-riv}}. This sequence diagram adapts {{-rats-riv}} by replacing the TPM-specific challenge-response interaction model with a {{RFC8639}} Dynamic Subscription to an \<attestation\> Event Stream. The contents of the \<attestation\> Event Stream are defined below within {{attestationstream}}.
 
-### Term Specialization 
+### Term Specialization
 
 The terms defined in {{!RFC9684}} are mapped to the model described in {{Section 7.3.1 of -rats-models}} (Streaming Remote Attestation without a Broker) to produce the sequence diagram {{newsequence}}.
 
