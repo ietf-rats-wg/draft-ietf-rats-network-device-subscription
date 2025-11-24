@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 6 January 2025                                            Cisco
+Expires: 28 May 2026                                               Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                             5 July 2024
+                                                        24 November 2025
 
 
                  Attestation Event Stream Subscription
@@ -16,15 +16,15 @@ Expires: 6 January 2025                                            Cisco
 
 Abstract
 
-   This memo defines how to subscribe to YANG Event Streams for Remote
-   Attestation Procedures (RATS).  In RATS, Conceptional Messages, are
-   defined.  Analogously, the YANG module defined in this memo augments
-   the YANG module for TPM-based Challenge-Response based Remote
-   Attestation (CHARRA) to allow for subscription to remote attestation
-   Evidence.  Additionally, this memo provides the methods and means to
-   define additional Event Streams for other Conceptual Messages as
-   illustrated in the RATS Architecture, e.g., Attestation Results,
-   Reference Values, or Endorsements.
+   This document defines how to subscribe to YANG Event Streams for
+   Remote Attestation Procedures (RATS).  Specifically, this document
+   defines a YANG module that augments the YANG module for TPM-based
+   Challenge-Response Remote Attestation (CHARRA), enabling subscription
+   to RATS Conceptual Messages of the Evidence type.  The module defined
+   requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardware
+   implementation providing the same protected capabilities as a TPM)
+   must be available on the Attester on which the YANG server is
+   running.
 
 Discussion Venues
 
@@ -53,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 January 2025.
+   This Internet-Draft will expire on 28 May 2026.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -76,6 +76,8 @@ Table of Contents
      2.1.  Requirements Notation
    3.  Operational Model
      3.1.  Sequence Diagram
+       3.1.1.  Term Specialization
+       3.1.2.  Time Considerations Mapping
      3.2.  Continuously Verifying Freshness
        3.2.1.  TPM 1.2 Quote
        3.2.2.  TPM 2 Quote
@@ -92,116 +94,112 @@ Table of Contents
      4.6.  Configuring the <attestation> Event Stream
    5.  YANG Module
    6.  Event Streams for Conceptual Messages
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   7.  Privacy Considerations
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Appendix A.  Change Log
    Acknowledgements
    Authors' Addresses
 
 1.  Introduction
 
-   [I-D.ietf-rats-tpm-based-network-device-attest] and
-   [I-D.ietf-rats-yang-tpm-charra] define the operational prerequisites
-   and a YANG Model for the acquisition of Evidence and other
-   Conceptional Messages from a TPM-based network device.  However,
-   there are limitations inherent in the challenge-response based
-   conceptual interaction model (CHARRA
-   [I-D.ietf-rats-reference-interaction-models]) upon which these
-   documents are based.  One of these limitation is that it is up to a
-   Verifier to request signed Evidence as provided by
-   [I-D.ietf-rats-yang-tpm-charra], from a separate Attester which
-   contains a TPM.  The result is that the interval between the
-   occurrence of a security-relevant change event, and the event's
-   visibility within the interested RATS entity, such as a Verifier or a
-   Relying Party, can be unacceptably long.  It is common to convey
-   Conceptual Messages ad-hoc or periodically via requests.  As new
-   technologies emerge, some of these solutions require Conceptual
-   Messages to be conveyed from one RATS entity to another without the
-   need of continuous polling.  Subscription to YANG Notifications
-   [RFC8639] provides a set of standardized tools to facilitate these
-   emerging requirements.  This memo specifies a YANG augment to
-   subscribe to YANG modeled remote attestation Evidence as defined in
-   [I-D.ietf-rats-yang-tpm-charra].  Additionally, this memo provides
-   the means to define further Event Streams to convey Conceptional
-   Messages other than Evidence, such as Attestation Results,
-   Endorsements, or Event Logs.
+   [RFC9683] and [RFC9684] define the operational prerequisites and a
+   YANG Model for acquiring Evidence from a network device containing at
+   least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations
+   providing the same protected capabilities as a TPM).  However, these
+   documents are based on the challenge-response interaction model
+   (CHARRA [I-D.ietf-rats-reference-interaction-models]), which has
+   limitations.  One such limitation is that it is the responsibility of
+   a Verifier to request signed Evidence from a separate Attester
+   containing a TPM.  This means that the interval between a security-
+   relevant change event occurring and the event becoming visible to the
+   interested RATS entities, such as a Verifiers or a Relying Parties,
+   can be unacceptably long.  It is common to convey Conceptual Messages
+   ad-hoc or periodically via requests.  As new technologies emerge,
+   some of these solutions require Conceptual Messages to be conveyed
+   from one RATS entity to another without the need for continuous
+   polling.  Subscription to YANG Notifications [RFC8639] provides a set
+   of standardized tools to facilitate these emerging requirements.
+   This memo specifies a YANG augmentation for subscribing to YANG-
+   modelled remote attestation Evidence, as defined in [RFC9684].
 
-   In essence, the limitation of poll-based interactions results in two
+   Essentially, the limitation of poll-based interactions has two
    adverse effects:
 
-   1.  Conceptual Messages are not streamed to an interested consumer of
-       information, e.g., Verifiers or Relying Parties, as soon as they
+   1.  Conceptual Messages are not streamed to interested consumers of
+       information (e.g., Verifiers or Relying Parties) as soon as they
        are generated.
 
-   2.  If they were to be streamed, Conceptual Messages are not
-       appraisable for their freshness in every scenario.  This becomes
-       more important with Conceptional Messages that have a strong
-       dependency on freshness, such as Evidence and corresponding
-       Attestation Results.
+   2.  Even if they were streamed, the freshness of Conceptual Messages
+       cannot be appraised in every scenario.  This is particularly
+       important for Conceptual Messages that depend heavily on
+       freshness, such as Evidence and the corresponding Attestation
+       Results.
 
-   This specification addresses the first adverse effect by enabling a
-   consumer of Conceptual Messages (the subscriber) to request a
+   This specification addresses the first adverse effect by enabling
+   consumers of Conceptual Messages (subscribers) to request a
    continuous stream of new or updated Conceptual Messages via an
    [RFC8639] subscription to an <attestation> Event Stream.  This new
-   Event Stream is defined in this document and exists upon the producer
-   of Conceptual Messages (the publisher).  In the case of a Verifier's
-   subscription to an Attester's Evidence, the Attester will
+   Event Stream is defined in this document and is provided by the
+   producer of Conceptual Messages (the publisher).  In the case of a
+   Verifier's subscription to an Attester's Evidence, the Attester will
    continuously stream a requested set of freshly generated Evidence to
-   the subscribing Verifier.
+   the subscribing Verifier.  For example, when a network device's
+   Evidence changes following events such as booting, updating, control
+   unit fallover, plugging in or out of forwarding units, an attack, or
+   certificate lifetime change, the network device will generate fresh
+   Evidence available to the subscribing Verifier.
 
-   The second adverse effect results from the use of nonces in the
+   The second adverse effect stems from the use of nonces in the
    challenge-response interaction model
-   [I-D.ietf-rats-reference-interaction-models] realized in
-   [I-D.ietf-rats-yang-tpm-charra].  In [I-D.ietf-rats-yang-tpm-charra],
-   an Attester must wait for a new nonce from a Verifier before it
-   generates a new TPM Quote.  To address delays resulting from such a
-   wait, this specification enables freshness to be asserted
-   asynchronously via the streaming attestation interaction model
-   [I-D.ietf-rats-reference-interaction-models].  To convey a RATS
-   Conceptual Message, an initial nonce is provided during the
-   subscription to an Event Stream.
+   [I-D.ietf-rats-reference-interaction-models] realized in [RFC9684].
+   According to [RFC9684], an Attester must wait for a new nonce from a
+   Verifier before generating a new TPM Quote.  To address delays
+   resulting from this wait, this specification allows freshness to be
+   asserted asynchronously via the streaming attestation interaction
+   model [I-D.ietf-rats-reference-interaction-models].  To convey a RATS
+   Conceptual Message, an initial nonce is provided when subscribing to
+   an Event Stream.
 
-   There are several options to refresh a nonce provided by the initial
-   subscription or its freshness characteristics.  All of these methods
-   are out-of-band of an established subscription to YANG Notifications.
-   Two complementary methods are taken into account by this memo:
+   There are several options for refreshing a nonce provided by the
+   initial subscription or its freshness characteristics.  All of these
+   methods are out-of-band of an established subscription to YANG
+   Notifications.  Two alternative methods are taken into account by
+   this document:
 
-   1.  a central provider supplies new fresh nonces, e.g. via a Handle
+   1.  A central provider supplies new, fresh nonces (e.g., via a Handle
        Provider that distributes Epoch IDs to all entities in a domain
-       as described in [I-D.ietf-rats-architecture] and as facilitated
-       by the Uni-Directional Remote Attestation described in
-       [I-D.ietf-rats-reference-interaction-models] or
+       as described in [RFC9334] and as facilitated by the Uni-
+       Directional Remote Attestation described in
+       [I-D.ietf-rats-reference-interaction-models]), or
 
-   2.  the freshness characteristics of a received nonce are updated by
-       -- potentially periodic or ad-hoc -- out-of-band TPM Quote
-       requests as facilitated by [I-D.ietf-rats-yang-tpm-charra].
+   2.  The freshness characteristics of a received nonce can be updated
+       by -- potentially periodically or ad-hoc -- sending out-of-band
+       TPM Quote requests as facilitated by [RFC9684].
 
-   Both approaches to update the freshness characteristics of the
-   Conceptual Messages conveyed via subscription to YANG Notification
-   that are taken into account by this memo assume that clock drift
-   between involved entities can occur.  In consequence, in some usage
-   scenarios the timing considerations for freshness
-   [I-D.ietf-rats-architecture] might have to be updated in some regular
-   interval.  Analogously, there are can be additional methods that are
-   not describe by but nevertheless supported by this memo.
+   Both approaches assume that clock drift can occur between the
+   entities involved.  Consequently, the timing considerations for
+   freshness [RFC9334] may need to be updated at regular intervals in
+   some usage scenarios.  Similarly, there may be additional methods not
+   described by this document that are nevertheless supported.
 
-   This memo enables to remove the two adverse effects described by
-   using the YANG augment specified.  The YANG augment supports, for
-   example, a RATS Verifier to maintain a continuous appraisal procedure
-   of verifiably fresh Attester Evidence without relying on continuous
-   polling.
+   This document enables the removal of the two adverse effects
+   described when using the specified YANG augmentation.  For example,
+   the YANG augmentation enables a RATS Verifier to maintain a
+   continuous appraisal procedure of verifiably fresh Attester Evidence
+   without relying on continuous polling.
 
 2.  Terminology
 
-   The following terms are imported from [I-D.ietf-rats-architecture]:
-   Attester, Conceptual Message, Evidence, Relying Party, and Verifier.
-   Also imported are the time definitions time(VG), time(NS), time(EG),
-   time(RG), and time(RA) from that document's Appendix A.  The
-   following terms are imported from [RFC8639]: Event Stream,
-   Subscription, Event Stream Filter, Dynamic Subscription.
+   The following terms are imported from [RFC9334]: Attester, Conceptual
+   Message, Evidence, Relying Party, and Verifier.  Also imported are
+   the time definitions time(VG), time(NS), time(EG), time(RG), and
+   time(RA) from that document's Appendix A.  The following terms are
+   imported from [RFC8639]: Event Stream, Subscription, Publisher, Event
+   Stream Filter, Dynamic Subscription.
 
 2.1.  Requirements Notation
 
@@ -213,34 +211,137 @@ Table of Contents
 
 3.  Operational Model
 
-   [I-D.ietf-rats-tpm-based-network-device-attest] describes the
-   conveyance of TPM-based Evidence from a Verifier to an Attester using
-   the CHARRA interaction model
+   [RFC9683] describes the conveyance of TPM-based Evidence from a
+   Verifier to an Attester using the CHARRA interaction model
    [I-D.ietf-rats-reference-interaction-models].  The operational model
    and corresponding sequence diagram described in this section is based
-   on [I-D.ietf-rats-yang-tpm-charra].  The basis for interoperability
-   required for additional types of Event Streams is covered in
-   Section 6.  The following sub-section focuses on subscription to YANG
-   Notifications to the <attestation> Event Stream.
+   on [RFC9684].  The basis for interoperability required for additional
+   types of Event Streams is covered in Section 6.  The following sub-
+   section focuses on subscription to YANG Notifications to the
+   <attestation> Event Stream.
 
 3.1.  Sequence Diagram
 
-   Figure 1 below is a sequence diagram which updates Figure 5 of
-   [I-D.ietf-rats-tpm-based-network-device-attest].  This sequence
-   diagram adapts [I-D.ietf-rats-tpm-based-network-device-attest] by
-   replacing the TPM-specific challenge-response interaction model with
-   a [RFC8639] Dynamic Subscription to an <attestation> Event Stream.
-   The contents of the <attestation> Event Stream are defined below
-   within Section 4.
+   Figure 2 below is a sequence diagram which updates Figure 5 of
+   [RFC9683].  This sequence diagram adapts [RFC9683] by replacing the
+   TPM-specific challenge-response interaction model with a [RFC8639]
+   Dynamic Subscription to an <attestation> Event Stream.  The contents
+   of the <attestation> Event Stream are defined below within Section 4.
 
-   .----------.                            .--------------------------.
-   | Attester |                            | Relying Party / Verifier |
-   '----------'                            '--------------------------'
+3.1.1.  Term Specialization
+
+   The terms defined in [RFC9684] are mapped to the model described in
+   Section 7.3.1 of [I-D.ietf-rats-reference-interaction-models]
+   (Streaming Remote Attestation without a Broker) to produce the
+   sequence diagram Figure 1.
+
+   The terminology specialization is as follows: * handle is substituted
+   with nonce, a nonce generated by the Verifying Relying Party.  This
+   is a nonce-value byte string, obtained from either the tpm12-
+   challenge-response-attestation RPC or the tpm20-challenge-response-
+   attestation RPC, as specified in [RFC9684] * attEnvIDs is substituted
+   with TpmName, a TPM "name" text string selected from the tpms
+   Container, as specified in [RFC9684] * claimsSelection is substituted
+   with PcrSelection, an optional "pcr-index" from either the tpm12-
+   challenge-response-attestation RPC or the tpm20-challenge-response-
+   attestation RPC as specified in [RFC9684].  If no PCR is selected,
+   all PCR banks are returned. * claims is substituted with PcrQuotes,
+   which is the "output" of either the tpm12-challenge-response-
+   attestation RPC or the tpm20-challenge-response-attestation RPC, as
+   specified in [RFC9684].  Unlike event logs, there is no delta to a
+   previous iteration of PCR Quotes during a subscription; all new
+   (selected) Quotes are conveyed as fresh Evidence. * eventLogs
+   represents "system-event-logs" that are in the "output" of the log-
+   retrieval RPC, as defined in [RFC9684]. * eventLogsDelta represents
+   "system-event-logs" as specified in the "output" of the log-retrieval
+   RPC as defined in [RFC9684] where the "output" is limited as if the
+   "input" were parameterized via an index type (last-entry, index,
+   timestamp) set to the last event in the previously conveyed
+   eventLogs.
+
+.----------.                                .--------------------------.
+| Attester |                                | Verifier / Relying Party |
+'----+-----'                                '---------------------+----'
+     |                                                            |
+ .--------[loop]------------------------------------------------------.
+|    |                                                            |    |
+| =========================[Nonce Generation]========================= |
+|    |                                                            |    |
+|    |                                                 generateNonce() |
+|    |                                                    nonce<= |    |
+|    |                                                            |    |
+|    |<------------------ subscribe(nonce, TpmName, ?PcrSelecion) |    |
+|    | {nonce} -------------------------------------------------->|    |
+|    |                                                            |    |
+| ===============[Evidence Generation and Conveyance]================= |
+|    |                                                            |    |
+| generateClaims(attestingEnvironment)                            |    |
+|    | => PcrQuotes, eventLogs                                    |    |
+|    |                                                            |    |
+| collectClaims(PcrQuotes, ?PcrSelection)                         |    |
+|    | => collectedClaims                                         |    |
+|    |                                                            |    |
+| generateEvidence(nonce, TpmName, collectedClaims)               |    |
+|    | => evidence                                                |    |
+|    |                                                            |    |
+|    | {evidence, eventLogs} ------------------------------------>|    |
+|    |                                                            |    |
+| ========================[Evidence Appraisal]======================== |
+|    |                                                            |    |
+|    |                                      appraiseEvidence(evidence, |
+|    |                                                      eventLogs, |
+|    |                                                      verInputs) |
+|    |                                       attestationResult <= |    |
+|    ~                                                            ~    |
+|    |                                                            |    |
+| .--------[loop]----------------------------------------------------. |
+||   |                                                            |   ||
+|| ============[Delta Evidence Generation and Conveyance]============ ||
+||   |                                                            |   ||
+|| generateClaims(attestingEnvironment)                           |   ||
+||   | => PcrQuotes, eventLogsDelta                               |   ||
+||   |                                                            |   ||
+|| collectClaims(PcrQuotes, ?PcrSelection)                        |   ||
+||   | => collectedClaimsDelta                                    |   ||
+||   |                                                            |   ||
+|| generateEvidence(nonce, TpmName, collectedClaimsDelta)        |   ||
+||   | => evidence                                                |   ||
+||   |                                                            |   ||
+||   | {evidence, eventLogsDelta} ------------------------------->|   ||
+||   |                                                            |   ||
+|| ====================[Delta Evidence Appraisal]==================== ||
+||   |                                                            |   ||
+||   |                                     appraiseEvidence(evidence, ||
+||   |                                                eventLogsDelta, ||
+||   |                                                     verInputs) ||
+||   |                                       attestationResult <= |   ||
+||   |                                                            |   ||
+| '------------------------------------------------------------------' |
+ '--------------------------------------------------------------------'
+     |                                                            |
+
+       Figure 1: YANG Subscription Model for Remote Attestation
+
+3.1.2.  Time Considerations Mapping
+
+   [RFC9334] defines "Relevant Events over Time" in RATS.  The following
+   sequence diagram focusses on matching the defined events with the
+   interactions between the Attester and the Verifying Relying Party.
+   The event "Claims Collection" defined in
+   [I-D.ietf-rats-reference-interaction-models] is not defined by
+   [RFC9334] and therefore cannot be matched.
+
+   .----------.                             .--------------------------.
+   | Attester |                             | Verifier / Relying Party |
+   '----+-----'                             '---------------------+----'
       time(VG)                                                    |
-   generateClaims(targetEnvironment)                              |
-        | => claims, eventLogs                                    |
+   generateClaims(attestingEnvironment                            |
+        | => PcrQuotes, eventLogs                                 |
         |                                                         |
         |<---------establish-subscription(<attestation>)------time(NS)
+        |                                                         |
+   collectClaims(PcrQuotes, ?PcrSelection)                        |
+        | => collectedClaims                                      |
         |                                                         |
       time(EG)                                                    |
    generateEvidence(nonce, PcrSelection, collectedClaims)         |
@@ -249,37 +350,43 @@ Table of Contents
         |                                                         |
         |--filter(<pcr-extend>)---------------------------------->|
         |--<tpm12-attestation> or <tpm20-attestation>------------>|
+        |--<log-retrieval>--------------------------------------->|
         |                                                         |
         |                                                  time(RG,RA)
-        |     appraiseEvidence(SignedPcrEvidence, eventLog, refClaims)
+        |                                  appraiseEvidence(evidence,
+        |                                                  eventLogs,
+        |                                                  verInputs)
         |                                    attestationResult <= |
-        |                                                         |
         ~                                                         ~
       time(VG')                                                   |
-   generateClaimes(targetEnvironment)                             |
-        | => claims                                               |
+   generateClaimes(attestingEnvironment)                          |
+        | => PcrQuotes, eventLogsDelta                            |
+        |                                                         |
+   collectClaims(PcrQuotes, ?PcrSelection)                        |
+        | => collectedClaimsDelta                                 |
         |                                                         |
       time(EG')                                                   |
-   generateEvidence(handle, PcrSelection, collectedClaims)        |
-        | => SignedPcrEvidence(nonce, PcrSelection)               |
-        | => LogEvidence(collectedClaims)                         |
+   generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
+        | => evidence                                             |
         |                                                         |
         |--filter(<pcr-extend>)---------------------------------->|
         |--<tpm12-attestation> or <tpm20-attestation>------------>|
+        |--<log-retrieval>--------------------------------------->|
         |                                                         |
-        |                                                 time(RG',RA')
-        |    appraiseEvidence(SignedPcrEvidence, eventLog, refClaims)
+        |                                                  time(RG,RA)
+        |                                  appraiseEvidence(evidence,
+        |                                                  eventLogs,
+        |                                                  verInputs)
         |                                    attestationResult <= |
         |                                                         |
 
-          Figure 1: YANG Subscription Model for Remote Attestation
+          Figure 2: YANG Subscription Model for Remote Attestation
 
    *  time(VG,RG,RA) are identical to the corresponding time definitions
-      from [I-D.ietf-rats-tpm-based-network-device-attest].
+      from [RFC9683].
 
    *  time(VG',RG',RA') are subsequent instances of the corresponding
-      times from Figure 5 in
-      [I-D.ietf-rats-tpm-based-network-device-attest].
+      times from Figure 5 in [RFC9683].
 
    *  time(NS) – the subscriber generates a nonce and makes an [RFC8639]
       <establish-subscription> request based on a nonce.  This request
@@ -316,8 +423,8 @@ Table of Contents
       -  and a handle (see Section 6. in
          [I-D.ietf-rats-reference-interaction-models], which is either
          the initially received nonce or a more recently received Epoch
-         ID (see Section 10.3. in [I-D.ietf-rats-architecture] that
-         contains a new nonce or equivalent qualified data.
+         ID (see Section 10.3. in [RFC9334] that contains a new nonce or
+         equivalent qualified data.
 
    One way to acquire a new time synchronisation that allows for the
    reuse of the initially received nonce as a fresh handle is elaborated
@@ -340,8 +447,7 @@ Table of Contents
    Therefore a Verifier MUST periodically issue a new nonce, and receive
    this nonce within a TPM quote response in order to ensure the
    freshness of the results.  This can be done using the <tpm12-
-   challenge-response-attestation> RPC from
-   [I-D.ietf-rats-yang-tpm-charra].
+   challenge-response-attestation> RPC from [RFC9684].
 
 3.2.2.  TPM 2 Quote
 
@@ -393,17 +499,14 @@ Table of Contents
 
    The <attestation> Event Stream is an [RFC8639] compliant Event Stream
    which is defined within this section and within the YANG Module of
-   [I-D.ietf-rats-yang-tpm-charra].  This Event Stream contains YANG
-   notifications which carry Evidence to assists a Verifier in
-   appraising the Trustworthiness Level of an Attester.  Data Nodes
-   within Section 4.6 allow the configuration of this Event Stream’s
-   contents on an Attester.
+   [RFC9684].  This Event Stream contains YANG notifications which carry
+   Evidence to assists a Verifier in appraising the Trustworthiness
+   Level of an Attester.  Data Nodes within Section 4.6 allow the
+   configuration of this Event Stream's contents on an Attester.
 
    This <attestation> Event Stream may only be exposed on Attesters
-   supporting [I-D.ietf-rats-tpm-based-network-device-attest].  As with
-   [I-D.ietf-rats-tpm-based-network-device-attest], it is up to the
-   Verifier to understand which types of cryptoprocessors and keys are
-   acceptable.
+   supporting [RFC9683].  As with [RFC9683], it is up to the Verifier to
+   understand which types of cryptoprocessors and keys are acceptable.
 
 4.1.  Subscription to the <attestation> Event Stream
 
@@ -575,9 +678,8 @@ Table of Contents
              +--ro pcr-index*   tpm:pcr
              +--ro pcr-value*   binary
 
-   All YANG objects above are defined within
-   [I-D.ietf-rats-yang-tpm-charra].  The <tpm12-attestation> is not
-   replayable.
+   All YANG objects above are defined within [RFC9684].  The
+   <tpm12-attestation> is not replayable.
 
 4.3.3.  tpm20-attestation
 
@@ -605,9 +707,8 @@ Table of Contents
                 +--ro pcr-index    pcr
                 +--ro pcr-value?   binary
 
-   All YANG objects above are defined within
-   [I-D.ietf-rats-yang-tpm-charra].  The <tpm20-attestation> is not
-   replayable.
+   All YANG objects above are defined within [RFC9684].  The
+   <tpm20-attestation> is not replayable.
 
 4.4.  Filtering Evidence at the Attester
 
@@ -631,22 +732,21 @@ Table of Contents
    <replay> feature, it is possible for a Verifier to retrieve and
    sequentially hash all of the PCR extending events since an Attester
    booted.  And thus, the Verifier has access to all the evidence needed
-   to verify a PCR’s current value.
+   to verify a PCR's current value.
 
 4.6.  Configuring the <attestation> Event Stream
 
-   Figure 2 is tree diagram which exposes the operator configurable
+   Figure 3 is tree diagram which exposes the operator configurable
    elements of the <attestation> Event Stream.  This allows an Attester
    to select what information should be available on the stream.  A
    fetch operation also allows an external device such as a Verifier to
    understand the current configuration of stream.
 
    Almost all YANG objects below are defined via reference from
-   [I-D.ietf-rats-yang-tpm-charra].  There is one object which is new
-   with this model however. <tpm2-heartbeat> defines the maximum amount
-   of time which should pass before a subscriber to the Event Stream
-   should get a <tpm20-attestation> notification from devices which
-   contain a TPM2.
+   [RFC9684].  There is one object which is new with this model however.
+   <tpm2-heartbeat> defines the maximum amount of time which should pass
+   before a subscriber to the Event Stream should get a
+   <tpm20-attestation> notification from devices which contain a TPM2.
 
      augment /tpm:rats-support-structures:
        +--rw tras:marshalling-period?                  uint8
@@ -669,14 +769,14 @@ Table of Contents
               +--rw tras:tpm20-hash-algo?   identityref
               +--rw tras:tpm20-pcr-index*   tpm:pcr
 
-           Figure 2: Configuring the \<attestation\> Event Stream
+           Figure 3: Configuring the \<attestation\> Event Stream
 
 5.  YANG Module
 
-   This YANG module imports modules from [I-D.ietf-rats-yang-tpm-charra]
-   and [RFC8639].  It is also work-in-progress.
+   This YANG module imports modules from [RFC9684] and [RFC8639].  It is
+   also work-in-progress.
 
-   <CODE BEGINS> ietf-rats-attestation-stream@2024-07-06.yang
+   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-01-06.yang
    module ietf-tpm-remote-attestation-stream {
      yang-version 1.1;
      namespace
@@ -707,8 +807,10 @@ Table of Contents
 
      description
        "This module contains YANG specification for subscribing
-         to attestation streams which contain events that
-         have been generated by TPM chips.
+        to attestation streams which contain events that have
+        been generated by TPM chips or equivalent hardware
+        implementations that include the protected capabilities
+        as provided by TPMs.
 
         Copyright (c) 2024 IETF Trust and the persons identified
         as authors of the code. All rights reserved.
@@ -754,10 +856,10 @@ Table of Contents
          type uint16;
          units "seconds";
          description
-           "Number of seconds before the Attestation stream should send a
-           new notification with a fresh quote.  This allows confirmation
-           that the PCR values haven't changed since the last
-           tpm20-attestation.";
+           "Number of seconds before the Attestation stream should send
+           a new notification with a fresh quote.  This allows
+           confirmation that the PCR values haven't changed since the
+           last tpm20-attestation.";
        }
      }
 
@@ -776,9 +878,10 @@ Table of Contents
          type tpm:pcr;
          min-elements 1;
          description
-           "The numbers/indexes of the PCRs. This will act as a filter for
-           the subscription so that 'tpm-extend' notifications related to
-           non-requested PCRs will not be sent to a subscriber.";
+           "The numbers/indexes of the PCRs. This will act as a filter
+           for the subscription so that 'tpm-extend' notifications
+           related to non-requested PCRs will not be sent to a
+           subscriber.";
        }
      }
 
@@ -791,8 +894,8 @@ Table of Contents
          "This notification indicates that one or more PCRs have been
          extended within a TPM based cryptoprocessor.  In less than the
          'marshalling-period', it MUST be followed with either a
-         corresponding tpm12-attestation or tpm20-attestation notification
-         which exposes the result of the PCRs updated.";
+         corresponding tpm12-attestation or tpm20-attestation
+         notification which exposes the result of the PCRs updated.";
        uses tpm:certificate-name-ref;
        leaf-list pcr-index-changed {
          type tpm:pcr;
@@ -806,9 +909,9 @@ Table of Contents
        }
        list attested-event {
          description
-           "A set of events which extended an Attester PCR.  The sequence
-           of elements represented in list must match the sequence of
-           events placed into the TPM's PCR.";
+           "A set of events which extended an Attester PCR.  The
+           sequence of elements represented in list must match the
+           sequence of events placed into the TPM's PCR.";
          container attested-event {
            description
              "An instance of an event which extended an Attester PCR";
@@ -877,7 +980,8 @@ Table of Contents
          leaf-list pcr-value {
            type binary;
            description
-             "PCR value in a sequence which matches to the 'pcr-index'.";
+             "PCR value in a sequence which matches to the
+             'pcr-index'.";
          }
        }
      }
@@ -896,8 +1000,9 @@ Table of Contents
        }
        uses tpm:tpm20-attestation {
          description
-           "Provides the attestation info.  Also ensures PCRs can be XPATH
-           filtered by refining the unsigned data so that it appears.";
+           "Provides the attestation info.  Also ensures PCRs can be
+           XPATH filtered by refining the unsigned data so that it
+           appears.";
          refine unsigned-pcr-values {
            min-elements 1;
          }
@@ -921,9 +1026,10 @@ Table of Contents
          default 5;
          description
            "The maximum number of seconds between the time an event
-           extends a PCR, and the 'tpm-extend' notification which reports
-           it to a subscribed Verifier.  This period allows multiple
-           extend operations bundled together and handled as a group.";
+           extends a PCR, and the 'tpm-extend' notification which
+           reports it to a subscribed Verifier.  This period allows
+           multiple extend operations bundled together and handled as a
+           group.";
        }
        leaf tpm12-subscribed-signature-scheme {
          if-feature "taa:tpm12";
@@ -976,7 +1082,8 @@ Table of Contents
            leaf-list tpm12-pcr-index {
              type tpm:pcr;
              description
-               "The numbers/indexes of the PCRs which can be subscribed.";
+               "The numbers/indexes of the PCRs which can be
+               subscribed.";
            }
          }
          case tpm20-stream {
@@ -987,7 +1094,8 @@ Table of Contents
            leaf-list tpm20-pcr-index {
              type tpm:pcr;
              description
-               "The numbers/indexes of the PCRs which can be subscribed.";
+               "The numbers/indexes of the PCRs which can be
+               subscribed.";
            }
          }
        }
@@ -1009,55 +1117,62 @@ Table of Contents
    modeled data.  In the context of RATS Conceptual Messages, both
    options MUST be a specified via YANG augments to this specification.
 
-7.  Security Considerations
+7.  Privacy Considerations
 
-   To be written.
+   The Privacy Considerations of [RFC9683] apply.
 
-8.  IANA Considerations
+8.  Security Considerations
 
-   To be written.
+   The Security Considerations of [RFC9684] and [RFC9683] apply.
 
-9.  References
+9.  IANA Considerations
 
-9.1.  Normative References
+   This document registers the following namespace URIs in the
+   [xml-registry] as per [RFC3688]:
 
-   [I-D.ietf-rats-architecture]
-              Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
-              W. Pan, "Remote ATtestation procedureS (RATS)
-              Architecture", Work in Progress, Internet-Draft, draft-
-              ietf-rats-architecture-22, 28 September 2022,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              architecture-22>.
+   URI:  urn:ietf:params:xml:ns:yang:ietf-tpm-remote-attestation-stream
+
+      Registrant Contact:  The IESG.
+
+      XML:  N/A; the requested URI is an XML namespace.
+
+   This document registers the following YANG module in the registry
+   [yang-parameters] as per Section 14 of [RFC6020]:
+
+   Name:  ietf-tpm-remote-attestation-stream
+
+      Namespace:  urn:ietf:params:xml:ns:yang:ietf-tpm-remote-
+         attestation-stream
+
+      Prefix:  tras
+
+      Reference:  draft-ietf-rats-network-device-subscription (RFC form)
+
+10.  References
+
+10.1.  Normative References
 
    [I-D.ietf-rats-reference-interaction-models]
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
               Interaction Models for Remote Attestation Procedures",
               Work in Progress, Internet-Draft, draft-ietf-rats-
-              reference-interaction-models-09, 4 March 2024,
+              reference-interaction-models-15, 5 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              reference-interaction-models-09>.
-
-   [I-D.ietf-rats-tpm-based-network-device-attest]
-              Fedorkow, G., Voit, E., and J. Fitzgerald-McKay, "TPM-
-              based Network Device Remote Integrity Verification", Work
-              in Progress, Internet-Draft, draft-ietf-rats-tpm-based-
-              network-device-attest-14, 22 March 2022,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              tpm-based-network-device-attest-14>.
-
-   [I-D.ietf-rats-yang-tpm-charra]
-              Birkholz, H., Eckel, M., Bhandari, S., Voit, E., Sulzen,
-              B., Xia, L., Laffey, T., and G. Fedorkow, "A YANG Data
-              Model for Challenge-Response-based Remote Attestation
-              Procedures using TPMs", Work in Progress, Internet-Draft,
-              draft-ietf-rats-yang-tpm-charra-22, 27 February 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              yang-tpm-charra-22>.
+              reference-interaction-models-15>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3688>.
+
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/rfc/rfc6020>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -1068,11 +1183,29 @@ Table of Contents
               RFC 8639, DOI 10.17487/RFC8639, September 2019,
               <https://www.rfc-editor.org/rfc/rfc8639>.
 
+   [RFC9334]  Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", RFC 9334, DOI 10.17487/RFC9334, January
+              2023, <https://www.rfc-editor.org/rfc/rfc9334>.
+
+   [RFC9683]  Fedorkow, G. C., Ed., Voit, E., and J. Fitzgerald-McKay,
+              "Remote Integrity Verification of Network Devices
+              Containing Trusted Platform Modules", RFC 9683,
+              DOI 10.17487/RFC9683, December 2024,
+              <https://www.rfc-editor.org/rfc/rfc9683>.
+
+   [RFC9684]  Birkholz, H., Eckel, M., Bhandari, S., Voit, E., Sulzen,
+              B., Xia, L., Laffey, T., and G. C. Fedorkow, "A YANG Data
+              Model for Challenge-Response-Based Remote Attestation
+              (CHARRA) Procedures Using Trusted Platform Modules
+              (TPMs)", RFC 9684, DOI 10.17487/RFC9684, December 2024,
+              <https://www.rfc-editor.org/rfc/rfc9684>.
+
    [TPM2.0]   TCG, "TPM 2.0 Library Specification", n.d.,
               <https://trustedcomputinggroup.org/resource/tpm-library-
               specification/>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [I-D.birkholz-rats-tuda]
               Fuchs, A., Birkholz, H., McDonald, I., and C. Bormann,
@@ -1085,12 +1218,21 @@ Table of Contents
               <https://trustedcomputinggroup.org/wp-content/uploads/TCG-
               NetEq-Attestation-Workflow-Outline_v1r9b_pubrev.pdf>.
 
+   [xml-registry]
+              "IETF XML Registry", n.d.,
+              <https://www.iana.org/assignments/xml-registry/xml-
+              registry.xhtml>.
+
+   [yang-parameters]
+              "YANG Parameters", n.d.,
+              <https://www.iana.org/assignments/yang-parameters/yang-
+              parameters.xhtml>.
+
 Appendix A.  Change Log
 
-   v00-v01
+   v00-v05
 
-   *  minor updates, party based on the dependent Charra going through
-      IESG.
+   *  minor updates as Charra goes through IESG.
 
 Acknowledgements
 
