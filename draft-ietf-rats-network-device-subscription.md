@@ -415,7 +415,7 @@ To accomplish this reduction, when an RFC8639 \<establish-subscription\> RPC is 
 
 ## Replaying previous PCR Extend events
 
-To verify the value of a PCR, a Verifier must either know that the value is a known good value (see Section 2.3.3 of {{KGV}}) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \<attestation\> Event Stream MUST support the RFC8639 \<replay\> feature. Through the \<replay\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.
+To verify the value of a PCR, a Verifier must either know that the value is a "known good" value (see Section 2.3.3 of {{KGV}}) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \<attestation\> Event Stream MUST support the RFC8639 \<replay\> feature. Through the \<replay\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.
 
 {: #configuring "Configuring the Attestation Stream"}
 ## Configuring the \<attestation\> Event Stream
