@@ -457,7 +457,7 @@ Additionally, the Security Considerations from {{RFC8641}} outline how internal 
 
 The Security Considerations of {{-charra}} and {{-rats-riv}} apply.
 Additionally, the Security Requirements from {{Section 4.2.5 of RFC7923}} and the Security Considerations from {{Section 5 of RFC7923}} apply.
-{{RFC8641}} illustrates specific Security Considerations concerning YANG Notifications for Datastore Updates, which, for example, details guidance to identify sensitive writable subtrees or sensitive readable nodes.
+{{RFC8641}} illustrates specific Security Considerations concerning YANG Notifications for Datastore Updates, which, for example, detail guidance to identify sensitive writable subtrees or sensitive readable nodes.
 
 # IANA Considerations {#IANA}
 
