@@ -287,7 +287,7 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
 * time(VG',EG') – this occurs when a PCR is extended subsequent to time(EG). Immediately after the extension, the following information needs to be pushed to the Verifier:
   * any values extended into a PCR of interest,
   * a signed TPM Quote showing the result the PCR extension, and
-  * and a handle (see {{Section 6 of -rats-models}}), which is either the initially received nonce or a more recently received Epoch ID (see {{Section of 10.3 -rats-arch}}) that contains a new nonce or equivalent qualified data.
+  * and a handle (see {{Section 6 of -rats-models}}), which is either the initially received nonce or a more recently received Epoch ID (see {{Section 10.3 of -rats-arch}}) that contains a new nonce or equivalent qualified data.
 
 One way to acquire a new time synchronisation that allows for the reuse of the initially received nonce as a fresh handle is elaborated on in {{freshness-handles}} below.
 
