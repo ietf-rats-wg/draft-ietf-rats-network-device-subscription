@@ -217,7 +217,9 @@ The terminology specialization is as follows:
 
 ### Time Considerations Mapping
 
-{{-rats-arch}} defines "Relevant Events over Time" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party. The action of conveying "collectClaims", which is defined in {{Section 6 of -rats-models}}, is not defined by {{-rats-arch}}.   Therefore, it cannot be matched to a specified event time.
+{{-rats-arch}} defines "Relevant Events over Time" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party.
+The action of conveying "collectClaims", which is defined in {{Section 6 of -rats-models}}, is not defined by {{-rats-arch}}.
+Therefore, it cannot be matched to a specified event time.
 
 ~~~~
 .----------.                             .--------------------------.
