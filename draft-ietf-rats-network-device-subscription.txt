@@ -396,7 +396,8 @@ Table of Contents
 
       -  the nonce,
 
-      -  a set of PCRs of interest which the wants to appraise, and
+      -  a set of PCRs of interest which the Relying Party or Verifier
+         wants to be appraised, and
 
       -  an optional filter which can reduce the logged events on the
          <attestation> stream pushed to the Verifier.
@@ -424,12 +425,12 @@ Table of Contents
       -  and a handle (see Section 6 of
          [I-D.ietf-rats-reference-interaction-models]), which is either
          the initially received nonce or a more recently received Epoch
-         ID (see Section 10.3. in [RFC9334] that contains a new nonce or
+         ID (see Section 10.3 of [RFC9334]) that contains a new nonce or
          equivalent qualified data.
 
    One way to acquire a new time synchronisation that allows for the
    reuse of the initially received nonce as a fresh handle is elaborated
-   on in the follow section Section 3.2.
+   on in Section 3.2 below.
 
 3.2.  Continuously Verifying Freshness
 
@@ -452,14 +453,14 @@ Table of Contents
 
 3.2.2.  TPM 2 Quote
 
-   When the Attester includes a TPM2 compliant cryptoprocessor, internal
+   When the Attester includes a TPM2-compliant cryptoprocessor, internal
    time-related counters are included within the signed TPM Quote.  By
-   including a initial nonce in the [RFC8639] subscription request,
+   including an initial nonce in the [RFC8639] subscription request,
    fresh values for these counters are pushed as part of the first TPM
-   Quote returned to the Verifier.  And then as shown by
+   Quote returned to the Verifier.  As shown by
    [I-D.birkholz-rats-tuda], subsequent TPM Quotes delivered to the
-   Verifier can the be appraised for freshness based on the predictable
-   incrementing of these time-related countersr.
+   Verifier can be appraised for freshness based on the predictable
+   incrementing of these time-related counters.
 
    The relevant internal time-related counters defined within [TPM2.0]
    can be seen within <tpms-clock-info>.  These counters include the
@@ -593,7 +594,7 @@ Table of Contents
 4.3.1.  pcr-extend
 
    This notification documents when a subscribed PCR is extended within
-   a single TPM cryptoprocessor.  It SHOULD be emmitted no less than the
+   a single TPM cryptoprocessor.  It SHOULD be emitted no less than the
    <marshalling-period> after an the PCR is first extended.  (The reason
    for the marshalling is that it is quite possible that multiple
    extensions to the same PCR have been made in quick succession, and
@@ -726,14 +727,14 @@ Table of Contents
 4.5.  Replaying previous PCR Extend events
 
    To verify the value of a PCR, a Verifier must either know that the
-   value is a known good value [KGV] or be able to reconstruct the hash
-   value by viewing all the PCR-Extends since the Attester rebooted.
-   Wherever a hash reconstruction might be needed, the <attestation>
-   Event Stream MUST support the RFC8639 <replay> feature.  Through the
-   <replay> feature, it is possible for a Verifier to retrieve and
-   sequentially hash all of the PCR extending events since an Attester
-   booted.  And thus, the Verifier has access to all the evidence needed
-   to verify a PCR's current value.
+   value is a "known good" value (see Section 2.3.3 of [KGV]) or be able
+   to reconstruct the hash value by viewing all the PCR-Extends since
+   the Attester rebooted.  Wherever a hash reconstruction might be
+   needed, the <attestation> Event Stream MUST support the RFC8639
+   <replay> feature.  Through the <replay> feature, it is possible for a
+   Verifier to retrieve and sequentially hash all of the PCR extending
+   events since an Attester booted.  And thus, the Verifier has access
+   to all the evidence needed to verify a PCR's current value.
 
 4.6.  Configuring the <attestation> Event Stream
 

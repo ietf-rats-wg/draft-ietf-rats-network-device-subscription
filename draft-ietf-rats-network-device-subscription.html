@@ -1617,7 +1617,7 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
                   <p id="section-3.1.2-3.3.2.1.1">the nonce,<a href="#section-3.1.2-3.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-3.1.2-3.3.2.2">
-                  <p id="section-3.1.2-3.3.2.2.1">a set of PCRs of interest which the  wants to appraise, and<a href="#section-3.1.2-3.3.2.2.1" class="pilcrow">¶</a></p>
+                  <p id="section-3.1.2-3.3.2.2.1">a set of PCRs of interest which the Relying Party or Verifier wants to be appraised, and<a href="#section-3.1.2-3.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-3.1.2-3.3.2.3">
                   <p id="section-3.1.2-3.3.2.3.1">an optional filter which can reduce the logged events on the &lt;attestation&gt; stream pushed to the Verifier.<a href="#section-3.1.2-3.3.2.3.1" class="pilcrow">¶</a></p>
@@ -1645,12 +1645,12 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
                   <p id="section-3.1.2-3.5.2.2.1">a signed TPM Quote showing the result the PCR extension, and<a href="#section-3.1.2-3.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-3.1.2-3.5.2.3">
-                  <p id="section-3.1.2-3.5.2.3.1">and a handle (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which is either the initially received nonce or a more recently received Epoch ID (see Section 10.3. in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> that contains a new nonce or equivalent qualified data.<a href="#section-3.1.2-3.5.2.3.1" class="pilcrow">¶</a></p>
+                  <p id="section-3.1.2-3.5.2.3.1">and a handle (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which is either the initially received nonce or a more recently received Epoch ID (see <span><a href="https://rfc-editor.org/rfc/rfc9334#section-10.3" class="relref">Section 10.3</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>) that contains a new nonce or equivalent qualified data.<a href="#section-3.1.2-3.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
           </ul>
-<p id="section-3.1.2-4">One way to acquire a new time synchronisation that allows for the reuse of the initially received nonce as a fresh handle is elaborated on in the follow section <a href="#freshness-handles" class="auto internal xref">Section 3.2</a>.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-4">One way to acquire a new time synchronisation that allows for the reuse of the initially received nonce as a fresh handle is elaborated on in <a href="#freshness-handles" class="auto internal xref">Section 3.2</a> below.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1674,7 +1674,7 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
           <h4 id="name-tpm-2-quote">
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-tpm-2-quote" class="section-name selfRef">TPM 2 Quote</a>
           </h4>
-<p id="section-3.2.2-1">When the Attester includes a TPM2 compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including a initial nonce in the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> subscription request, fresh values for these counters are pushed as part of the first TPM Quote returned to the Verifier. And then as shown by <span>[<a href="#I-D.birkholz-rats-tuda" class="cite xref">I-D.birkholz-rats-tuda</a>]</span>, subsequent TPM Quotes delivered to the Verifier can the be appraised for freshness based on the predictable incrementing of these time-related countersr.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-1">When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including an initial nonce in the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> subscription request, fresh values for these counters are pushed as part of the first TPM Quote returned to the Verifier. As shown by <span>[<a href="#I-D.birkholz-rats-tuda" class="cite xref">I-D.birkholz-rats-tuda</a>]</span>, subsequent TPM Quotes delivered to the Verifier can be appraised for freshness based on the predictable incrementing of these time-related counters.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-2">The relevant internal time-related counters defined within <span>[<a href="#TPM2.0" class="cite xref">TPM2.0</a>]</span> can be seen within &lt;tpms-clock-info&gt;.   These counters include the &lt;clock&gt;, &lt;reset-counter&gt;, and &lt;restart-counter&gt; objects.  The rules for appraising these objects are as follows:<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2.2-3.1">
@@ -1773,7 +1773,7 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
           <h4 id="name-pcr-extend">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-pcr-extend" class="section-name selfRef">pcr-extend</a>
           </h4>
-<p id="section-4.3.1-1">This notification documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It <span class="bcp14">SHOULD</span> be emmitted no less than the &lt;marshalling-period&gt; after an the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification <span class="bcp14">MUST</span> be emmitted prior to a &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification, the marshalling period <span class="bcp14">MUST</span> be extended so that a new &lt;pcr-extend&gt; is not sent until the corresponding notifications have been sent.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-1">This notification documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It <span class="bcp14">SHOULD</span> be emitted no less than the &lt;marshalling-period&gt; after an the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification <span class="bcp14">MUST</span> be emmitted prior to a &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification, the marshalling period <span class="bcp14">MUST</span> be extended so that a new &lt;pcr-extend&gt; is not sent until the corresponding notifications have been sent.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3.1-2">
 <pre>
 +---n pcr-extend
@@ -1889,7 +1889,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
         <h3 id="name-replaying-previous-pcr-exte">
 <a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-replaying-previous-pcr-exte" class="section-name selfRef">Replaying previous PCR Extend events</a>
         </h3>
-<p id="section-4.5-1">To verify the value of a PCR, a Verifier must either know that the value is a known good value <span>[<a href="#KGV" class="cite xref">KGV</a>]</span> or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the &lt;attestation&gt; Event Stream <span class="bcp14">MUST</span> support the RFC8639 &lt;replay&gt; feature. Through the &lt;replay&gt; feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-1">To verify the value of a PCR, a Verifier must either know that the value is a "known good" value (see Section 2.3.3 of <span>[<a href="#KGV" class="cite xref">KGV</a>]</span>) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the &lt;attestation&gt; Event Stream <span class="bcp14">MUST</span> support the RFC8639 &lt;replay&gt; feature. Through the &lt;replay&gt; feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="configuring">
