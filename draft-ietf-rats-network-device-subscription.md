@@ -57,6 +57,8 @@ normative:
     seriesinfo:
 
 informative:
+  RFC7923:
+  RFC8641:
   I-D.birkholz-rats-tuda: TUDA
   KGV:
     author:
@@ -449,10 +451,13 @@ Analogous to the {{RFC8639}} compliant \<attestation\> Event Stream for the conv
 # Privacy Considerations
 
 The Privacy Considerations of {{-rats-riv}} apply.
+Additionally, the Security Considerations from {{RFC8641}} outline how internal structures or capabilities about the system can leak, which can have an impact in personally identifiable information (PII).
 
 # Security Considerations
 
 The Security Considerations of {{-charra}} and {{-rats-riv}} apply.
+Additionally, the Security Requirements from {{Section 4.2.5 of RFC7923}} and the Security Considerations from {{Section 5 of RFC7923}} apply.
+{{RFC8641}} illustrates specific Security Considerations concerning YANG Notifications for Datastore Updates, which, for example, details guidance to identify sensitive writable subtrees or sensitive readable nodes.
 
 # IANA Considerations {#IANA}
 
@@ -485,14 +490,7 @@ Name:
 
 --- back
 
-# Change Log
-
-v00-v05
-
-* minor updates as Charra goes through IESG.
-
-
 # Acknowledgements
 {: numbered="no"}
 
-Thanks to ...
+Many thanks go out to Thomas Fossati, Zhuoyao Lin, Yogesh Despande, Jun Zhang, Thanassis Giannetsos, Michael Richardson, Ned Smith, and Chunchi (Peter) Liu for their extensive review feedback that was vital to produce this document.
