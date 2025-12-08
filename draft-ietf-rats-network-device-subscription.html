@@ -1300,7 +1300,7 @@ For example, when a network device's Evidence changes following events such as b
 According to <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>, an Attester must wait for a new nonce from a Verifier before generating a new TPM Quote.
 To address delays resulting from this wait, this specification allows freshness to be asserted asynchronously via the streaming attestation interaction model <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>.
 To convey a RATS Conceptual Message, an initial nonce is provided when subscribing to an Event Stream.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">There are several options for refreshing a nonce provided by the initial subscription or its freshness characteristics.
+<p id="section-1-6">There are several options to populate or refresh the nonce value provided by the initial subscription.
 All of these methods are out-of-band of an established subscription to YANG Notifications.
 Two alternative methods are taken into account by this document:<a href="#section-1-6" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-1-7">
@@ -1308,7 +1308,7 @@ Two alternative methods are taken into account by this document:<a href="#sectio
           <p id="section-1-7.1.1">A central provider supplies new, fresh nonces (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> and as facilitated by the Uni-Directional Remote Attestation described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-7.2" class="relref">Section 7.2</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), or<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-1-7.2">
-          <p id="section-1-7.2.1">The freshness characteristics of a received nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
+          <p id="section-1-7.2.1">A nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
 <p id="section-1-8">Both approaches assume that clock drift can occur between the entities involved.

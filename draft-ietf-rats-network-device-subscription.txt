@@ -165,11 +165,10 @@ Table of Contents
    Conceptual Message, an initial nonce is provided when subscribing to
    an Event Stream.
 
-   There are several options for refreshing a nonce provided by the
-   initial subscription or its freshness characteristics.  All of these
-   methods are out-of-band of an established subscription to YANG
-   Notifications.  Two alternative methods are taken into account by
-   this document:
+   There are several options to populate or refresh the nonce value
+   provided by the initial subscription.  All of these methods are out-
+   of-band of an established subscription to YANG Notifications.  Two
+   alternative methods are taken into account by this document:
 
    1.  A central provider supplies new, fresh nonces (e.g., via a Handle
        Provider that distributes Epoch IDs to all entities in a domain
@@ -177,9 +176,9 @@ Table of Contents
        Directional Remote Attestation described in Section 7.2 of
        [I-D.ietf-rats-reference-interaction-models]), or
 
-   2.  The freshness characteristics of a received nonce can be updated
-       by -- potentially periodically or ad-hoc -- sending out-of-band
-       TPM Quote requests as facilitated by [RFC9684].
+   2.  A nonce can be updated by -- potentially periodically or ad-hoc
+       -- sending out-of-band TPM Quote requests as facilitated by
+       [RFC9684].
 
    Both approaches assume that clock drift can occur between the
    entities involved.  Consequently, the timing considerations for
