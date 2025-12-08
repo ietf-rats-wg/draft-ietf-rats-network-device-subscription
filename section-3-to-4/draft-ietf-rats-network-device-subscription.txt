@@ -726,7 +726,7 @@ Table of Contents
 4.5.  Replaying previous PCR Extend events
 
    To verify the value of a PCR, a Verifier must either know that the
-   value is a known good value (see Section 2.3.3 of [KGV]) or be able
+   value is a "known good" value (see Section 2.3.3 of [KGV]) or be able
    to reconstruct the hash value by viewing all the PCR-Extends since
    the Attester rebooted.  Wherever a hash reconstruction might be
    needed, the <attestation> Event Stream MUST support the RFC8639
