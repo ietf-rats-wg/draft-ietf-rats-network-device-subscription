@@ -1131,8 +1131,8 @@ Table of Contents
    Additionally, the Security Requirements from Section 4.2.5 of
    [RFC7923] and the Security Considerations from Section 5 of [RFC7923]
    apply.  [RFC8641] illustrates specific Security Considerations
-   concerning YANG Notifications for Datastore Updates, which, for
-   example, detail guidance to identify sensitive writable subtrees or
+   concerning YANG Notifications for Datastore Updates.  For example, it
+   provides guidance on identifying sensitive writable subtrees and
    sensitive readable nodes.
 
 9.  IANA Considerations
