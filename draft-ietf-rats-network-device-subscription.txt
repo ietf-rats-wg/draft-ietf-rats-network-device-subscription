@@ -181,16 +181,16 @@ Table of Contents
        [RFC9684].
 
    Both approaches assume that clock drift can occur between the
-   entities involved.  Consequently, the timing considerations for
-   freshness [RFC9334] may need to be updated at regular intervals in
-   some usage scenarios.  Similarly, there may be additional methods not
-   described by this document that are nevertheless supported.
+   entities involved.  Consequently, other conditions arising in
+   different application scenarios ought to be considered in the same
+   way.  For example, the time of Claims collection ought to be taken
+   into account.
 
-   This document enables the removal of the two adverse effects
-   described when using the specified YANG augmentation.  For example,
-   the YANG augmentation enables a RATS Verifier to maintain a
-   continuous appraisal procedure of verifiably fresh Attester Evidence
-   without relying on continuous polling.
+   The scope of this document is limited to the removal of the two
+   adverse effects described when using the specified YANG augmentation.
+   For example, the YANG augmentation enables a RATS Verifier to
+   maintain a continuous appraisal procedure of verifiably fresh
+   Attester Evidence without relying on continuous polling.
 
 2.  Terminology
 
