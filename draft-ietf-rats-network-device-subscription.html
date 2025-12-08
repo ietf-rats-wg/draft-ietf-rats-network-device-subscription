@@ -10,28 +10,25 @@
 <meta content="Wei Pan" name="author">
 <meta content="
        This document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS).
-In RATS, the Conceptional Messages defined can potentially be subscribed to.
-Specifically, the YANG module defined in this document augments the YANG module for TPM-based Challenge-Response based Remote Attestation (CHARRA) to allow for subscription to the Conceptual Message type Evidence.
-Additionally, this memo provides the methods and means to define additional Event Streams for other Conceptual Messages than Evidence as illustrated in the RATS Architecture, e.g., Attestation Results, Reference Values, or Endorsements.
-The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardware implementation providing the same protected capabilities as TPMs to be available in the Attester the YANG server is running on. 
+Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type.
+The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running. 
     " name="description">
-<meta content="xml2rfc 3.22.0" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-rats-network-device-subscription-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.22.0
-    Python 3.12.3
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
-    lxml 4.9.4
-    platformdirs 4.2.2
-    pycountry 22.3.5
-    PyYAML 6.0.1
-    requests 2.32.3
-    setuptools 69.5.1
-    wcwidth 0.2.13
+    Jinja2 3.1.6
+    lxml 5.3.1
+    platformdirs 4.5.0
+    pycountry 24.6.1
+    PyYAML 6.0.2
+    requests 2.32.5
+    wcwidth 0.2.14
 -->
 <link href="draft-ietf-rats-network-device-subscription.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -167,31 +164,6 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
 }
 
 @font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
   font-family: 'Oxygen Mono';
   font-style: normal;
   font-weight: 400;
@@ -208,6 +180,77 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --background-color: #fff;
@@ -220,6 +263,7 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
   --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
   scrollbar-color: #bbb #eee;
 }
 body {
@@ -237,9 +281,15 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 680;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
@@ -268,6 +318,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -345,25 +396,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -371,38 +423,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
-dl.olPercent {
-  --indent: 5ch;
-}
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
-}
-dl.dlNewline > dt {
-  float: none;
 }
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -466,6 +519,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -483,7 +537,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -520,6 +578,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -534,6 +593,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -564,9 +633,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -606,26 +677,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -636,9 +709,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -646,47 +716,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -694,21 +765,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -730,6 +813,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -740,7 +824,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -751,9 +859,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -766,17 +871,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -787,14 +892,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -802,11 +906,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -835,20 +939,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -891,9 +987,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -916,82 +1009,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1030,11 +1047,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">RATS Subscription</td>
-<td class="right">July 2024</td>
+<td class="right">December 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 7 January 2025</td>
+<td class="center">Expires 11 June 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1064,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-network-device-subscription-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-06" class="published">6 July 2024</time>
+<time datetime="2025-12-08" class="published">8 December 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-07">7 January 2025</time></dd>
+<dd class="expires"><time datetime="2026-06-11">11 June 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1074,10 +1091,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS).
-In RATS, the Conceptional Messages defined can potentially be subscribed to.
-Specifically, the YANG module defined in this document augments the YANG module for TPM-based Challenge-Response based Remote Attestation (CHARRA) to allow for subscription to the Conceptual Message type Evidence.
-Additionally, this memo provides the methods and means to define additional Event Streams for other Conceptual Messages than Evidence as illustrated in the RATS Architecture, e.g., Attestation Results, Reference Values, or Endorsements.
-The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardware implementation providing the same protected capabilities as TPMs to be available in the Attester the YANG server is running on.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type.
+The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1109,7 +1124,7 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1118,7 +1133,7 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1154,6 +1169,14 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-sequence-diagram" class="internal xref">Sequence Diagram</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.1">
+                    <p id="section-toc.1-1.3.2.1.2.1.1"><a href="#section-3.1.1" class="auto internal xref">3.1.1</a>.  <a href="#name-term-specialization" class="internal xref">Term Specialization</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.2">
+                    <p id="section-toc.1-1.3.2.1.2.2.1"><a href="#section-3.1.2" class="auto internal xref">3.1.2</a>.  <a href="#name-time-considerations-mapping" class="internal xref">Time Considerations Mapping</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-continuously-verifying-fres" class="internal xref">Continuously Verifying Freshness</a></p>
@@ -1214,30 +1237,33 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-event-streams-for-conceptua" class="internal xref">Event Streams for Conceptual Messages</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-change-log" class="internal xref">Change Log</a></p>
-</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-change-log" class="internal xref">Change Log</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1248,30 +1274,48 @@ The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardwar
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1"><span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span> and <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span> define the operational prerequisites and a YANG Model for the acquisition of Evidence and other Conceptional Messages from a network device containing at least one TPM 1.2 or TPM 2.0 or equivalent hardware implementations that include the protected capabilities as provided by TPMs.
-However, there are limitations inherent in the challenge-response based conceptual interaction model (CHARRA <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>) upon which these documents are based. One of these limitation is that it is up to a Verifier to request signed Evidence as provided by <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>, from a separate Attester which contains a TPM. The result is that the interval between the occurrence of a security-relevant change event, and the event's visibility within the interested RATS entity, such as a Verifier or a Relying Party, can be unacceptably long. It is common to convey Conceptual Messages ad-hoc or periodically via requests. As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need of continuous polling. Subscription to YANG Notifications <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> provides a set of standardized tools to facilitate these emerging requirements. This memo specifies a YANG augment to subscribe to YANG modeled remote attestation Evidence as defined in <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. Additionally, this memo provides the means to define further Event Streams to convey Conceptional Messages other than Evidence, such as Attestation Results, Endorsements, or Event Logs.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">In essence, the limitation of poll-based interactions results in two adverse effects:<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> and <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> define the operational prerequisites and a YANG Model for acquiring Evidence from a network device containing at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations providing the same protected capabilities as a TPM).
+However, these documents are based on the challenge-response interaction model (CHARRA <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which has limitations.
+One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
+This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as a Verifiers or a Relying Parties, can be unacceptably long.
+It is common to convey Conceptual Messages ad-hoc or periodically via requests.
+As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need for continuous polling.
+Subscription to YANG Notifications <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> provides a set of standardized tools to facilitate these emerging requirements.
+This memo specifies a YANG augmentation for subscribing to YANG-modelled remote attestation Evidence, as defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Essentially, the limitation of poll-based interactions has two adverse effects:<a href="#section-1-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-1-3">
 <li id="section-1-3.1">
-          <p id="section-1-3.1.1">Conceptual Messages are not streamed to an interested consumer of information, e.g., Verifiers or Relying Parties, as soon as they are generated.<a href="#section-1-3.1.1" class="pilcrow">¶</a></p>
+          <p id="section-1-3.1.1">Conceptual Messages are not streamed to interested consumers of information (e.g., Verifiers or Relying Parties) as soon as they are generated.<a href="#section-1-3.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-1-3.2">
-          <p id="section-1-3.2.1">If they were to be streamed, Conceptual Messages are not appraisable for their freshness in every scenario. This becomes more important with Conceptional Messages that have a strong dependency on freshness, such as Evidence and corresponding Attestation Results.<a href="#section-1-3.2.1" class="pilcrow">¶</a></p>
+          <p id="section-1-3.2.1">Even if they were streamed, the freshness of Conceptual Messages cannot be appraised in every scenario.
+This is particularly important for Conceptual Messages that depend heavily on freshness, such as Evidence and the corresponding Attestation Results.<a href="#section-1-3.2.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-1-4">This specification addresses the first adverse effect by enabling a consumer of Conceptual Messages (the subscriber) to request a continuous stream of new or updated Conceptual Messages via an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> subscription to an &lt;attestation&gt; Event Stream. This new Event Stream is defined in this document and exists upon the producer of Conceptual Messages (the publisher). In the case of a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier. For example, when a network device's Evidence changes after the occurrence of events, such as booting, updating, control unit fall-over, plugging in or out forwarding units, being attacked, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">The second adverse effect results from the use of nonces in the challenge-response interaction model <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> realized in <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. In <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>, an Attester must wait for a new nonce from a Verifier before it generates a new TPM Quote. To address delays resulting from such a wait, this specification enables freshness to be asserted asynchronously via the streaming attestation interaction model <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>. To convey a RATS Conceptual Message, an initial nonce is provided during the subscription to an Event Stream.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">There are several options to refresh a nonce provided by the initial subscription or its freshness characteristics. All of these methods are out-of-band of an established subscription to YANG Notifications. Two complementary methods are taken into account by this memo:<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-4">This specification addresses the first adverse effect by enabling consumers of Conceptual Messages (subscribers) to request a continuous stream of new or updated Conceptual Messages via an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> subscription to an &lt;attestation&gt; Event Stream.
+This new Event Stream is defined in this document and is provided by the producer of Conceptual Messages (the publisher).
+In the case of a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier.
+For example, when a network device's Evidence changes following events such as booting, updating, control unit fallover, plugging in or out of forwarding units, an attack, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">The second adverse effect stems from the use of nonces in the challenge-response interaction model <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> realized in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.
+According to <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>, an Attester must wait for a new nonce from a Verifier before generating a new TPM Quote.
+To address delays resulting from this wait, this specification allows freshness to be asserted asynchronously via the streaming attestation interaction model <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>.
+To convey a RATS Conceptual Message, an initial nonce is provided when subscribing to an Event Stream.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">There are several options for refreshing a nonce provided by the initial subscription or its freshness characteristics.
+All of these methods are out-of-band of an established subscription to YANG Notifications.
+Two alternative methods are taken into account by this document:<a href="#section-1-6" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-1-7">
 <li id="section-1-7.1">
-          <p id="section-1-7.1.1">a central provider supplies new fresh nonces, e.g. via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in <span>[<a href="#I-D.ietf-rats-architecture" class="cite xref">I-D.ietf-rats-architecture</a>]</span> and as facilitated by the Uni-Directional Remote Attestation described in <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> or<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
+          <p id="section-1-7.1.1">A central provider supplies new, fresh nonces (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> and as facilitated by the Uni-Directional Remote Attestation described in <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), or<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-1-7.2">
-          <p id="section-1-7.2.1">the freshness characteristics of a received nonce are updated by -- potentially periodic or ad-hoc -- out-of-band TPM Quote requests as facilitated by <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>.<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
+          <p id="section-1-7.2.1">The freshness characteristics of a received nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-1-8">Both approaches to update the freshness characteristics of the Conceptual Messages conveyed via subscription to YANG Notification that are taken into account by this memo assume that clock drift between involved entities can occur. In consequence, in some usage scenarios the timing considerations for freshness <span>[<a href="#I-D.ietf-rats-architecture" class="cite xref">I-D.ietf-rats-architecture</a>]</span> might have to be updated in some regular interval. Analogously, there are can be additional methods that are not describe by but nevertheless supported by this memo.<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p id="section-1-9">This memo enables to remove the two adverse effects described by using the YANG augment specified. The YANG augment supports, for example, a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-8">Both approaches assume that clock drift can occur between the entities involved.
+Consequently, the timing considerations for freshness <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> may need to be updated at regular intervals in some usage scenarios.
+Similarly, there may be additional methods not described by this document that are nevertheless supported.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">This document enables the removal of the two adverse effects described when using the specified YANG augmentation.
+For example, the YANG augmentation enables a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.<a href="#section-1-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1279,7 +1323,7 @@ However, there are limitations inherent in the challenge-response based conceptu
       <h2 id="name-terminology">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
       </h2>
-<p id="section-2-1">The following terms are imported from <span>[<a href="#I-D.ietf-rats-architecture" class="cite xref">I-D.ietf-rats-architecture</a>]</span>: Attester, Conceptual Message, Evidence, Relying Party, and Verifier.  Also imported are the time definitions time(VG), time(NS), time(EG), time(RG), and time(RA) from that document's Appendix A.  The following terms are imported from <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>: Event Stream, Subscription, Publisher, Event Stream Filter, Dynamic Subscription.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">The following terms are imported from <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>: Attester, Conceptual Message, Evidence, Relying Party, and Verifier.  Also imported are the time definitions time(VG), time(NS), time(EG), time(RG), and time(RA) from that document's Appendix A.  The following terms are imported from <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>: Event Stream, Subscription, Publisher, Event Stream Filter, Dynamic Subscription.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <div id="requirements-notation">
 <section id="section-2.1">
         <h3 id="name-requirements-notation">
@@ -1298,25 +1342,223 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
       <h2 id="name-operational-model">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-operational-model" class="section-name selfRef">Operational Model</a>
       </h2>
-<p id="section-3-1"><span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span> describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>. The operational model and corresponding sequence diagram described in this section is based on <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. The basis for interoperability required for additional types of Event Streams is covered in <a href="#otherstreams" class="auto internal xref">Section 6</a>. The following sub-section focuses on subscription to YANG Notifications to the &lt;attestation&gt; Event Stream.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>. The operational model and corresponding sequence diagram described in this section is based on <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. The basis for interoperability required for additional types of Event Streams is covered in <a href="#otherstreams" class="auto internal xref">Section 6</a>. The following sub-section focuses on subscription to YANG Notifications to the &lt;attestation&gt; Event Stream.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="sequence-diagram">
 <section id="section-3.1">
         <h3 id="name-sequence-diagram">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-sequence-diagram" class="section-name selfRef">Sequence Diagram</a>
         </h3>
-<p id="section-3.1-1"><a href="#sequence" class="auto internal xref">Figure 1</a> below is a sequence diagram which updates Figure 5 of <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>. This sequence diagram adapts <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span> by replacing the TPM-specific challenge-response interaction model with a <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> Dynamic Subscription to an &lt;attestation&gt; Event Stream. The contents of the &lt;attestation&gt; Event Stream are defined below within <a href="#attestationstream" class="auto internal xref">Section 4</a>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<span id="name-yang-subscription-model-for"></span><div id="sequence">
+<p id="section-3.1-1"><a href="#sequence" class="auto internal xref">Figure 2</a> below is a sequence diagram which updates Figure 5 of <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>. This sequence diagram adapts <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> by replacing the TPM-specific challenge-response interaction model with a <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> Dynamic Subscription to an &lt;attestation&gt; Event Stream. The contents of the &lt;attestation&gt; Event Stream are defined below within <a href="#attestationstream" class="auto internal xref">Section 4</a>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<div id="term-specialization">
+<section id="section-3.1.1">
+          <h4 id="name-term-specialization">
+<a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-term-specialization" class="section-name selfRef">Term Specialization</a>
+          </h4>
+<p id="section-3.1.1-1">The terms defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> are mapped to the model described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-7.3.1" class="relref">Section 7.3.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> (Streaming Remote Attestation without a Broker) to produce the sequence diagram <a href="#newsequence" class="auto internal xref">Figure 1</a>.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-2">The terminology specialization is as follows:
+* <code>handle</code> is substituted with <code>nonce</code>, a nonce generated by the Verifying Relying Party. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>
+* <code>attEnvIDs</code> is substituted with <code>TpmName</code>, a TPM "name" text string selected from the <code>tpms</code> Container, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>
+* <code>claimsSelection</code> is substituted with <code>PcrSelection</code>, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. If no PCR is selected, all PCR banks are returned.
+* <code>claims</code> is substituted with <code>PcrQuotes</code>, which is the "output" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.
+* <code>eventLogs</code> represents "system-event-logs" that are in the "output" of the log-retrieval RPC, as defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.
+* <code>eventLogsDelta</code> represents "system-event-logs" as specified in the "output" of the log-retrieval RPC as defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> where the "output" is limited as if the "input" were parameterized via an index type (last-entry, index, timestamp) set to the last event in the previously conveyed <code>eventLogs</code>.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+<span id="name-yang-subscription-model-for"></span><div id="newsequence">
 <figure id="figure-1">
-          <div class="alignLeft art-text artwork" id="section-3.1-2.1">
+            <div id="section-3.1.1-3.1">
+              <div class="alignLeft art-svg artwork" id="section-3.1.1-3.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="992" width="584" viewBox="0 0 584 992" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                  <path d="M 8,32 L 8,64" fill="none" stroke="black"></path>
+                  <path d="M 8,112 L 8,944" fill="none" stroke="black"></path>
+                  <path d="M 16,608 L 16,928" fill="none" stroke="black"></path>
+                  <path d="M 48,64 L 48,88" fill="none" stroke="black"></path>
+                  <path d="M 48,144 L 48,240" fill="none" stroke="black"></path>
+                  <path d="M 48,304 L 48,320" fill="none" stroke="black"></path>
+                  <path d="M 48,352 L 48,368" fill="none" stroke="black"></path>
+                  <path d="M 48,400 L 48,448" fill="none" stroke="black"></path>
+                  <path d="M 48,480 L 48,544" fill="none" stroke="black"></path>
+                  <path d="M 48,672 L 48,688" fill="none" stroke="black"></path>
+                  <path d="M 48,720 L 48,736" fill="none" stroke="black"></path>
+                  <path d="M 48,768 L 48,816" fill="none" stroke="black"></path>
+                  <path d="M 48,848 L 48,936" fill="none" stroke="black"></path>
+                  <path d="M 96,32 L 96,64" fill="none" stroke="black"></path>
+                  <path d="M 360,32 L 360,64" fill="none" stroke="black"></path>
+                  <path d="M 536,64 L 536,88" fill="none" stroke="black"></path>
+                  <path d="M 536,176 L 536,240" fill="none" stroke="black"></path>
+                  <path d="M 536,272 L 536,448" fill="none" stroke="black"></path>
+                  <path d="M 536,640 L 536,736" fill="none" stroke="black"></path>
+                  <path d="M 536,768 L 536,816" fill="none" stroke="black"></path>
+                  <path d="M 536,912 L 536,936" fill="none" stroke="black"></path>
+                  <path d="M 552,880 L 552,888" fill="none" stroke="black"></path>
+                  <path d="M 560,512 L 560,520" fill="none" stroke="black"></path>
+                  <path d="M 568,608 L 568,928" fill="none" stroke="black"></path>
+                  <path d="M 576,32 L 576,64" fill="none" stroke="black"></path>
+                  <path d="M 576,112 L 576,736" fill="none" stroke="black"></path>
+                  <path d="M 576,768 L 576,944" fill="none" stroke="black"></path>
+                  <path d="M 8,32 L 96,32" fill="none" stroke="black"></path>
+                  <path d="M 360,32 L 576,32" fill="none" stroke="black"></path>
+                  <path d="M 8,64 L 96,64" fill="none" stroke="black"></path>
+                  <path d="M 360,64 L 576,64" fill="none" stroke="black"></path>
+                  <path d="M 24,96 L 80,96" fill="none" stroke="black"></path>
+                  <path d="M 136,96 L 560,96" fill="none" stroke="black"></path>
+                  <path d="M 24,126 L 216,126" fill="none" stroke="black"></path>
+                  <path d="M 24,130 L 216,130" fill="none" stroke="black"></path>
+                  <path d="M 368,126 L 560,126" fill="none" stroke="black"></path>
+                  <path d="M 368,130 L 560,130" fill="none" stroke="black"></path>
+                  <path d="M 56,208 L 200,208" fill="none" stroke="black"></path>
+                  <path d="M 128,224 L 528,224" fill="none" stroke="black"></path>
+                  <path d="M 24,254 L 136,254" fill="none" stroke="black"></path>
+                  <path d="M 24,258 L 136,258" fill="none" stroke="black"></path>
+                  <path d="M 432,254 L 560,254" fill="none" stroke="black"></path>
+                  <path d="M 432,258 L 560,258" fill="none" stroke="black"></path>
+                  <path d="M 240,432 L 528,432" fill="none" stroke="black"></path>
+                  <path d="M 24,462 L 208,462" fill="none" stroke="black"></path>
+                  <path d="M 24,466 L 208,466" fill="none" stroke="black"></path>
+                  <path d="M 376,462 L 560,462" fill="none" stroke="black"></path>
+                  <path d="M 376,466 L 560,466" fill="none" stroke="black"></path>
+                  <path d="M 32,592 L 88,592" fill="none" stroke="black"></path>
+                  <path d="M 144,592 L 552,592" fill="none" stroke="black"></path>
+                  <path d="M 32,622 L 120,622" fill="none" stroke="black"></path>
+                  <path d="M 32,626 L 120,626" fill="none" stroke="black"></path>
+                  <path d="M 464,622 L 552,622" fill="none" stroke="black"></path>
+                  <path d="M 464,626 L 552,626" fill="none" stroke="black"></path>
+                  <path d="M 280,800 L 528,800" fill="none" stroke="black"></path>
+                  <path d="M 32,830 L 184,830" fill="none" stroke="black"></path>
+                  <path d="M 32,834 L 184,834" fill="none" stroke="black"></path>
+                  <path d="M 400,830 L 552,830" fill="none" stroke="black"></path>
+                  <path d="M 400,834 L 552,834" fill="none" stroke="black"></path>
+                  <path d="M 32,944 L 552,944" fill="none" stroke="black"></path>
+                  <path d="M 24,960 L 560,960" fill="none" stroke="black"></path>
+                  <path d="M 24,96 C 15.16936,96 8,103.16936 8,112" fill="none" stroke="black"></path>
+                  <path d="M 560,96 C 568.83064,96 576,103.16936 576,112" fill="none" stroke="black"></path>
+                  <path d="M 32,592 C 23.16936,592 16,599.16936 16,608" fill="none" stroke="black"></path>
+                  <path d="M 552,592 C 560.83064,592 568,599.16936 568,608" fill="none" stroke="black"></path>
+                  <path d="M 32,944 C 23.16936,944 16,936.83064 16,928" fill="none" stroke="black"></path>
+                  <path d="M 552,944 C 560.83064,944 568,936.83064 568,928" fill="none" stroke="black"></path>
+                  <path d="M 24,960 C 15.16936,960 8,952.83064 8,944" fill="none" stroke="black"></path>
+                  <path d="M 560,960 C 568.83064,960 576,952.83064 576,944" fill="none" stroke="black"></path>
+                  <polygon class="arrowhead" points="536,800 524,794.4 524,805.6" fill="black" transform="rotate(0,528,800)"></polygon>
+                  <polygon class="arrowhead" points="536,432 524,426.4 524,437.6" fill="black" transform="rotate(0,528,432)"></polygon>
+                  <polygon class="arrowhead" points="536,224 524,218.4 524,229.6" fill="black" transform="rotate(0,528,224)"></polygon>
+                  <polygon class="arrowhead" points="64,208 52,202.4 52,213.6" fill="black" transform="rotate(180,56,208)"></polygon>
+                  <g class="text">
+                    <text x="52" y="52">Attester</text>
+                    <text x="404" y="52">Verifier</text>
+                    <text x="448" y="52">/</text>
+                    <text x="488" y="52">Relying</text>
+                    <text x="544" y="52">Party</text>
+                    <text x="108" y="100">[loop]</text>
+                    <text x="48" y="116">|</text>
+                    <text x="536" y="116">|</text>
+                    <text x="244" y="132">[Nonce</text>
+                    <text x="320" y="132">Generation]</text>
+                    <text x="536" y="148">|</text>
+                    <text x="504" y="164">generateNonce()</text>
+                    <text x="496" y="180">nonce&lt;=</text>
+                    <text x="276" y="212">subscribe(nonce,</text>
+                    <text x="380" y="212">TpmName,</text>
+                    <text x="472" y="212">?PcrSelecion)</text>
+                    <text x="88" y="228">{nonce}</text>
+                    <text x="176" y="260">[Evidence</text>
+                    <text x="260" y="260">Generation</text>
+                    <text x="320" y="260">and</text>
+                    <text x="384" y="260">Conveyance]</text>
+                    <text x="48" y="276">|</text>
+                    <text x="164" y="292">generateClaims(attestingEnvironment)</text>
+                    <text x="68" y="308">=&gt;</text>
+                    <text x="124" y="308">PcrQuotes,</text>
+                    <text x="208" y="308">eventLogs</text>
+                    <text x="116" y="340">collectClaims(PcrQuotes,</text>
+                    <text x="276" y="340">?PcrSelection)</text>
+                    <text x="68" y="356">=&gt;</text>
+                    <text x="144" y="356">collectedClaims</text>
+                    <text x="112" y="388">generateEvidence(nonce,</text>
+                    <text x="244" y="388">TpmName,</text>
+                    <text x="348" y="388">collectedClaims)</text>
+                    <text x="68" y="404">=&gt;</text>
+                    <text x="116" y="404">evidence</text>
+                    <text x="100" y="436">{evidence,</text>
+                    <text x="188" y="436">eventLogs}</text>
+                    <text x="248" y="468">[Evidence</text>
+                    <text x="332" y="468">Appraisal]</text>
+                    <text x="536" y="484">|</text>
+                    <text x="460" y="500">appraiseEvidence(evidence,</text>
+                    <text x="520" y="516">eventLogs</text>
+                    <text x="524" y="532">verInputs)</text>
+                    <text x="432" y="548">attestationResult</text>
+                    <text x="516" y="548">&lt;=</text>
+                    <text x="536" y="548">|</text>
+                    <text x="48" y="564">~</text>
+                    <text x="536" y="564">~</text>
+                    <text x="48" y="580">|</text>
+                    <text x="536" y="580">|</text>
+                    <text x="116" y="596">[loop]</text>
+                    <text x="48" y="612">|</text>
+                    <text x="536" y="612">|</text>
+                    <text x="148" y="628">[Delta</text>
+                    <text x="212" y="628">Evidence</text>
+                    <text x="292" y="628">Generation</text>
+                    <text x="352" y="628">and</text>
+                    <text x="416" y="628">Conveyance]</text>
+                    <text x="48" y="644">|</text>
+                    <text x="172" y="660">generateClaims(attestingEnvironment)</text>
+                    <text x="68" y="676">=&gt;</text>
+                    <text x="124" y="676">PcrQuotes,</text>
+                    <text x="228" y="676">eventLogsDelta</text>
+                    <text x="124" y="708">collectClaims(PcrQuotes,</text>
+                    <text x="284" y="708">?PcrSelection)</text>
+                    <text x="68" y="724">=&gt;</text>
+                    <text x="164" y="724">collectedClaimsDelta</text>
+                    <text x="120" y="756">generateEvidence(nonce,</text>
+                    <text x="252" y="756">TpmName,</text>
+                    <text x="376" y="756">collectedClaimsDelta)</text>
+                    <text x="528" y="756">|</text>
+                    <text x="560" y="756">|</text>
+                    <text x="68" y="772">=&gt;</text>
+                    <text x="116" y="772">evidence</text>
+                    <text x="100" y="804">{evidence,</text>
+                    <text x="208" y="804">eventLogsDelta}</text>
+                    <text x="212" y="836">[Delta</text>
+                    <text x="276" y="836">Evidence</text>
+                    <text x="356" y="836">Appraisal]</text>
+                    <text x="536" y="852">|</text>
+                    <text x="452" y="868">appraiseEvidence(evidence,</text>
+                    <text x="492" y="884">eventLogsDelta</text>
+                    <text x="516" y="900">verInputs)</text>
+                    <text x="432" y="916">attestationResult</text>
+                    <text x="516" y="916">&lt;=</text>
+                    <text x="48" y="980">|</text>
+                    <text x="536" y="980">|</text>
+                  </g>
+                </svg><a href="#section-3.1.1-3.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-yang-subscription-model-for" class="selfRef">YANG Subscription Model for Remote Attestation</a>
+            </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="time-considerations-mapping">
+<section id="section-3.1.2">
+          <h4 id="name-time-considerations-mapping">
+<a href="#section-3.1.2" class="section-number selfRef">3.1.2. </a><a href="#name-time-considerations-mapping" class="section-name selfRef">Time Considerations Mapping</a>
+          </h4>
+<p id="section-3.1.2-1"><span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> defines "Relevant Events over Time" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party. The event "Claims Collection" defined in <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> is not defined by <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> and therefore cannot be matched.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
+<span id="name-yang-subscription-model-for-"></span><div id="sequence">
+<figure id="figure-2">
+            <div class="alignLeft art-text artwork" id="section-3.1.2-2.1">
 <pre>
-.----------.                            .--------------------------.
-| Attester |                            | Relying Party / Verifier |
-'----------'                            '--------------------------'
+.----------.                             .--------------------------.
+| Attester |                             | Verifier / Relying Party |
+'----+-----'                             '---------------------+----'
    time(VG)                                                    |
-generateClaims(targetEnvironment)                              |
-     | =&gt; claims, eventLogs                                    |
+generateClaims(attestingEnvironment                            |
+     | =&gt; PcrQuotes, eventLogs                                 |
      |                                                         |
      |&lt;---------establish-subscription(&lt;attestation&gt;)------time(NS)
+     |                                                         |
+collectClaims(PcrQuotes, ?PcrSelection)                        |
+     | =&gt; collectedClaims                                      |
      |                                                         |
    time(EG)                                                    |
 generateEvidence(nonce, PcrSelection, collectedClaims)         |
@@ -1325,82 +1567,91 @@ generateEvidence(nonce, PcrSelection, collectedClaims)         |
      |                                                         |
      |--filter(&lt;pcr-extend&gt;)----------------------------------&gt;|
      |--&lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt;------------&gt;|
+     |--&lt;log-retrieval&gt;---------------------------------------&gt;|
      |                                                         |
      |                                                  time(RG,RA)
-     |     appraiseEvidence(SignedPcrEvidence, eventLog, refClaims)
+     |                                  appraiseEvidence(evidence,
+     |                                                  eventLogs,
+     |                                                  verInputs)
      |                                    attestationResult &lt;= |
-     |                                                         |
      ~                                                         ~
    time(VG')                                                   |
-generateClaimes(targetEnvironment)                             |
-     | =&gt; claims                                               |
+generateClaimes(attestingEnvironment)                          |
+     | =&gt; PcrQuotes, eventLogsDelta                            |
+     |                                                         |
+collectClaims(PcrQuotes, ?PcrSelection)                        |
+     | =&gt; collectedClaimsDelta                                 |
      |                                                         |
    time(EG')                                                   |
-generateEvidence(handle, PcrSelection, collectedClaims)        |
-     | =&gt; SignedPcrEvidence(nonce, PcrSelection)               |
-     | =&gt; LogEvidence(collectedClaims)                         |
+generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
+     | =&gt; evidence                                             |
      |                                                         |
      |--filter(&lt;pcr-extend&gt;)----------------------------------&gt;|
      |--&lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt;------------&gt;|
+     |--&lt;log-retrieval&gt;---------------------------------------&gt;|
      |                                                         |
-     |                                                 time(RG',RA')
-     |    appraiseEvidence(SignedPcrEvidence, eventLog, refClaims)
+     |                                                  time(RG,RA)
+     |                                  appraiseEvidence(evidence,
+     |                                                  eventLogs,
+     |                                                  verInputs)
      |                                    attestationResult &lt;= |
      |                                                         |
 </pre>
 </div>
-<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-yang-subscription-model-for" class="selfRef">YANG Subscription Model for Remote Attestation</a>
-          </figcaption></figure>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-yang-subscription-model-for-" class="selfRef">YANG Subscription Model for Remote Attestation</a>
+            </figcaption></figure>
 </div>
 <ul class="normal">
-<li class="normal" id="section-3.1-3.1">
-            <p id="section-3.1-3.1.1">time(VG,RG,RA) are identical to the corresponding time definitions from <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>.<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.2-3.1">
+              <p id="section-3.1.2-3.1.1">time(VG,RG,RA) are identical to the corresponding time definitions from <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>.<a href="#section-3.1.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-3.2">
-            <p id="section-3.1-3.2.1">time(VG',RG',RA') are subsequent instances of the corresponding times from Figure 5 in <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>.<a href="#section-3.1-3.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-3.2">
+              <p id="section-3.1.2-3.2.1">time(VG',RG',RA') are subsequent instances of the corresponding times from Figure 5 in <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>.<a href="#section-3.1.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-3.3">
-            <p id="section-3.1-3.3.1">time(NS) – the subscriber generates a nonce and makes an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> &lt;establish-subscription&gt; request based on a nonce. This request also includes the augmentations defined in this document's YANG model. Key subscription RPC parameters include:<a href="#section-3.1-3.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-3.3">
+              <p id="section-3.1.2-3.3.1">time(NS) – the subscriber generates a nonce and makes an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> &lt;establish-subscription&gt; request based on a nonce. This request also includes the augmentations defined in this document's YANG model. Key subscription RPC parameters include:<a href="#section-3.1.2-3.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-3.3.2.1">
-                <p id="section-3.1-3.3.2.1.1">the nonce,<a href="#section-3.1-3.3.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.2-3.3.2.1">
+                  <p id="section-3.1.2-3.3.2.1.1">the nonce,<a href="#section-3.1.2-3.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-3.3.2.2">
-                <p id="section-3.1-3.3.2.2.1">a set of PCRs of interest which the  wants to appraise, and<a href="#section-3.1-3.3.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-3.1.2-3.3.2.2">
+                  <p id="section-3.1.2-3.3.2.2.1">a set of PCRs of interest which the  wants to appraise, and<a href="#section-3.1.2-3.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-3.3.2.3">
-                <p id="section-3.1-3.3.2.3.1">an optional filter which can reduce the logged events on the &lt;attestation&gt; stream pushed to the Verifier.<a href="#section-3.1-3.3.2.3.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-3.1.2-3.3.2.3">
+                  <p id="section-3.1.2-3.3.2.3.1">an optional filter which can reduce the logged events on the &lt;attestation&gt; stream pushed to the Verifier.<a href="#section-3.1.2-3.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
-            </ul>
+              </ul>
 </li>
-          <li class="normal" id="section-3.1-3.4">
-            <p id="section-3.1-3.4.1">time(EG) – an initial response of Evidence is returned to the Verifier. This includes:<a href="#section-3.1-3.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-3.4">
+              <p id="section-3.1.2-3.4.1">time(EG) – an initial response of Evidence is returned to the Verifier. This includes:<a href="#section-3.1.2-3.4.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-3.4.2.1">
-                <p id="section-3.1-3.4.2.1.1">a replay of filtered log entries which have extended into a PCR of interest since boot are sent in the &lt;pcr-extend&gt; notification, and<a href="#section-3.1-3.4.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.2-3.4.2.1">
+                  <p id="section-3.1.2-3.4.2.1.1">a replay of filtered log entries which have extended into a PCR of interest since boot are sent in the &lt;pcr-extend&gt; notification, and<a href="#section-3.1.2-3.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-3.4.2.2">
-                <p id="section-3.1-3.4.2.2.1">a signed TPM quote that contains at least the PCRs from the &lt;establish-subscription&gt; RPC are included in a &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt;). This quote must have included the nonce provided at time(NS).<a href="#section-3.1-3.4.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-3.1.2-3.4.2.2">
+                  <p id="section-3.1.2-3.4.2.2.1">a signed TPM quote that contains at least the PCRs from the &lt;establish-subscription&gt; RPC are included in a &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt;). This quote must have included the nonce provided at time(NS).<a href="#section-3.1.2-3.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-            </ul>
+              </ul>
 </li>
-          <li class="normal" id="section-3.1-3.5">
-            <p id="section-3.1-3.5.1">time(VG',EG') – this occurs when a PCR is extended subsequent to time(EG). Immediately after the extension, the following information needs to be pushed to the Verifier:<a href="#section-3.1-3.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-3.5">
+              <p id="section-3.1.2-3.5.1">time(VG',EG') – this occurs when a PCR is extended subsequent to time(EG). Immediately after the extension, the following information needs to be pushed to the Verifier:<a href="#section-3.1.2-3.5.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-3.5.2.1">
-                <p id="section-3.1-3.5.2.1.1">any values extended into a PCR of interest,<a href="#section-3.1-3.5.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.2-3.5.2.1">
+                  <p id="section-3.1.2-3.5.2.1.1">any values extended into a PCR of interest,<a href="#section-3.1.2-3.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-3.5.2.2">
-                <p id="section-3.1-3.5.2.2.1">a signed TPM Quote showing the result the PCR extension, and<a href="#section-3.1-3.5.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-3.1.2-3.5.2.2">
+                  <p id="section-3.1.2-3.5.2.2.1">a signed TPM Quote showing the result the PCR extension, and<a href="#section-3.1.2-3.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-3.1-3.5.2.3">
-                <p id="section-3.1-3.5.2.3.1">and a handle (see Section 6. in <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>, which is either the initially received nonce or a more recently received Epoch ID (see Section 10.3. in <span>[<a href="#I-D.ietf-rats-architecture" class="cite xref">I-D.ietf-rats-architecture</a>]</span> that contains a new nonce or equivalent qualified data.<a href="#section-3.1-3.5.2.3.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-3.1.2-3.5.2.3">
+                  <p id="section-3.1.2-3.5.2.3.1">and a handle (see Section 6. in <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>, which is either the initially received nonce or a more recently received Epoch ID (see Section 10.3. in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> that contains a new nonce or equivalent qualified data.<a href="#section-3.1.2-3.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
-            </ul>
+              </ul>
 </li>
-        </ul>
-<p id="section-3.1-4">One way to acquire a new time synchronisation that allows for the reuse of the initially received nonce as a fresh handle is elaborated on in the follow section <a href="#freshness-handles" class="auto internal xref">Section 3.2</a>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+          </ul>
+<p id="section-3.1.2-4">One way to acquire a new time synchronisation that allows for the reuse of the initially received nonce as a fresh handle is elaborated on in the follow section <a href="#freshness-handles" class="auto internal xref">Section 3.2</a>.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="freshness-handles">
@@ -1414,7 +1665,7 @@ generateEvidence(handle, PcrSelection, collectedClaims)        |
           <h4 id="name-tpm-12-quote">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-tpm-12-quote" class="section-name selfRef">TPM 1.2 Quote</a>
           </h4>
-<p id="section-3.2.1-1">The <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> notification format includes the &lt;eventTime&gt; object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However this time is not part of the signed results which are returned from the Quote, and therefore is not trustworthy as objects returned in the Quote.  Therefore a Verifier <span class="bcp14">MUST</span> periodically issue a new nonce, and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-1">The <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> notification format includes the &lt;eventTime&gt; object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However this time is not part of the signed results which are returned from the Quote, and therefore is not trustworthy as objects returned in the Quote.  Therefore a Verifier <span class="bcp14">MUST</span> periodically issue a new nonce, and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tpm-2-quote">
@@ -1461,8 +1712,8 @@ generateEvidence(handle, PcrSelection, collectedClaims)        |
       <h2 id="name-remote-attestation-event-st">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-remote-attestation-event-st" class="section-name selfRef">Remote Attestation Event Stream</a>
       </h2>
-<p id="section-4-1">The &lt;attestation&gt; Event Stream is an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant Event Stream which is defined within this section and within the YANG Module of <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within <a href="#configuring" class="auto internal xref">Section 4.6</a> allow the configuration of this Event Stream's contents on an Attester.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">This &lt;attestation&gt; Event Stream may only be exposed on Attesters supporting <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>. As with <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-1">The &lt;attestation&gt; Event Stream is an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant Event Stream which is defined within this section and within the YANG Module of <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within <a href="#configuring" class="auto internal xref">Section 4.6</a> allow the configuration of this Event Stream's contents on an Attester.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">This &lt;attestation&gt; Event Stream may only be exposed on Attesters supporting <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>. As with <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <div id="subscription-to-the-attestation-event-stream">
 <section id="section-4.1">
         <h3 id="name-subscription-to-the-attesta">
@@ -1587,7 +1838,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
           +--ro pcr-value*   binary
 </pre><a href="#section-4.3.2-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3.2-3">All YANG objects above are defined within <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>.  The &lt;tpm12-attestation&gt; is not replayable.<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-3">All YANG objects above are defined within <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.  The &lt;tpm12-attestation&gt; is not replayable.<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tpm20-attestation">
@@ -1618,7 +1869,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
              +--ro pcr-value?   binary
 </pre><a href="#section-4.3.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3.3-4">All YANG objects above are defined within <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>.  The &lt;tpm20-attestation&gt; is not replayable.<a href="#section-4.3.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.3.3-4">All YANG objects above are defined within <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.  The &lt;tpm20-attestation&gt; is not replayable.<a href="#section-4.3.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1645,10 +1896,10 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
         <h3 id="name-configuring-the-attestation">
 <a href="#section-4.6" class="section-number selfRef">4.6. </a><a href="#name-configuring-the-attestation" class="section-name selfRef">Configuring the &lt;attestation&gt; Event Stream</a>
         </h3>
-<p id="section-4.6-1"><a href="#attestationconfig" class="auto internal xref">Figure 2</a> is tree diagram which exposes the operator configurable elements of the &lt;attestation&gt; Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of stream.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
-<p id="section-4.6-2">Almost all YANG objects below are defined via reference from <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span>. There is one object which is new with this model however. &lt;tpm2-heartbeat&gt; defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a &lt;tpm20-attestation&gt; notification from devices which contain a TPM2.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
+<p id="section-4.6-1"><a href="#attestationconfig" class="auto internal xref">Figure 3</a> is tree diagram which exposes the operator configurable elements of the &lt;attestation&gt; Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of stream.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
+<p id="section-4.6-2">Almost all YANG objects below are defined via reference from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. There is one object which is new with this model however. &lt;tpm2-heartbeat&gt; defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a &lt;tpm20-attestation&gt; notification from devices which contain a TPM2.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
 <span id="name-configuring-the-attestation-"></span><div id="attestationconfig">
-<figure id="figure-2">
+<figure id="figure-3">
           <div class="alignLeft art-text artwork" id="section-4.6-3.1">
 <pre>
   augment /tpm:rats-support-structures:
@@ -1673,7 +1924,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
            +--rw tras:tpm20-pcr-index*   tpm:pcr
 </pre>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-configuring-the-attestation-" class="selfRef">Configuring the \&lt;attestation\&gt; Event Stream</a>
           </figcaption></figure>
 </div>
@@ -1686,10 +1937,10 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
       <h2 id="name-yang-module">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-yang-module" class="section-name selfRef">YANG Module</a>
       </h2>
-<p id="section-5-1">This YANG module imports modules from <span>[<a href="#I-D.ietf-rats-yang-tpm-charra" class="cite xref">I-D.ietf-rats-yang-tpm-charra</a>]</span> and <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>.  It is also work-in-progress.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">This YANG module imports modules from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> and <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>.  It is also work-in-progress.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div class="breakable lang-YANG sourcecode" id="section-5-2">
 <pre>
-&lt;CODE BEGINS&gt; ietf-rats-attestation-stream@2024-07-06.yang
+&lt;CODE BEGINS&gt; ietf-tpm-remote-attestation-stream@2025-01-06.yang
 module ietf-tpm-remote-attestation-stream {
   yang-version 1.1;
   namespace
@@ -2027,51 +2278,102 @@ module ietf-tpm-remote-attestation-stream {
 <p id="section-6-1">Analogous to the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant &lt;attestation&gt; Event Stream for the conveyance of remote attestation Evidence as defined in Section <a href="#attestationstream" class="auto internal xref">Section 4</a>, additional Event Streams can be defined for this YANG augment. Additional Event Streams require separate YANG augment specifications that provide the Event Stream definition and optionally a content format definition either via subscriptions to YANG datastores or dedicated YANG Notifications. It is possible to use either YANG subscription methods to other YANG modules for RATS Conceptual Messages or to define Event Streams for other none-YANG-modeled data. In the context of RATS Conceptual Messages, both options <span class="bcp14">MUST</span> be a specified via YANG augments to this specification.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-considerations">
+<div id="privacy-considerations">
 <section id="section-7">
-      <h2 id="name-security-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      <h2 id="name-privacy-considerations">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-7-1">To be written.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">The Privacy Considerations of <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> apply.<a href="#section-7-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-8">
+      <h2 id="name-security-considerations">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-8-1">The Security Considerations of <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> and <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> apply.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="IANA">
-<section id="section-8">
+<section id="section-9">
       <h2 id="name-iana-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-8-1">To be written.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">This document registers the following namespace URIs in the
+<span>[<a href="#xml-registry" class="cite xref">xml-registry</a>]</span> as per <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-9-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-9-2">
+        <dt id="section-9-2.1">URI:</dt>
+        <dd style="margin-left: 1.5em" id="section-9-2.2">
+          <p id="section-9-2.2.1">urn:ietf:params:xml:ns:yang:ietf-tpm-remote-attestation-stream<a href="#section-9-2.2.1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-9-2.2.2">
+            <dt id="section-9-2.2.2.1">Registrant Contact:</dt>
+            <dd style="margin-left: 1.5em" id="section-9-2.2.2.2">
+              <p id="section-9-2.2.2.2.1">The IESG.<a href="#section-9-2.2.2.2.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-9-2.2.2.3">XML:</dt>
+            <dd style="margin-left: 1.5em" id="section-9-2.2.2.4">
+              <p id="section-9-2.2.2.4.1">N/A; the requested URI is an XML namespace.<a href="#section-9-2.2.2.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+</dl>
+</dd>
+      <dd class="break"></dd>
+</dl>
+<p id="section-9-3">This document registers the following YANG module in the
+registry <span>[<a href="#yang-parameters" class="cite xref">yang-parameters</a>]</span> as per Section 14 of <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-9-3" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-9-4">
+        <dt id="section-9-4.1">Name:</dt>
+        <dd style="margin-left: 1.5em" id="section-9-4.2">
+          <p id="section-9-4.2.1">ietf-tpm-remote-attestation-stream<a href="#section-9-4.2.1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-9-4.2.2">
+            <dt id="section-9-4.2.2.1">Namespace:</dt>
+            <dd style="margin-left: 1.5em" id="section-9-4.2.2.2">
+              <p id="section-9-4.2.2.2.1">urn:ietf:params:xml:ns:yang:ietf-tpm-remote-attestation-stream<a href="#section-9-4.2.2.2.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-9-4.2.2.3">Prefix:</dt>
+            <dd style="margin-left: 1.5em" id="section-9-4.2.2.4">
+              <p id="section-9-4.2.2.4.1">tras<a href="#section-9-4.2.2.4.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-9-4.2.2.5">Reference:</dt>
+            <dd style="margin-left: 1.5em" id="section-9-4.2.2.6">
+              <p id="section-9-4.2.2.6.1">draft-ietf-rats-network-device-subscription (RFC form)<a href="#section-9-4.2.2.6.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+</dl>
+</dd>
+      <dd class="break"></dd>
+</dl>
 </section>
 </div>
-<section id="section-9">
+<div id="sec-combined-references">
+<section id="section-10">
       <h2 id="name-references">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-9.1">
+<section id="section-10.1">
         <h3 id="name-normative-references">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.ietf-rats-architecture">[I-D.ietf-rats-architecture]</dt>
-        <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-architecture-22</span>, <time datetime="2022-09-28" class="refDate">28 September 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-architecture-22">https://datatracker.ietf.org/doc/html/draft-ietf-rats-architecture-22</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-rats-reference-interaction-models">[I-D.ietf-rats-reference-interaction-models]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">E. Voit</span>, <span class="refTitle">"Reference Interaction Models for Remote Attestation Procedures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-reference-interaction-models-09</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-09">https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-09</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-rats-tpm-based-network-device-attest">[I-D.ietf-rats-tpm-based-network-device-attest]</dt>
-        <dd>
-<span class="refAuthor">Fedorkow, G.</span>, <span class="refAuthor">Voit, E.</span>, and <span class="refAuthor">J. Fitzgerald-McKay</span>, <span class="refTitle">"TPM-based Network Device Remote Integrity Verification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-tpm-based-network-device-attest-14</span>, <time datetime="2022-03-22" class="refDate">22 March 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-tpm-based-network-device-attest-14">https://datatracker.ietf.org/doc/html/draft-ietf-rats-tpm-based-network-device-attest-14</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-rats-yang-tpm-charra">[I-D.ietf-rats-yang-tpm-charra]</dt>
-        <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Bhandari, S.</span>, <span class="refAuthor">Voit, E.</span>, <span class="refAuthor">Sulzen, B.</span>, <span class="refAuthor">Xia, L.</span>, <span class="refAuthor">Laffey, T.</span>, and <span class="refAuthor">G. Fedorkow</span>, <span class="refTitle">"A YANG Data Model for Challenge-Response-based Remote Attestation Procedures using TPMs"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-yang-tpm-charra-22</span>, <time datetime="2024-02-27" class="refDate">27 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-yang-tpm-charra-22">https://datatracker.ietf.org/doc/html/draft-ietf-rats-yang-tpm-charra-22</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">E. Voit</span>, <span class="refTitle">"Reference Interaction Models for Remote Attestation Procedures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-reference-interaction-models-15</span>, <time datetime="2025-11-05" class="refDate">5 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15">https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3688">[RFC3688]</dt>
+        <dd>
+<span class="refAuthor">Mealling, M.</span>, <span class="refTitle">"The IETF XML Registry"</span>, <span class="seriesInfo">BCP 81</span>, <span class="seriesInfo">RFC 3688</span>, <span class="seriesInfo">DOI 10.17487/RFC3688</span>, <time datetime="2004-01" class="refDate">January 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3688">https://www.rfc-editor.org/rfc/rfc3688</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6020">[RFC6020]</dt>
+        <dd>
+<span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refTitle">"YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6020</span>, <span class="seriesInfo">DOI 10.17487/RFC6020</span>, <time datetime="2010-10" class="refDate">October 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6020">https://www.rfc-editor.org/rfc/rfc6020</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
@@ -2081,6 +2383,18 @@ module ietf-tpm-remote-attestation-stream {
         <dd>
 <span class="refAuthor">Voit, E.</span>, <span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Gonzalez Prieto, A.</span>, <span class="refAuthor">Nilsen-Nygaard, E.</span>, and <span class="refAuthor">A. Tripathy</span>, <span class="refTitle">"Subscription to YANG Notifications"</span>, <span class="seriesInfo">RFC 8639</span>, <span class="seriesInfo">DOI 10.17487/RFC8639</span>, <time datetime="2019-09" class="refDate">September 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8639">https://www.rfc-editor.org/rfc/rfc8639</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9334">[RFC9334]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="seriesInfo">RFC 9334</span>, <span class="seriesInfo">DOI 10.17487/RFC9334</span>, <time datetime="2023-01" class="refDate">January 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9334">https://www.rfc-editor.org/rfc/rfc9334</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9683">[RFC9683]</dt>
+        <dd>
+<span class="refAuthor">Fedorkow, G. C., Ed.</span>, <span class="refAuthor">Voit, E.</span>, and <span class="refAuthor">J. Fitzgerald-McKay</span>, <span class="refTitle">"Remote Integrity Verification of Network Devices Containing Trusted Platform Modules"</span>, <span class="seriesInfo">RFC 9683</span>, <span class="seriesInfo">DOI 10.17487/RFC9683</span>, <time datetime="2024-12" class="refDate">December 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9683">https://www.rfc-editor.org/rfc/rfc9683</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9684">[RFC9684]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Bhandari, S.</span>, <span class="refAuthor">Voit, E.</span>, <span class="refAuthor">Sulzen, B.</span>, <span class="refAuthor">Xia, L.</span>, <span class="refAuthor">Laffey, T.</span>, and <span class="refAuthor">G. C. Fedorkow</span>, <span class="refTitle">"A YANG Data Model for Challenge-Response-Based Remote Attestation (CHARRA) Procedures Using Trusted Platform Modules (TPMs)"</span>, <span class="seriesInfo">RFC 9684</span>, <span class="seriesInfo">DOI 10.17487/RFC9684</span>, <time datetime="2024-12" class="refDate">December 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9684">https://www.rfc-editor.org/rfc/rfc9684</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="TPM2.0">[TPM2.0]</dt>
       <dd>
 <span class="refAuthor">TCG</span>, <span class="refTitle">"TPM 2.0 Library Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://trustedcomputinggroup.org/resource/tpm-library-specification/">https://trustedcomputinggroup.org/resource/tpm-library-specification/</a>&gt;</span>. </dd>
@@ -2089,9 +2403,9 @@ module ietf-tpm-remote-attestation-stream {
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-9.2">
+<section id="section-10.2">
         <h3 id="name-informative-references">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="I-D.birkholz-rats-tuda">[I-D.birkholz-rats-tuda]</dt>
@@ -2099,13 +2413,22 @@ module ietf-tpm-remote-attestation-stream {
 <span class="refAuthor">Fuchs, A.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">McDonald, I.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Time-Based Uni-Directional Attestation"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-birkholz-rats-tuda-07</span>, <time datetime="2022-07-10" class="refDate">10 July 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-birkholz-rats-tuda-07">https://datatracker.ietf.org/doc/html/draft-birkholz-rats-tuda-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="KGV">[KGV]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">TCG</span>, <span class="refTitle">"KGV"</span>, <time datetime="2003-10" class="refDate">October 2003</time>, <span>&lt;<a href="https://trustedcomputinggroup.org/wp-content/uploads/TCG-NetEq-Attestation-Workflow-Outline_v1r9b_pubrev.pdf">https://trustedcomputinggroup.org/wp-content/uploads/TCG-NetEq-Attestation-Workflow-Outline_v1r9b_pubrev.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="xml-registry">[xml-registry]</dt>
+        <dd>
+<span class="refTitle">"IETF XML Registry"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/xml-registry/xml-registry.xhtml">https://www.iana.org/assignments/xml-registry/xml-registry.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="yang-parameters">[yang-parameters]</dt>
+      <dd>
+<span class="refTitle">"YANG Parameters"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/yang-parameters/yang-parameters.xhtml">https://www.iana.org/assignments/yang-parameters/yang-parameters.xhtml</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </div>
 </section>
+</div>
 <div id="change-log">
 <section id="appendix-A">
       <h2 id="name-change-log">
