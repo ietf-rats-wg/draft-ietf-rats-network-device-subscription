@@ -83,7 +83,7 @@ The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardw
 # Introduction
 
 {{-rats-riv}} and {{-charra}} define the operational prerequisites and a YANG Model for acquiring Evidence from a network device containing at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations providing the same protected capabilities as a TPM).
-However, these documents are based on the challenge-response interaction model (CHARRA {{-rats-models}}), which has limitations.
+However, these documents are based on the challenge-response interaction model (CHARRA in {{Section 7.1 of -rats-models}}), which has limitations.
 One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
 This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as a Verifiers or a Relying Parties, can be unacceptably long.
 It is common to convey Conceptual Messages ad-hoc or periodically via requests.
@@ -103,24 +103,23 @@ This new Event Stream is defined in this document and is provided by the produce
 In the case of a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier.
 For example, when a network device's Evidence changes following events such as booting, updating, control unit fallover, plugging in or out of forwarding units, an attack, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.
 
-The second adverse effect stems from the use of nonces in the challenge-response interaction model {{-rats-models}} realized in {{-charra}}.
+The second adverse effect stems from the use of nonces in the challenge-response interaction model {{Section 7.1 of -rats-models}} realized in {{-charra}}.
 According to {{-charra}}, an Attester must wait for a new nonce from a Verifier before generating a new TPM Quote.
 To address delays resulting from this wait, this specification allows freshness to be asserted asynchronously via the streaming attestation interaction model {{-rats-models}}.
 To convey a RATS Conceptual Message, an initial nonce is provided when subscribing to an Event Stream.
 
-There are several options for refreshing a nonce provided by the initial subscription or its freshness characteristics.
+There are several options to populate or refresh the nonce value provided by the initial subscription.
 All of these methods are out-of-band of an established subscription to YANG Notifications.
 Two alternative methods are taken into account by this document:
 
-1. A central provider supplies new, fresh nonces (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in {{-rats-arch}} and as facilitated by the Uni-Directional Remote Attestation described in {{-rats-models}}), or
+1. A central provider supplies new, fresh nonces (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in {{-rats-arch}} and as facilitated by the Uni-Directional Remote Attestation described in {{Section 7.2 of -rats-models}}), or
 
-2. The freshness characteristics of a received nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by {{-charra}}.
+2. A nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by {{-charra}}.
 
 Both approaches assume that clock drift can occur between the entities involved.
-Consequently, the timing considerations for freshness {{RFC9334}} may need to be updated at regular intervals in some usage scenarios.
-Similarly, there may be additional methods not described by this document that are nevertheless supported.
+Consequently, other conditions arising in different application scenarios ought to be considered in the same way. For example, the time of Claims collection ought to be taken into account.
 
-This document enables the removal of the two adverse effects described when using the specified YANG augmentation.
+The scope of this document is limited to the removal of the two adverse effects described when using the specified YANG augmentation.
 For example, the YANG augmentation enables a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.
 
 # Terminology
@@ -133,7 +132,7 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 # Operational Model
 
-{{-rats-riv}} describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model {{-rats-models}}. The operational model and corresponding sequence diagram described in this section is based on {{-charra}}. The basis for interoperability required for additional types of Event Streams is covered in {{otherstreams}}. The following sub-section focuses on subscription to YANG Notifications to the \<attestation\> Event Stream.
+{{-rats-riv}} describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model {{Section 7.1 of -rats-models}}. The operational model and corresponding sequence diagram described in this section is based on {{-charra}}. The basis for interoperability required for additional types of Event Streams is covered in {{otherstreams}}. The following sub-section focuses on subscription to YANG Notifications to the \<attestation\> Event Stream.
 
 ## Sequence Diagram
 
@@ -217,14 +216,16 @@ The terminology specialization is as follows:
 
 ### Time Considerations Mapping
 
-{{-rats-arch}} defines "Relevant Events over Time" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party. The event "Claims Collection" defined in {{-rats-models}} is not defined by {{-rats-arch}} and therefore cannot be matched.
+{{-rats-arch}} defines "Relevant Events over Time" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party.
+The action of conveying "collectClaims", which is defined in {{Section 6 of -rats-models}}, is not defined by {{-rats-arch}}.
+Therefore, it cannot be matched to a specified event time.
 
 ~~~~
 .----------.                             .--------------------------.
 | Attester |                             | Verifier / Relying Party |
 '----+-----'                             '---------------------+----'
    time(VG)                                                    |
-generateClaims(attestingEnvironment                            |
+generateClaims(attestingEnvironment)                           |
      | => PcrQuotes, eventLogs                                 |
      |                                                         |
      |<---------establish-subscription(<attestation>)------time(NS)
