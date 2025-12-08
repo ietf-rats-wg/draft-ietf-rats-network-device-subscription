@@ -181,9 +181,10 @@ Table of Contents
        TPM Quote requests as facilitated by [RFC9684].
 
    Both approaches assume that clock drift can occur between the
-   entities involved.  Consequently, there may be additional or other
-   conditions in different application scenarios which have to be taken
-   into account in the same manner as clock drift.
+   entities involved.  Consequently, other conditions arising in
+   different application scenarios ought to be considered in the same
+   way.  For example, the time of Claims collection ought to be taken
+   into account.
 
    The scope of this document is limited to the removal of the two
    adverse effects described when using the specified YANG augmentation.
