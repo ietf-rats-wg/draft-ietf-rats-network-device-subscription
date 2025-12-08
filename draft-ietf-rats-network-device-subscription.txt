@@ -111,20 +111,21 @@ Table of Contents
    least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations
    providing the same protected capabilities as a TPM).  However, these
    documents are based on the challenge-response interaction model
-   (CHARRA [I-D.ietf-rats-reference-interaction-models]), which has
-   limitations.  One such limitation is that it is the responsibility of
-   a Verifier to request signed Evidence from a separate Attester
-   containing a TPM.  This means that the interval between a security-
-   relevant change event occurring and the event becoming visible to the
-   interested RATS entities, such as a Verifiers or a Relying Parties,
-   can be unacceptably long.  It is common to convey Conceptual Messages
-   ad-hoc or periodically via requests.  As new technologies emerge,
-   some of these solutions require Conceptual Messages to be conveyed
-   from one RATS entity to another without the need for continuous
-   polling.  Subscription to YANG Notifications [RFC8639] provides a set
-   of standardized tools to facilitate these emerging requirements.
-   This memo specifies a YANG augmentation for subscribing to YANG-
-   modelled remote attestation Evidence, as defined in [RFC9684].
+   (CHARRA in Section 7.1 of
+   [I-D.ietf-rats-reference-interaction-models]), which has limitations.
+   One such limitation is that it is the responsibility of a Verifier to
+   request signed Evidence from a separate Attester containing a TPM.
+   This means that the interval between a security-relevant change event
+   occurring and the event becoming visible to the interested RATS
+   entities, such as a Verifiers or a Relying Parties, can be
+   unacceptably long.  It is common to convey Conceptual Messages ad-hoc
+   or periodically via requests.  As new technologies emerge, some of
+   these solutions require Conceptual Messages to be conveyed from one
+   RATS entity to another without the need for continuous polling.
+   Subscription to YANG Notifications [RFC8639] provides a set of
+   standardized tools to facilitate these emerging requirements.  This
+   memo specifies a YANG augmentation for subscribing to YANG-modelled
+   remote attestation Evidence, as defined in [RFC9684].
 
    Essentially, the limitation of poll-based interactions has two
    adverse effects:
@@ -154,7 +155,7 @@ Table of Contents
    Evidence available to the subscribing Verifier.
 
    The second adverse effect stems from the use of nonces in the
-   challenge-response interaction model
+   challenge-response interaction model Section 7.1 of
    [I-D.ietf-rats-reference-interaction-models] realized in [RFC9684].
    According to [RFC9684], an Attester must wait for a new nonce from a
    Verifier before generating a new TPM Quote.  To address delays
@@ -173,7 +174,7 @@ Table of Contents
    1.  A central provider supplies new, fresh nonces (e.g., via a Handle
        Provider that distributes Epoch IDs to all entities in a domain
        as described in [RFC9334] and as facilitated by the Uni-
-       Directional Remote Attestation described in
+       Directional Remote Attestation described in Section 7.2 of
        [I-D.ietf-rats-reference-interaction-models]), or
 
    2.  The freshness characteristics of a received nonce can be updated
@@ -213,12 +214,12 @@ Table of Contents
 
    [RFC9683] describes the conveyance of TPM-based Evidence from a
    Verifier to an Attester using the CHARRA interaction model
-   [I-D.ietf-rats-reference-interaction-models].  The operational model
-   and corresponding sequence diagram described in this section is based
-   on [RFC9684].  The basis for interoperability required for additional
-   types of Event Streams is covered in Section 6.  The following sub-
-   section focuses on subscription to YANG Notifications to the
-   <attestation> Event Stream.
+   Section 7.1 of [I-D.ietf-rats-reference-interaction-models].  The
+   operational model and corresponding sequence diagram described in
+   this section is based on [RFC9684].  The basis for interoperability
+   required for additional types of Event Streams is covered in
+   Section 6.  The following sub-section focuses on subscription to YANG
+   Notifications to the <attestation> Event Stream.
 
 3.1.  Sequence Diagram
 
@@ -327,15 +328,16 @@ Table of Contents
    [RFC9334] defines "Relevant Events over Time" in RATS.  The following
    sequence diagram focusses on matching the defined events with the
    interactions between the Attester and the Verifying Relying Party.
-   The event "Claims Collection" defined in
-   [I-D.ietf-rats-reference-interaction-models] is not defined by
-   [RFC9334] and therefore cannot be matched.
+   The action of conveying "collectClaims", which is defined in
+   Section 6 of [I-D.ietf-rats-reference-interaction-models], is not
+   defined by [RFC9334].  Therefore, it cannot be matched to a specified
+   event time.
 
    .----------.                             .--------------------------.
    | Attester |                             | Verifier / Relying Party |
    '----+-----'                             '---------------------+----'
       time(VG)                                                    |
-   generateClaims(attestingEnvironment                            |
+   generateClaims(attestingEnvironment)                           |
         | => PcrQuotes, eventLogs                                 |
         |                                                         |
         |<---------establish-subscription(<attestation>)------time(NS)
@@ -420,8 +422,8 @@ Table of Contents
 
       -  a signed TPM Quote showing the result the PCR extension, and
 
-      -  and a handle (see Section 6. in
-         [I-D.ietf-rats-reference-interaction-models], which is either
+      -  and a handle (see Section 6 of
+         [I-D.ietf-rats-reference-interaction-models]), which is either
          the initially received nonce or a more recently received Epoch
          ID (see Section 10.3. in [RFC9334] that contains a new nonce or
          equivalent qualified data.
