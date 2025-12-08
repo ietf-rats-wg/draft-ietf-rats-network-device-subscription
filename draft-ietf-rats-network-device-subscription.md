@@ -117,7 +117,7 @@ Two alternative methods are taken into account by this document:
 2. The freshness characteristics of a received nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by {{-charra}}.
 
 Both approaches assume that clock drift can occur between the entities involved.
-Consequently, there may be additional or other conditions in different application scenarios which have to be taken into account in the same manner as clock drift.
+Consequently, other conditions arising in different application scenarios ought to be considered in the same way. For example, the time of Claims collection ought to be taken into account.
 
 The scope of this document is limited to the removal of the two adverse effects described when using the specified YANG augmentation.
 For example, the YANG augmentation enables a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.
