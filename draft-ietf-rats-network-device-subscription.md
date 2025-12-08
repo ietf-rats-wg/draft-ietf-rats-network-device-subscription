@@ -278,7 +278,7 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
 
 * time(NS) – the subscriber generates a nonce and makes an {{RFC8639}} \<establish-subscription\> request based on a nonce. This request also includes the augmentations defined in this document's YANG model. Key subscription RPC parameters include:
   * the nonce,
-  * a set of PCRs of interest which the  wants to appraise, and
+  * a set of PCRs of interest which the Relying Party or Verifier wants to be appraised, and
   * an optional filter which can reduce the logged events on the \<attestation\> stream pushed to the Verifier.
 
 * time(EG) – an initial response of Evidence is returned to the Verifier. This includes:
@@ -288,9 +288,9 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
 * time(VG',EG') – this occurs when a PCR is extended subsequent to time(EG). Immediately after the extension, the following information needs to be pushed to the Verifier:
   * any values extended into a PCR of interest,
   * a signed TPM Quote showing the result the PCR extension, and
-  * and a handle (see {{Section 6 of -rats-models}}), which is either the initially received nonce or a more recently received Epoch ID (see Section 10.3. in {{-rats-arch}} that contains a new nonce or equivalent qualified data.
+  * and a handle (see {{Section 6 of -rats-models}}), which is either the initially received nonce or a more recently received Epoch ID (see {{Section 10.3 of -rats-arch}}) that contains a new nonce or equivalent qualified data.
 
-One way to acquire a new time synchronisation that allows for the reuse of the initially received nonce as a fresh handle is elaborated on in the follow section {{freshness-handles}}.
+One way to acquire a new time synchronisation that allows for the reuse of the initially received nonce as a fresh handle is elaborated on in {{freshness-handles}} below.
 
 {: #freshness-handles "Continuously Verifying Freshness"}
 ## Continuously Verifying Freshness
@@ -303,7 +303,7 @@ The {{RFC8639}} notification format includes the \<eventTime\> object.  This can
 
 ### TPM 2 Quote
 
-When the Attester includes a TPM2 compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including a initial nonce in the {{RFC8639}} subscription request, fresh values for these counters are pushed as part of the first TPM Quote returned to the Verifier. And then as shown by {{-TUDA}}, subsequent TPM Quotes delivered to the Verifier can the be appraised for freshness based on the predictable incrementing of these time-related countersr.
+When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including an initial nonce in the {{RFC8639}} subscription request, fresh values for these counters are pushed as part of the first TPM Quote returned to the Verifier. As shown by {{-TUDA}}, subsequent TPM Quotes delivered to the Verifier can be appraised for freshness based on the predictable incrementing of these time-related counters.
 
 The relevant internal time-related counters defined within {{TPM2.0}} can be seen within \<tpms-clock-info\>.   These counters include the \<clock\>, \<reset-counter\>, and \<restart-counter\> objects.  The rules for appraising these objects are as follows:
 
@@ -375,7 +375,7 @@ For TPM2, make sure that every requested PCR is sent within an \<tpm20-attestati
 
 ### pcr-extend
 
-This notification documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It SHOULD be emmitted no less than the \<marshalling-period\> after an the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification MUST be emmitted prior to a \<tpm12-attestation\> or \<tpm20-attestation\> notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the \<tpm12-attestation\> or \<tpm20-attestation\> notification, the marshalling period MUST be extended so that a new \<pcr-extend\> is not sent until the corresponding notifications have been sent.
+This notification documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It SHOULD be emitted no less than the \<marshalling-period\> after an the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification MUST be emmitted prior to a \<tpm12-attestation\> or \<tpm20-attestation\> notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the \<tpm12-attestation\> or \<tpm20-attestation\> notification, the marshalling period MUST be extended so that a new \<pcr-extend\> is not sent until the corresponding notifications have been sent.
 
 ~~~~
 {::include ietf-tpm-remote-attestation-stream_pcr-extend.tree}
@@ -416,7 +416,7 @@ To accomplish this reduction, when an RFC8639 \<establish-subscription\> RPC is 
 
 ## Replaying previous PCR Extend events
 
-To verify the value of a PCR, a Verifier must either know that the value is a known good value {{KGV}} or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \<attestation\> Event Stream MUST support the RFC8639 \<replay\> feature. Through the \<replay\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.
+To verify the value of a PCR, a Verifier must either know that the value is a "known good" value (see Section 2.3.3 of {{KGV}}) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \<attestation\> Event Stream MUST support the RFC8639 \<replay\> feature. Through the \<replay\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.
 
 {: #configuring "Configuring the Attestation Stream"}
 ## Configuring the \<attestation\> Event Stream
