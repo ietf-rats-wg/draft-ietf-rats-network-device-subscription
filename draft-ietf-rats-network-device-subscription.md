@@ -108,13 +108,13 @@ According to {{-charra}}, an Attester must wait for a new nonce from a Verifier 
 To address delays resulting from this wait, this specification allows freshness to be asserted asynchronously via the streaming attestation interaction model {{-rats-models}}.
 To convey a RATS Conceptual Message, an initial nonce is provided when subscribing to an Event Stream.
 
-There are several options for refreshing a nonce provided by the initial subscription or its freshness characteristics.
+There are several options to populate or refresh the nonce value provided by the initial subscription.
 All of these methods are out-of-band of an established subscription to YANG Notifications.
 Two alternative methods are taken into account by this document:
 
 1. A central provider supplies new, fresh nonces (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in {{-rats-arch}} and as facilitated by the Uni-Directional Remote Attestation described in {{Section 7.2 of -rats-models}}), or
 
-2. The freshness characteristics of a received nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by {{-charra}}.
+2. A nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by {{-charra}}.
 
 Both approaches assume that clock drift can occur between the entities involved.
 Consequently, the timing considerations for freshness {{RFC9334}} may need to be updated at regular intervals in some usage scenarios.
