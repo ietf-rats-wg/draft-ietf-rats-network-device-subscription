@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-01-11T00:46:45.331223+00:00",
+  "timestamp": "2025-12-09T00:51:53.939604+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
   "labels": [
     {
@@ -49,6 +49,1702 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
-  "pulls": []
+  "issues": [
+    {
+      "number": 11,
+      "id": "I_kwDOGOJeq86lPKOQ",
+      "title": "Address per-WGLC review feedback from Zhuoyao Lin",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/11",
+      "state": "CLOSED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Review as posted on list: https://mailarchive.ietf.org/arch/msg/rats/ghkdV6cGu1KhrONRS8dxbkLngqg",
+      "createdAt": "2025-01-07T08:35:05Z",
+      "updatedAt": "2025-01-07T16:49:21Z",
+      "closedAt": "2025-01-07T16:49:21Z",
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOGOJeq86lPSF7",
+      "title": "Update Reference",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/13",
+      "state": "CLOSED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "At least TPM-YANG-CHARRA is an RFC now.",
+      "createdAt": "2025-01-07T08:50:08Z",
+      "updatedAt": "2025-01-08T07:49:25Z",
+      "closedAt": "2025-01-08T07:49:25Z",
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOGOJeq86lPZZ6",
+      "title": "Update SecConSec and IANAConSec",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/14",
+      "state": "CLOSED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Essentially, the SecConSec of RFC9684 apply and the tras URN as well as the tras YANG module require a registration request.",
+      "createdAt": "2025-01-07T09:02:09Z",
+      "updatedAt": "2025-01-08T07:51:14Z",
+      "closedAt": "2025-01-08T07:51:13Z",
+      "comments": []
+    },
+    {
+      "number": 17,
+      "id": "I_kwDOGOJeq87XCfmw",
+      "title": "Thomas\u2019s WGLC review",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/17",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "henkbirkholz",
+        "ericvoit",
+        "William-PanWei"
+      ],
+      "labels": [],
+      "body": "Archived-at: https://mailarchive.ietf.org/arch/msg/rats/zZIPbD5Erq3an-j9OrOPA-amgxM/\n\n## Abstract\n\n* [x] \"this document provides the methods and means to define additional\n  Event Streams for other Conceptual Messages\"\n  * [x] Which \"methods and means\" are provided?  I have read the whole\n    document but I didn\u2019t find them.\n  * [x] Like ReIM, this document seems to suffer from an \"unlimited scope\"\n    problem. IMO, too much emphasis is placed on the idea that the\n    interaction can be generalised to other CMs. This seems an even\n    more radical assumption here because, unlike ReIM, this\n    specification provides a real wire protocol rather than a set of\n    interaction models.  As such, it should clearly explain how this\n    idea is realised.\n\n* [x] Ignorant question: What does \"providing the same protected\n  capabilities as TPMs\" mean concretely?  Would a DICE RoT be considered\n  equivalent?\n\n## \u00a71\n\n* [x] s/Conceptional/Conceptual/ :-)\n\n* [x] \"[RFC9683] and [RFC9684] define the operational prerequisites and a\n  YANG Model for the acquisition of Evidence and other Conceptional\n  Messages [...]\"\n  * [x] Skimming RFC968[34], there is no mention of \"other conceptual\n    messages\"; the scope seems to be quite rigidly confined to\n    attestation evidence.\n\n* [x] In general, whenever citing ReIM, 9334, etc. increase precision: use\n  \"Section X of Y\" whenever possible.\n\n* [x] \"This memo specifies a YANG augment\"\n  * [x] \"augment\" is the concrete YANG statement... in this context\n    \"augmentation\" may be more appropriate.\n\n* [x] \"or its [the nonce\u2019s] freshness characteristics.\"\n  * [x] Unclear what \"freshness characteristics\" is supposed to mean.\n    Please could you clarify?\n\n* [x] \"Two complementary methods [...]\"\n  * [x] Is \"complementary\" the right word? Are they supposed to be used\n    together?  If not, use \"alternative methods\" instead?\n\n* [x] \"In consequence, in some usage scenarios the timing considerations for\n  freshness [RFC9334] might have to be updated in some regular interval.\n  Analogously, there are can be additional methods that are not describe\n  by but nevertheless supported by this document.\"\n  * [x] The grammar seems a be buggy.  It's unclear to me what this\n    paragraph is supposed to mean.\n\n## \u00a73.1\n\nSimilar to reading a QFT textbook, I approached this section with my\nheart filled with expectation of enlightment, but I only found more\nconfusion ;-)\n\n* [x] The sequence diagram needs some attention: a diagram should be\nself-explanatory, but parameter names appear and disappear from one\nmessage to the next.  This lack of correlation makes it impossible to\nfollow without referring to the subsequent prose.\nIt's not a fatal flaw, but it's still slightly annoying. ;-)\n\n* [x] \"a set of PCRs of interest which the wants to appraise\"\n  * add \"[...] the RP/Verifier wants [...]\"\n\n* [x] \"a handle (see Section 6. in\n  [I-D.ietf-rats-reference-interaction-models], which is either the\n  initially received nonce or a more recently received Epoch ID\"\n  * Not sure how \"a more recently received Epoch ID\" is conveyed?\n  * Also, the use of parentheses is broken in this bullet point\n\n* [x] \"is elaborated on in the follow section Section 3.2.\"\n  * remove \"follow section\"\n\n* [x] unclear what \"acquire a new time synchronisation\" means.  Please\n  rephrase using simpler terms.\n\n## \u00a73.2.2\n\n* [x] s/countersr/counters/\n\n## \u00a74.3.1\n\n* [x] s/emmitted/emitted/\n\n## \u00a74.5\n\n* [x] The reference [KGV] doesn't seem to make sense\n\n## \u00a78\n\n* [ ] The security considerations look very (too?) thin.  While it's great to\nrefer to the baseline specs, it seems odd that no further security\nconsiderations are introduced by this augmentation.  For example, the\nfreshness-related aspects covered in \u00a73.2 seem relevant to security, yet\nthey are not mentioned at all (not even by reference).  In particular,\ncorrectly sizing the heartbeat would seem an interesting topic to\nexplore.\nYou may also wish to discuss the attack surface that is potentially\nenabled in a pub-sub scope, e.g.:\n  * [ ] DoS the node via oversubscription/resource exhaustion\n  * [ ] Amplification attacks (AFAIU, the notifications include an\n    ever-increasing event log (\u00a73.1 says: \"log entries [...] since\n    boot\")\n\n## Final words\n\n* [ ] One final consideration is that the document would benefit from a\nback-to-back edit to improve its readability, including the prose and\ndiagrams.",
+      "createdAt": "2025-11-10T12:13:06Z",
+      "updatedAt": "2025-12-08T11:04:56Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "> Ignorant question: What does \"providing the same protected\ncapabilities as TPMs\" mean concretely? Would a DICE RoT be considered\nequivalent?\n\nI think not, probably a subset.\nBut maybe we can figure this out. A TPM-equivalent has various protected capabilities, e.g., storing shielded secrets that can only be operated on and to provide integrity registers (the TPM's PCRs). My assumption is that RFC9684 and this I-D can be adapted to support DICE, but it is not in the current scope and both phrasing as well as data structures are tailored towards TPMs.",
+          "createdAt": "2025-12-08T07:02:57Z",
+          "updatedAt": "2025-12-08T07:02:57Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "> Not sure how \"a more recently received Epoch ID\" is conveyed?\n\nBy the methods described in Section 3.2 directly below (or by re-establishing a subscription via a new subscription request, which 3.2 helps to avoid).",
+          "createdAt": "2025-12-08T08:40:44Z",
+          "updatedAt": "2025-12-08T08:47:52Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "> The reference [KGV] doesn't seem to make sense to me\n\n2.3.2 in that reference wouldn't work? We could all back to something else. Let's figure this out.",
+          "createdAt": "2025-12-08T10:21:08Z",
+          "updatedAt": "2025-12-08T10:21:08Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Protected Capability is defined in: https://trustedcomputinggroup.org/wp-content/uploads/TCG-Glossary-V1.1-Rev-1.0.pdf",
+          "createdAt": "2025-12-08T10:59:39Z",
+          "updatedAt": "2025-12-08T10:59:39Z"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "I_kwDOGOJeq87XILms",
+      "title": "Yogesh's WGLC review",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/18",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Archived-at: https://mailarchive.ietf.org/arch/msg/rats/6TdPGSakqgrtevbKVo25J0YvdKY\n\n## Nit\n\nIn Section 4.6.  Configuring the <attestation> Event Stream:\n<tpm2-heartbeat> defines the maximum amount of time which should pass.\nI think, the heartbeat is a minimum time not the maximum time, as aligned with other part of the specification.",
+      "createdAt": "2025-11-10T18:42:33Z",
+      "updatedAt": "2025-11-10T18:42:33Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 20,
+      "id": "I_kwDOGOJeq87X4brp",
+      "title": "Jun's WGLC Review",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/20",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Archived at: https://mailarchive.ietf.org/arch/msg/rats/fL6svmwM3MvveYmPElE_HVkgGWM\n\nRequired fixes: item (1) and item (4)",
+      "createdAt": "2025-11-13T16:22:35Z",
+      "updatedAt": "2025-11-13T16:22:35Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 21,
+      "id": "I_kwDOGOJeq87X4lZ3",
+      "title": "Add text defining/refering to Verifying Relying Party",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/21",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "The term \"Verifying Relying Party\" is used in other RATS or SEAT work. Those roles are quite often collapsed in common practice which is captured in RIV (RFC 9683) [Figure 2](https://www.rfc-editor.org/rfc/rfc9683.html#figure-2). The term seems to be have introduced via the aTLS work.",
+      "createdAt": "2025-11-13T16:33:25Z",
+      "updatedAt": "2025-11-13T16:33:25Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOGOJeq87bAU71",
+      "title": "the nonce issue in the delta update",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/23",
+      "state": "OPEN",
+      "author": "junzhanghw",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "the nonce should be nonce' in the delta update part of the figure, as it is different from the orignial nonce.",
+      "createdAt": "2025-11-28T09:55:17Z",
+      "updatedAt": "2025-11-28T09:55:17Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOGOJeq84yTWup",
+      "title": "minor fixes",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/1",
+      "state": "MERGED",
+      "author": "ericvoit",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-02-09T13:51:38Z",
+      "updatedAt": "2022-02-09T14:04:16Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "4474d9bc7fcf41c3eaab0480d0fb14a31a9b7293",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "ericvoit-patch-1",
+      "headRefOid": "506139e6d6fd14ba67521e5d7a1e80b6a84d3269",
+      "closedAt": "2022-02-09T14:04:15Z",
+      "mergedAt": "2022-02-09T14:04:15Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "c3f5c9b2a20a393dc26e66255eb3b32b96428e7f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq840Ta7q",
+          "commit": {
+            "abbreviatedOid": "506139e"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-02-09T14:04:07Z",
+          "updatedAt": "2022-02-09T14:04:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOGOJeq84yTWxA",
+      "title": "reference tweak based on latest model.",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/2",
+      "state": "MERGED",
+      "author": "ericvoit",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-02-09T13:51:47Z",
+      "updatedAt": "2022-03-07T15:00:10Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "4474d9bc7fcf41c3eaab0480d0fb14a31a9b7293",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "ericvoit-patch-2",
+      "headRefOid": "6b6d453933cbe205432e844e1046abb49f5816ec",
+      "closedAt": "2022-03-07T15:00:10Z",
+      "mergedAt": "2022-03-07T15:00:10Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "e2dced7a5eb082c49664c459a358bf275935095f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOGOJeq84yTW0Y",
+      "title": "reference tweaks",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/3",
+      "state": "MERGED",
+      "author": "ericvoit",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-02-09T13:52:02Z",
+      "updatedAt": "2022-03-07T15:07:15Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "4474d9bc7fcf41c3eaab0480d0fb14a31a9b7293",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "ericvoit-patch-3",
+      "headRefOid": "448875953c054e6b6d54d24bd0df1dfb88ea8a26",
+      "closedAt": "2022-03-07T15:07:15Z",
+      "mergedAt": "2022-03-07T15:07:15Z",
+      "mergedBy": "ericvoit",
+      "mergeCommit": {
+        "oid": "c7b49559b023540bb0c6c816d3886790912d6317"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq841wH5Q",
+          "commit": {
+            "abbreviatedOid": "4488759"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-03-07T14:58:40Z",
+          "updatedAt": "2022-03-07T14:58:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOGOJeq84yTW2k",
+      "title": "Update draft-ietf-rats-network-device-subscription.md",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/4",
+      "state": "MERGED",
+      "author": "ericvoit",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-02-09T13:52:11Z",
+      "updatedAt": "2022-03-07T14:57:09Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "4474d9bc7fcf41c3eaab0480d0fb14a31a9b7293",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "ericvoit-patch-4",
+      "headRefOid": "6b60790636dddc59a660fa614e79d017d0da5426",
+      "closedAt": "2022-03-07T14:57:09Z",
+      "mergedAt": "2022-03-07T14:57:09Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "6b82db0794f71e6a1b81c423edceabda1b487551"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq841wHSq",
+          "commit": {
+            "abbreviatedOid": "6b60790"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-03-07T14:57:02Z",
+          "updatedAt": "2022-03-07T14:57:02Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOGOJeq85Bw8HX",
+      "title": "Juergen's comments",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/5",
+      "state": "MERGED",
+      "author": "ericvoit",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-10-28T17:07:49Z",
+      "updatedAt": "2024-07-04T03:31:39Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "c7b49559b023540bb0c6c816d3886790912d6317",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "ericvoit-patch-5",
+      "headRefOid": "a53929bb058d3f92b19ac3c6a6d31c266dbf6ca0",
+      "closedAt": "2024-07-04T03:31:39Z",
+      "mergedAt": "2024-07-04T03:31:39Z",
+      "mergedBy": "William-PanWei",
+      "mergeCommit": {
+        "oid": "56738574139c5e5653548eaeffe933c99aa53de9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86Af4dr",
+          "commit": {
+            "abbreviatedOid": "a53929b"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-03T08:44:46Z",
+          "updatedAt": "2024-07-03T08:44:46Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGOJeq86AnpHw",
+          "commit": {
+            "abbreviatedOid": "a53929b"
+          },
+          "author": "William-PanWei",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-04T03:30:56Z",
+          "updatedAt": "2024-07-04T03:30:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOGOJeq85Bw_cL",
+      "title": "Update ietf-tpm-remote-attestation-stream@2020-12-15.yang",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/6",
+      "state": "MERGED",
+      "author": "ericvoit",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-10-28T17:24:43Z",
+      "updatedAt": "2024-07-04T03:38:07Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "c7b49559b023540bb0c6c816d3886790912d6317",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "ericvoit-patch-6",
+      "headRefOid": "1d9e4db7d9ec9449bea396d86499b4cd535b0015",
+      "closedAt": "2024-07-04T03:38:07Z",
+      "mergedAt": "2024-07-04T03:38:07Z",
+      "mergedBy": "William-PanWei",
+      "mergeCommit": {
+        "oid": "d8279a714a83c7323ab667b19ead594e18fca404"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86Af5Sv",
+          "commit": {
+            "abbreviatedOid": "60e1dc4"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-03T08:46:21Z",
+          "updatedAt": "2024-07-03T08:46:22Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\n     Copyright (c) 2024 IETF Trust and the persons identified\r\n```",
+              "createdAt": "2024-07-03T08:46:21Z",
+              "updatedAt": "2024-07-03T08:46:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq86Af5uZ",
+          "commit": {
+            "abbreviatedOid": "58db194"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-03T08:47:10Z",
+          "updatedAt": "2024-07-03T08:47:10Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\n  revision 2024-07-06 {\r\n```",
+              "createdAt": "2024-07-03T08:47:10Z",
+              "updatedAt": "2024-07-03T08:47:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq86Af59a",
+          "commit": {
+            "abbreviatedOid": "1d9e4db"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-03T08:47:34Z",
+          "updatedAt": "2024-07-03T08:47:34Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGOJeq86Anr23",
+          "commit": {
+            "abbreviatedOid": "1d9e4db"
+          },
+          "author": "William-PanWei",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-04T03:37:59Z",
+          "updatedAt": "2024-07-04T03:37:59Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOGOJeq85BxAAz",
+      "title": "Update draft-ietf-rats-network-device-subscription.md",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/7",
+      "state": "MERGED",
+      "author": "ericvoit",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-10-28T17:27:18Z",
+      "updatedAt": "2024-07-04T03:38:43Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "c7b49559b023540bb0c6c816d3886790912d6317",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "ericvoit-patch-7",
+      "headRefOid": "d4c8fd081da89b2114585da6c8bbf80b305defee",
+      "closedAt": "2024-07-04T03:38:43Z",
+      "mergedAt": "2024-07-04T03:38:43Z",
+      "mergedBy": "William-PanWei",
+      "mergeCommit": {
+        "oid": "f13a19f48db102b052a8b125cd94878e901687b5"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86Af6qs",
+          "commit": {
+            "abbreviatedOid": "f2893f0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-03T08:48:52Z",
+          "updatedAt": "2024-07-03T08:48:53Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n<CODE BEGINS> ietf-rats-attestation-stream@2024-07-06.yang\r\n```",
+              "createdAt": "2024-07-03T08:48:52Z",
+              "updatedAt": "2024-07-03T08:48:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq86Af603",
+          "commit": {
+            "abbreviatedOid": "d4c8fd0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-03T08:49:10Z",
+          "updatedAt": "2024-07-03T08:49:10Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGOJeq86Anr9H",
+          "commit": {
+            "abbreviatedOid": "d4c8fd0"
+          },
+          "author": "William-PanWei",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-04T03:38:35Z",
+          "updatedAt": "2024-07-04T03:38:35Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOGOJeq850citV",
+      "title": "Sync with the actual latest version on datatracker",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/8",
+      "state": "MERGED",
+      "author": "William-PanWei",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-04T13:20:07Z",
+      "updatedAt": "2024-07-06T11:43:19Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "f13a19f48db102b052a8b125cd94878e901687b5",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "panwei-patch-01",
+      "headRefOid": "b4daa369141c444a4f3547768eecc845396d53db",
+      "closedAt": "2024-07-06T11:43:19Z",
+      "mergedAt": "2024-07-06T11:43:19Z",
+      "mergedBy": "William-PanWei",
+      "mergeCommit": {
+        "oid": "3e6cea95ade975fc2a4ad9fb598676fa95114996"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86Axsfe",
+          "commit": {
+            "abbreviatedOid": "b4daa36"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "fixed nits look good to me",
+          "createdAt": "2024-07-05T11:14:16Z",
+          "updatedAt": "2024-07-05T11:15:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOGOJeq850hnej",
+      "title": "sync with CHARRA and fix too long lines",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/9",
+      "state": "MERGED",
+      "author": "William-PanWei",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-05T10:51:19Z",
+      "updatedAt": "2024-07-06T11:45:07Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "0546f491f560720a81350be1416516a89f953797",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "panwei-patch-02",
+      "headRefOid": "0b7fc39f7319cbe4d16f7f51b249a8c0ed2fcc9c",
+      "closedAt": "2024-07-06T11:45:07Z",
+      "mergedAt": "2024-07-06T11:45:07Z",
+      "mergedBy": "William-PanWei",
+      "mergeCommit": {
+        "oid": "3c821b8d734b956df66ccb81dc09647899fcbbc2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86Axwd6",
+          "commit": {
+            "abbreviatedOid": "50df1ef"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-05T11:25:30Z",
+          "updatedAt": "2024-07-05T11:25:31Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nThis document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS). In RATS, the Conceptional Messages defined can potentially be subscribed to. Specifically, the YANG module defined in this document augments the YANG module for TPM-based Challenge-Response based Remote Attestation (CHARRA) to allow for subscription to the Conceptual Message type Evidence. Additionally, this memo provides the methods and means to define additional Event Streams for other Conceptual Messages than Evidence as illustrated in the RATS Architecture, e.g., Attestation Results, Endorsements, or Event Logs. The module defined requires at least one TPM 1.2, TPM 2.0, or equivalent hardware implementation providing the same protected capabilities as TPMs to be available in the Attester the YANG server is running on.\r\n```",
+              "createdAt": "2024-07-05T11:25:30Z",
+              "updatedAt": "2024-07-05T11:27:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq86Axx9C",
+          "commit": {
+            "abbreviatedOid": "cc6eeb0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-05T11:29:30Z",
+          "updatedAt": "2024-07-05T11:29:30Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\r\nThis specification addresses the first adverse effect by enabling a consumer of Conceptual Messages (the subscriber) to request a continuous stream of new or updated Conceptual Messages via an {{RFC8639}} subscription to an \\<attestation\\> Event Stream. This new Event Stream is defined in this document and exists upon the producer of Conceptual Messages (the publisher). In the case of a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier. For example, when a network device's Evidence changes after the occurrence of events, such as booting, updating, control unit fall-over, plugging in or out forwarding units, being attacked, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.\r\n```",
+              "createdAt": "2024-07-05T11:29:30Z",
+              "updatedAt": "2024-07-05T11:29:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq86Axyio",
+          "commit": {
+            "abbreviatedOid": "175a7a2"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "fixed some nits. Thanks for addressing the YANG module line issues!",
+          "createdAt": "2024-07-05T11:30:56Z",
+          "updatedAt": "2024-07-05T11:30:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOGOJeq850kHVE",
+      "title": "fix event log example in abstract",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/10",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "replacing it with reference values",
+      "createdAt": "2024-07-05T20:12:12Z",
+      "updatedAt": "2024-07-06T11:39:20Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "f13a19f48db102b052a8b125cd94878e901687b5",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "event-logs",
+      "headRefOid": "51ae0812c8980edc5b84f77dccb03e8128b48685",
+      "closedAt": "2024-07-06T11:39:20Z",
+      "mergedAt": "2024-07-06T11:39:20Z",
+      "mergedBy": "William-PanWei",
+      "mergeCommit": {
+        "oid": "0546f491f560720a81350be1416516a89f953797"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86A1eoE",
+          "commit": {
+            "abbreviatedOid": "51ae081"
+          },
+          "author": "William-PanWei",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-06T09:04:22Z",
+          "updatedAt": "2024-07-06T09:04:22Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOGOJeq86G58-6",
+      "title": "Incorporating Review Feedback from Zhuoyao Lin",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/12",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #11\r\n\r\n* adopted the suggested change for Section 1\r\n* adapted suggested change for Section 2 for homogeneous module naming, going with `ietf-tpm-remote-attestation-stream`\r\n* relabeled memo to document (not part of review feedback)",
+      "createdAt": "2025-01-07T08:38:58Z",
+      "updatedAt": "2025-01-07T16:49:20Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "3c821b8d734b956df66ccb81dc09647899fcbbc2",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "zhuoyao.lin-patch-1",
+      "headRefOid": "d63cd091dcc9ebdd08a2d66783740732c7ff6796",
+      "closedAt": "2025-01-07T16:49:20Z",
+      "mergedAt": "2025-01-07T16:49:20Z",
+      "mergedBy": "ericvoit",
+      "mergeCommit": {
+        "oid": "b572fc4f8b2eccdd172ae9b7dddaae601efe6d70"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86XCGCq",
+          "commit": {
+            "abbreviatedOid": "d63cd09"
+          },
+          "author": "William-PanWei",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-07T10:06:28Z",
+          "updatedAt": "2025-01-07T10:06:28Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOGOJeq86G6OwM",
+      "title": "Updated references for architecture, RIV, and CHARRA",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/15",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #13 \r\n\r\nARCH -> RFC9334\r\nRIV -> RFC9683\r\nCHARRA -> RFC9684",
+      "createdAt": "2025-01-07T09:11:14Z",
+      "updatedAt": "2025-01-08T07:49:24Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "b572fc4f8b2eccdd172ae9b7dddaae601efe6d70",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "update-ConSecs",
+      "headRefOid": "8405cb93c8ba87553aa2bf4edaf001f7f7590683",
+      "closedAt": "2025-01-08T07:49:24Z",
+      "mergedAt": "2025-01-08T07:49:24Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "eda39dc5f150c596a5321351cbb1b3a4b1186161"
+      },
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "note: branch confusion with update-Reference *sic*",
+          "createdAt": "2025-01-07T09:15:40Z",
+          "updatedAt": "2025-01-07T09:15:40Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86XCG6H",
+          "commit": {
+            "abbreviatedOid": "63f8af6"
+          },
+          "author": "William-PanWei",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-07T10:07:36Z",
+          "updatedAt": "2025-01-07T10:07:36Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGOJeq86XF7fP",
+          "commit": {
+            "abbreviatedOid": "63f8af6"
+          },
+          "author": "ericvoit",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good",
+          "createdAt": "2025-01-07T16:51:26Z",
+          "updatedAt": "2025-01-07T16:51:26Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOGOJeq86G6f7s",
+      "title": "Added Content to SecCon-, PrivCon-, and IANAConSec",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/16",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #14 \r\n\r\n* inherited SecConSec, PrivConSec from RIV and CHARRA\r\n* populated IANAConSec with URN and YANG module registration request",
+      "createdAt": "2025-01-07T09:47:41Z",
+      "updatedAt": "2025-01-08T07:51:13Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "3c821b8d734b956df66ccb81dc09647899fcbbc2",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "update-References",
+      "headRefOid": "850feac0acd5d8e0a843230d816e3e98e5109e55",
+      "closedAt": "2025-01-08T07:51:13Z",
+      "mergedAt": "2025-01-08T07:51:13Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "0730a93a558e1f2461dc96b9c4420c678344420a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq86XCH3a",
+          "commit": {
+            "abbreviatedOid": "850feac"
+          },
+          "author": "William-PanWei",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-07T10:09:26Z",
+          "updatedAt": "2025-01-07T10:09:26Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGOJeq86XGh0c",
+          "commit": {
+            "abbreviatedOid": "850feac"
+          },
+          "author": "ericvoit",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I like the reference to the RIV considerations :-)",
+          "createdAt": "2025-01-07T18:11:15Z",
+          "updatedAt": "2025-01-07T18:11:15Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOGOJeq86ywDAy",
+      "title": "Updating the Sequence Diagram",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/19",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "based on the current state of the reference interaction model for Streaming Remote Attestation without a Broker",
+      "createdAt": "2025-11-11T12:46:38Z",
+      "updatedAt": "2025-11-23T20:46:55Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "6cb87e747fd67fed6065e6a96befb37355d16172",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "wglc1-diagram",
+      "headRefOid": "b77b5dc7cf5b443d882cd640060fa4e3e6edd86a",
+      "closedAt": "2025-11-17T10:52:28Z",
+      "mergedAt": "2025-11-17T10:52:28Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "08572f334460a1bf51dae2bc4a87cf878fafe3be"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87N3Ym_",
+          "commit": {
+            "abbreviatedOid": "a40d53f"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thank you very much, this is great.\r\n\r\nI have left a few editorial suggestions inline.",
+          "createdAt": "2025-11-12T14:49:55Z",
+          "updatedAt": "2025-11-12T15:27:56Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "```suggestion\r\nThe terms defined in {{!RFC9684}} are mapped to the model described in {{Section 7.3.1 of -rats-models}} (Streaming Remote Attestation without a Broker) to produce the sequence diagram {{newsequence}}.\r\n```",
+              "createdAt": "2025-11-12T14:49:55Z",
+              "updatedAt": "2025-11-12T15:27:56Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\nThe terminology mapping is as follows:\r\n```",
+              "createdAt": "2025-11-12T14:53:05Z",
+              "updatedAt": "2025-11-12T15:27:56Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\n* `handle` is substituted with `nonce`, a nonce generated by the Verifying Relying Party. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}\r\n```",
+              "createdAt": "2025-11-12T14:57:08Z",
+              "updatedAt": "2025-11-12T15:27:56Z"
+            },
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\n* `attEnvIDs` is substituted with `TpmName`, a TPM \"name\" text string selected from the `tpms` Container, as specified in {{!RFC9684}}\r\n```",
+              "createdAt": "2025-11-12T14:59:26Z",
+              "updatedAt": "2025-11-12T15:27:56Z"
+            },
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\n* `claimsSelection` is substituted with `PcrSelection`, an optional \"pcr-index\" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in {{!RFC9684}}. If no PCR is selected, all PCR banks are returned.\r\n```",
+              "createdAt": "2025-11-12T15:01:07Z",
+              "updatedAt": "2025-11-12T15:27:56Z"
+            },
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\n* `claims` is substituted with `PcrQuotes`, which is the \"output\" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.\r\n```",
+              "createdAt": "2025-11-12T15:03:02Z",
+              "updatedAt": "2025-11-12T15:27:56Z"
+            },
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\n* `claims` is substituted with `PcrQuotes`, which is the \"output\" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.\r\n```",
+              "createdAt": "2025-11-12T15:03:23Z",
+              "updatedAt": "2025-11-13T16:27:05Z"
+            },
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\r\n* `eventLogs` represents \"system-event-logs\" that are in the \"output\" of the log-retrieval RPC, as defined in {{!RFC9684}}.\r\n```",
+              "createdAt": "2025-11-12T15:13:53Z",
+              "updatedAt": "2025-11-12T15:27:56Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\n* `eventLogsDelta` represents \"system-event-logs\" as specified in the \"output\" of the log-retrieval RPC as defined in {{!RFC9684}} where the \"output\" is limited as if the \"input\" were parameterized via an index type (last-entry, index, timestamp) set to the last event in the previously conveyed `eventLogs`.\r\n```",
+              "createdAt": "2025-11-12T15:23:48Z",
+              "updatedAt": "2025-11-12T15:27:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87ORQ7K",
+          "commit": {
+            "abbreviatedOid": "a40d53f"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-13T16:26:36Z",
+          "updatedAt": "2025-11-13T16:26:36Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "curious github bug with the \"new experience\". Hiding this suggestion as it was applied but somehow still left active as an artifact by github.",
+              "createdAt": "2025-11-13T16:26:36Z",
+              "updatedAt": "2025-11-13T16:26:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87OR1SG",
+          "commit": {
+            "abbreviatedOid": "1c51c26"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-13T16:58:58Z",
+          "updatedAt": "2025-11-13T16:58:58Z",
+          "comments": [
+            {
+              "originalPosition": 92,
+              "body": "```suggestion\n### Time Considerations Mapping\n```",
+              "createdAt": "2025-11-13T16:58:58Z",
+              "updatedAt": "2025-11-13T16:58:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87OR38y",
+          "commit": {
+            "abbreviatedOid": "5101035"
+          },
+          "author": "junzhanghw",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-13T17:01:20Z",
+          "updatedAt": "2025-11-13T17:01:20Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "where this handle comes from?",
+              "createdAt": "2025-11-13T17:01:20Z",
+              "updatedAt": "2025-11-13T17:01:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87OR9an",
+          "commit": {
+            "abbreviatedOid": "5101035"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-13T17:06:54Z",
+          "updatedAt": "2025-11-13T17:06:54Z",
+          "comments": [
+            {
+              "originalPosition": 94,
+              "body": "```suggestion\n{{-rats-arch}} defines \"Relevant Events over Time\" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party. The event \"Claims Collection\" defined in {{-rats-models}} is not defined by {{-rats-arch}} and therefore cannot be matched.\n```",
+              "createdAt": "2025-11-13T17:06:54Z",
+              "updatedAt": "2025-11-13T17:06:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87Oe9Io",
+          "commit": {
+            "abbreviatedOid": "e03d4f3"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-14T10:25:01Z",
+          "updatedAt": "2025-11-14T10:25:02Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "as discussed in the M-V call: please s/Verifying Relying Party/Verifier/",
+              "createdAt": "2025-11-14T10:25:02Z",
+              "updatedAt": "2025-11-14T10:25:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87O8-_9",
+          "commit": {
+            "abbreviatedOid": "e03d4f3"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-17T10:42:45Z",
+          "updatedAt": "2025-11-17T10:42:46Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\nThe terminology specialization is as follows:\r\n```",
+              "createdAt": "2025-11-17T10:42:45Z",
+              "updatedAt": "2025-11-17T10:42:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87O8_zy",
+          "commit": {
+            "abbreviatedOid": "9c99db9"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-17T10:43:27Z",
+          "updatedAt": "2025-11-17T10:43:27Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\n# Introduction\n```",
+              "createdAt": "2025-11-17T10:43:27Z",
+              "updatedAt": "2025-11-17T10:43:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87O9A_b",
+          "commit": {
+            "abbreviatedOid": "e48b7f5"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-17T10:44:35Z",
+          "updatedAt": "2025-11-17T10:44:36Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "```suggestion\n|| generateEvidence(nonce, TpmName, collectedClaimsDelta)        |   ||\n```",
+              "createdAt": "2025-11-17T10:44:36Z",
+              "updatedAt": "2025-11-17T10:44:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87O9Ch3",
+          "commit": {
+            "abbreviatedOid": "e48b7f5"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-17T10:46:25Z",
+          "updatedAt": "2025-11-17T10:46:26Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\n.----------.                                .--------------------------.\r\n| Attester |                                | Verifier / Relying Party |\r\n'----+-----'                                '---------------------+----'\r\n```",
+              "createdAt": "2025-11-17T10:46:25Z",
+              "updatedAt": "2025-11-17T10:48:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87O9E8v",
+          "commit": {
+            "abbreviatedOid": "e0df1aa"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-17T10:49:19Z",
+          "updatedAt": "2025-11-17T10:49:19Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\n### Term Specialization \n```",
+              "createdAt": "2025-11-17T10:49:19Z",
+              "updatedAt": "2025-11-17T10:49:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87O9Frf",
+          "commit": {
+            "abbreviatedOid": "3343644"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-17T10:50:11Z",
+          "updatedAt": "2025-11-17T10:50:11Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\n| =========================[Nonce Generation]========================= |\n```",
+              "createdAt": "2025-11-17T10:50:11Z",
+              "updatedAt": "2025-11-17T10:50:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87O9GCw",
+          "commit": {
+            "abbreviatedOid": "3343644"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-17T10:50:37Z",
+          "updatedAt": "2025-11-17T10:50:37Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "```suggestion\r\n.----------.                             .--------------------------.\r\n| Attester |                             | Verifier / Relying Party |\r\n'----+-----'                             '---------------------+----'\r\n```",
+              "createdAt": "2025-11-17T10:50:37Z",
+              "updatedAt": "2025-11-17T10:50:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87O9HTi",
+          "commit": {
+            "abbreviatedOid": "5101035"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-17T10:52:01Z",
+          "updatedAt": "2025-11-17T10:52:01Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "Thanks again for your keen eye. This now is 'nonce' as a specialization of 'handle'.",
+              "createdAt": "2025-11-17T10:52:01Z",
+              "updatedAt": "2025-11-17T10:52:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87QfwUY",
+          "commit": {
+            "abbreviatedOid": "b77b5dc"
+          },
+          "author": "SALEH55155",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-23T20:46:55Z",
+          "updatedAt": "2025-11-23T20:46:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOGOJeq861NSjQ",
+      "title": "Rework intro to address comments in #17",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/22",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This should have included the changes to the abstract that unfortunately [were committed directly on main](https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/commit/a5987485a9cbc309769c5609b7ec1ec005f29f57) :-(\r\n\r\nIn #17 I have flagged the specific points that I have addressed.  There are a few still pending which I don\u2019t have the authority or knowledge to resolve.",
+      "createdAt": "2025-11-24T14:04:29Z",
+      "updatedAt": "2025-12-08T06:51:35Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "a5987485a9cbc309769c5609b7ec1ec005f29f57",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "scope",
+      "headRefOid": "5fe33f78fe261efd6ac12e1353da554723b41b72",
+      "closedAt": "2025-12-08T06:51:35Z",
+      "mergedAt": "2025-12-08T06:51:34Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "ae0ec00170951b7cf3856cec10e836dd6a8893fd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87Tnlgh",
+          "commit": {
+            "abbreviatedOid": "5fe33f7"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-08T06:50:58Z",
+          "updatedAt": "2025-12-08T06:50:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOGOJeq863m14e",
+      "title": "Increase precision for REIM references",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/24",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-08T07:28:14Z",
+      "updatedAt": "2025-12-08T10:28:03Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "ae0ec00170951b7cf3856cec10e836dd6a8893fd",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "REIM-refs",
+      "headRefOid": "3f66d556b418b75860465fbd121947baeb2410eb",
+      "closedAt": "2025-12-08T10:28:03Z",
+      "mergedAt": "2025-12-08T10:28:03Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "06642c262f8bfd4aee28bc50085c17d65d5a0839"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87TrCyo",
+          "commit": {
+            "abbreviatedOid": "31725ad"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:23:57Z",
+          "updatedAt": "2025-12-08T10:24:12Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "```suggestion\n{{-rats-arch}} defines \"Relevant Events over Time\" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party. The action of conveying \"collectClaims\" as defined in {{Section 6 of -rats-models}} is not defined by {{-rats-arch}} and therefore cannot be matched to a specified event time.\n```",
+              "createdAt": "2025-12-08T10:23:57Z",
+              "updatedAt": "2025-12-08T10:24:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87TrEzM",
+          "commit": {
+            "abbreviatedOid": "cac7a5c"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:25:46Z",
+          "updatedAt": "2025-12-08T10:25:47Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "```suggestion\r\n{{-rats-arch}} defines \"Relevant Events over Time\" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party. The action of conveying \"collectClaims\", which is defined in {{Section 6 of -rats-models}}, is not defined by {{-rats-arch}}.   Therefore, it cannot be matched to a specified event time.\r\n```",
+              "createdAt": "2025-12-08T10:25:47Z",
+              "updatedAt": "2025-12-08T10:26:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87TrGlL",
+          "commit": {
+            "abbreviatedOid": "038cdde"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:27:04Z",
+          "updatedAt": "2025-12-08T10:27:04Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "```suggestion\n{{-rats-arch}} defines \"Relevant Events over Time\" in RATS. The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party.\nThe action of conveying \"collectClaims\", which is defined in {{Section 6 of -rats-models}}, is not defined by {{-rats-arch}}.\nTherefore, it cannot be matched to a specified event time.\n```",
+              "createdAt": "2025-12-08T10:27:04Z",
+              "updatedAt": "2025-12-08T10:27:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87TrHPM",
+          "commit": {
+            "abbreviatedOid": "038cdde"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "thanks!",
+          "createdAt": "2025-12-08T10:27:26Z",
+          "updatedAt": "2025-12-08T10:27:26Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOGOJeq863m6MX",
+      "title": "Remove use of \"freshness characteristics\"",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/25",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-08T07:34:50Z",
+      "updatedAt": "2025-12-08T10:31:46Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "ae0ec00170951b7cf3856cec10e836dd6a8893fd",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "fresh-char",
+      "headRefOid": "6d02eabb0e4823b66a84c87c0b2281c3beb9fc34",
+      "closedAt": "2025-12-08T10:31:46Z",
+      "mergedAt": "2025-12-08T10:31:46Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "a166a5824c471622d01c0998b6d5bcd9b6660f9d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87TrMg4",
+          "commit": {
+            "abbreviatedOid": "6d02eab"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-08T10:31:06Z",
+          "updatedAt": "2025-12-08T10:31:06Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOGOJeq863ncrx",
+      "title": "Simplfied text about \"timing consideration\" and \"clock drift\"",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/26",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-08T08:19:14Z",
+      "updatedAt": "2025-12-08T10:42:36Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "ae0ec00170951b7cf3856cec10e836dd6a8893fd",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "additional-methods",
+      "headRefOid": "5fafbdfac0be95ad4fe2b38e1ce79e79215fb11e",
+      "closedAt": "2025-12-08T10:42:36Z",
+      "mergedAt": "2025-12-08T10:42:36Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "acc8728a3cf012fe6c87f7266cb5b74baef3833e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87TrTf8",
+          "commit": {
+            "abbreviatedOid": "5d68ceb"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:37:39Z",
+          "updatedAt": "2025-12-08T10:38:47Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nConsequently, other conditions arising in different application scenarios ought to be considered in the same way. For example, the time of Claims collection ought to be taken into account.\r\n```",
+              "createdAt": "2025-12-08T10:37:39Z",
+              "updatedAt": "2025-12-08T10:41:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87TrX0I",
+          "commit": {
+            "abbreviatedOid": "5fafbdf"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "\ud83d\udea2 it!",
+          "createdAt": "2025-12-08T10:42:26Z",
+          "updatedAt": "2025-12-08T10:42:26Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOGOJeq863pGMh",
+      "title": "Fixing smaller nits from Issue #17",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/27",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-08T10:22:24Z",
+      "updatedAt": "2025-12-08T10:55:59Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "acc8728a3cf012fe6c87f7266cb5b74baef3833e",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "section-3-to-4",
+      "headRefOid": "671a7b47db42ce29a21e3cc9767d47c818cedb4a",
+      "closedAt": "2025-12-08T10:55:59Z",
+      "mergedAt": "2025-12-08T10:55:59Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "49c2c8f677351f5b6a5b7f6c963c40f339b1c4c6"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87TrZOr",
+          "commit": {
+            "abbreviatedOid": "48d3ce5"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:43:54Z",
+          "updatedAt": "2025-12-08T10:43:54Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\n  * and a handle (see {{Section 6 of -rats-models}}), which is either the initially received nonce or a more recently received Epoch ID (see {{Section 10.3 of -rats-arch}}) that contains a new nonce or equivalent qualified data.\n```",
+              "createdAt": "2025-12-08T10:43:54Z",
+              "updatedAt": "2025-12-08T10:43:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87Trccv",
+          "commit": {
+            "abbreviatedOid": "46bd312"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:47:37Z",
+          "updatedAt": "2025-12-08T10:47:38Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "```suggestion\r\nWhen the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including an initial nonce in the {{RFC8639}} subscription request, fresh values for these counters are pushed as part of the first TPM Quote returned to the Verifier. As shown by {{-TUDA}}, subsequent TPM Quotes delivered to the Verifier can be appraised for freshness based on the predictable incrementing of these time-related counters.\r\n```",
+              "createdAt": "2025-12-08T10:47:38Z",
+              "updatedAt": "2025-12-08T10:48:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87TrkR4",
+          "commit": {
+            "abbreviatedOid": "9ad258a"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T10:53:25Z",
+          "updatedAt": "2025-12-08T10:53:26Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\nTo verify the value of a PCR, a Verifier must either know that the value is a \"known good\" value (see Section 2.3.3 of {{KGV}}) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \\<attestation\\> Event Stream MUST support the RFC8639 \\<replay\\> feature. Through the \\<replay\\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.\r\n```",
+              "createdAt": "2025-12-08T10:53:25Z",
+              "updatedAt": "2025-12-08T10:53:48Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOGOJeq863prBz",
+      "title": "Clarify TPM requirement in the abstract",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/28",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-08T11:03:16Z",
+      "updatedAt": "2025-12-08T11:38:11Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "49c2c8f677351f5b6a5b7f6c963c40f339b1c4c6",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "narrowing-down",
+      "headRefOid": "c66745320ecae3acf5cf193174b627131b04da40",
+      "closedAt": "2025-12-08T11:38:11Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "There are good reasons to keep that phrasing as discussed extensively. Maybe the current abstract is actually good enough.",
+          "createdAt": "2025-12-08T11:38:11Z",
+          "updatedAt": "2025-12-08T11:38:11Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOGOJeq863qHTD",
+      "title": "Adding Details to Privacy and Security Conisderation",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/29",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "final open item from Issue #17 ",
+      "createdAt": "2025-12-08T11:39:04Z",
+      "updatedAt": "2025-12-08T14:38:36Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "49c2c8f677351f5b6a5b7f6c963c40f339b1c4c6",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "sec-con-sec-1",
+      "headRefOid": "b2504dc3d4b2d2d95e0dad9c206ccdb93875a1b7",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87TsQws",
+          "commit": {
+            "abbreviatedOid": "2f21a3e"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T11:40:05Z",
+          "updatedAt": "2025-12-08T11:40:05Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\n{{RFC8641}} illustrates specific Security Considerations concerning YANG Notifications for Datastore Updates, which, for example, detail guidance to identify sensitive writable subtrees or sensitive readable nodes.\n```",
+              "createdAt": "2025-12-08T11:40:05Z",
+              "updatedAt": "2025-12-08T11:40:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87Ts2rk",
+          "commit": {
+            "abbreviatedOid": "96b3f14"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-08T12:13:15Z",
+          "updatedAt": "2025-12-08T12:13:15Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "split long line\r\n```suggestion\r\n{{RFC8641}} illustrates specific Security Considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.\r\n```",
+              "createdAt": "2025-12-08T12:13:15Z",
+              "updatedAt": "2025-12-08T12:13:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87TvW3q",
+          "commit": {
+            "abbreviatedOid": "b2504dc"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Conditionally approving based on the inclusion of the suggested change at L496",
+          "createdAt": "2025-12-08T14:37:57Z",
+          "updatedAt": "2025-12-08T14:38:36Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\nShout-out to Thomas Fossati, Zhuoyao Lin, Yogesh Despande, Jun Zhang, Thanassis Giannetsos, Michael Richardson, Ned Smith, and Chunchi (Peter) Liu for their extensive review feedback that was vital to produce this document.\r\n```",
+              "createdAt": "2025-12-08T14:37:57Z",
+              "updatedAt": "2025-12-08T14:38:36Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
