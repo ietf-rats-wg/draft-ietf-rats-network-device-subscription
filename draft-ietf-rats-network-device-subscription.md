@@ -493,4 +493,4 @@ Name:
 # Acknowledgements
 {: numbered="no"}
 
-Many thanks go out to Thomas Fossati, Zhuoyao Lin, Yogesh Despande, Jun Zhang, Thanassis Giannetsos, Michael Richardson, Ned Smith, and Chunchi (Peter) Liu for their extensive review feedback that was vital to produce this document.
+Shout-out to Thomas Fossati, Zhuoyao Lin, Yogesh Despande, Jun Zhang, Thanassis Giannetsos, Michael Richardson, Ned Smith, and Chunchi (Peter) Liu for their extensive review feedback that was vital to produce this document.
