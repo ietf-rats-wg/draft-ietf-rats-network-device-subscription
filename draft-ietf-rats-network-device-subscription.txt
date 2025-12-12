@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 11 June 2026                                              Cisco
+Expires: 15 June 2026                                              Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                         8 December 2025
+                                                        12 December 2025
 
 
                  Attestation Event Stream Subscription
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 June 2026.
+   This Internet-Draft will expire on 15 June 2026.
 
 Copyright Notice
 
@@ -100,7 +100,6 @@ Table of Contents
    10. References
      10.1.  Normative References
      10.2.  Informative References
-   Appendix A.  Change Log
    Acknowledgements
    Authors' Addresses
 
@@ -1121,11 +1120,20 @@ Table of Contents
 
 7.  Privacy Considerations
 
-   The Privacy Considerations of [RFC9683] apply.
+   The Privacy Considerations of [RFC9683] apply.  Additionally, the
+   Security Considerations from [RFC8641] outline how internal
+   structures or capabilities about the system can leak, which can have
+   an impact in personally identifiable information (PII).
 
 8.  Security Considerations
 
    The Security Considerations of [RFC9684] and [RFC9683] apply.
+   Additionally, the Security Requirements from Section 4.2.5 of
+   [RFC7923] and the Security Considerations from Section 5 of [RFC7923]
+   apply.  [RFC8641] illustrates specific Security Considerations
+   concerning YANG Notifications for Datastore Updates.  For example, it
+   provides guidance on identifying sensitive writable subtrees and
+   sensitive readable nodes.
 
 9.  IANA Considerations
 
@@ -1220,6 +1228,15 @@ Table of Contents
               <https://trustedcomputinggroup.org/wp-content/uploads/TCG-
               NetEq-Attestation-Workflow-Outline_v1r9b_pubrev.pdf>.
 
+   [RFC7923]  Voit, E., Clemm, A., and A. Gonzalez Prieto, "Requirements
+              for Subscription to YANG Datastores", RFC 7923,
+              DOI 10.17487/RFC7923, June 2016,
+              <https://www.rfc-editor.org/rfc/rfc7923>.
+
+   [RFC8641]  Clemm, A. and E. Voit, "Subscription to YANG Notifications
+              for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
+              September 2019, <https://www.rfc-editor.org/rfc/rfc8641>.
+
    [xml-registry]
               "IETF XML Registry", n.d.,
               <https://www.iana.org/assignments/xml-registry/xml-
@@ -1230,15 +1247,12 @@ Table of Contents
               <https://www.iana.org/assignments/yang-parameters/yang-
               parameters.xhtml>.
 
-Appendix A.  Change Log
-
-   v00-v05
-
-   *  minor updates as Charra goes through IESG.
-
 Acknowledgements
 
-   Thanks to ...
+   Shout-out to Thomas Fossati, Zhuoyao Lin, Yogesh Despande, Jun Zhang,
+   Thanassis Giannetsos, Michael Richardson, Ned Smith, and Chunchi
+   (Peter) Liu for their extensive review feedback that was vital to
+   produce this document.
 
 Authors' Addresses
 
