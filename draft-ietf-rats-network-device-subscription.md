@@ -67,6 +67,12 @@ informative:
     date: 2003-10
     target: https://trustedcomputinggroup.org/wp-content/uploads/TCG-NetEq-Attestation-Workflow-Outline_v1r9b_pubrev.pdf
     seriesinfo:
+  TCG-Glossary:
+    author:
+      org: TCG
+    title: "TCG Glossary Version 1.1"
+    date: 2017-05
+    target: https://trustedcomputinggroup.org/wp-content/uploads/TCG-Glossary-V1.1-Rev-1.0.pdf
   xml-registry:
     target: https://www.iana.org/assignments/xml-registry/xml-registry.xhtml
     title: IETF XML Registry
@@ -84,7 +90,7 @@ The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardw
 
 # Introduction
 
-{{-rats-riv}} and {{-charra}} define the operational prerequisites and a YANG Model for acquiring Evidence from a network device containing at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations providing the same protected capabilities as a TPM).
+{{-rats-riv}} and {{-charra}} define the operational prerequisites and a YANG Model for acquiring Evidence from a network device containing at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations providing the same protected capabilities {{TCG-Glossary}} as a TPM).
 However, these documents are based on the challenge-response interaction model (CHARRA in {{Section 7.1 of -rats-models}}), which has limitations.
 One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
 This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as a Verifiers or a Relying Parties, can be unacceptably long.
