@@ -108,9 +108,9 @@ Table of Contents
    [RFC9683] and [RFC9684] define the operational prerequisites and a
    YANG Model for acquiring Evidence from a network device containing at
    least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations
-   providing the same protected capabilities as a TPM).  However, these
-   documents are based on the challenge-response interaction model
-   (CHARRA in Section 7.1 of
+   providing the same protected capabilities [TCG-Glossary] as a TPM).
+   However, these documents are based on the challenge-response
+   interaction model (CHARRA in Section 7.1 of
    [I-D.ietf-rats-reference-interaction-models]), which has limitations.
    One such limitation is that it is the responsibility of a Verifier to
    request signed Evidence from a separate Attester containing a TPM.
@@ -1236,6 +1236,11 @@ Table of Contents
    [RFC8641]  Clemm, A. and E. Voit, "Subscription to YANG Notifications
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
               September 2019, <https://www.rfc-editor.org/rfc/rfc8641>.
+
+   [TCG-Glossary]
+              TCG, "TCG Glossary Version 1.1", May 2017,
+              <https://trustedcomputinggroup.org/wp-content/uploads/TCG-
+              Glossary-V1.1-Rev-1.0.pdf>.
 
    [xml-registry]
               "IETF XML Registry", n.d.,
