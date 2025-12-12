@@ -204,7 +204,7 @@ The terminology specialization is as follows:
 || collectClaims(PcrQuotes, ?PcrSelection)                        |   ||
 ||   | => collectedClaimsDelta                                    |   ||
 ||   |                                                            |   ||
-|| generateEvidence(nonce, TpmName, collectedClaimsDelta)        |   ||
+|| generateEvidence(nonce, TpmName, collectedClaimsDelta)         |   ||
 ||   | => evidence                                                |   ||
 ||   |                                                            |   ||
 ||   | {evidence, eventLogsDelta} ------------------------------->|   ||
@@ -228,7 +228,7 @@ The terminology specialization is as follows:
 The action of conveying "collectClaims", which is defined in {{Section 6 of -rats-models}}, is not defined by {{-rats-arch}}.
 Therefore, it cannot be matched to a specified event time.
 
-~~~~
+~~~~ aasvg
 .----------.                             .--------------------------.
 | Attester |                             | Verifier / Relying Party |
 '----+-----'                             '---------------------+----'
@@ -257,7 +257,7 @@ generateEvidence(nonce, PcrSelection, collectedClaims)         |
      |                                    attestationResult <= |
      ~                                                         ~
    time(VG')                                                   |
-generateClaimes(attestingEnvironment)                          |
+generateClaims(attestingEnvironment)                           |
      | => PcrQuotes, eventLogsDelta                            |
      |                                                         |
 collectClaims(PcrQuotes, ?PcrSelection)                        |
@@ -383,7 +383,7 @@ For TPM2, make sure that every requested PCR is sent within an \<tpm20-attestati
 
 ### pcr-extend
 
-This notification documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It SHOULD be emitted no less than the \<marshalling-period\> after an the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification MUST be emmitted prior to a \<tpm12-attestation\> or \<tpm20-attestation\> notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the \<tpm12-attestation\> or \<tpm20-attestation\> notification, the marshalling period MUST be extended so that a new \<pcr-extend\> is not sent until the corresponding notifications have been sent.
+This notification documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It SHOULD be emitted no less than the \<marshalling-period\> after the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification MUST be emitted prior to a \<tpm12-attestation\> or \<tpm20-attestation\> notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the \<tpm12-attestation\> or \<tpm20-attestation\> notification, the marshalling period MUST be extended so that a new \<pcr-extend\> is not sent until the corresponding notifications have been sent.
 
 ~~~~
 {::include ietf-tpm-remote-attestation-stream_pcr-extend.tree}
