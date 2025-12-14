@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-09T00:51:53.939604+00:00",
+  "timestamp": "2025-12-14T00:57:08.245070+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
   "labels": [
     {
@@ -103,7 +103,7 @@
       "id": "I_kwDOGOJeq87XCfmw",
       "title": "Thomas\u2019s WGLC review",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/17",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "thomas-fossati",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -112,10 +112,10 @@
         "William-PanWei"
       ],
       "labels": [],
-      "body": "Archived-at: https://mailarchive.ietf.org/arch/msg/rats/zZIPbD5Erq3an-j9OrOPA-amgxM/\n\n## Abstract\n\n* [x] \"this document provides the methods and means to define additional\n  Event Streams for other Conceptual Messages\"\n  * [x] Which \"methods and means\" are provided?  I have read the whole\n    document but I didn\u2019t find them.\n  * [x] Like ReIM, this document seems to suffer from an \"unlimited scope\"\n    problem. IMO, too much emphasis is placed on the idea that the\n    interaction can be generalised to other CMs. This seems an even\n    more radical assumption here because, unlike ReIM, this\n    specification provides a real wire protocol rather than a set of\n    interaction models.  As such, it should clearly explain how this\n    idea is realised.\n\n* [x] Ignorant question: What does \"providing the same protected\n  capabilities as TPMs\" mean concretely?  Would a DICE RoT be considered\n  equivalent?\n\n## \u00a71\n\n* [x] s/Conceptional/Conceptual/ :-)\n\n* [x] \"[RFC9683] and [RFC9684] define the operational prerequisites and a\n  YANG Model for the acquisition of Evidence and other Conceptional\n  Messages [...]\"\n  * [x] Skimming RFC968[34], there is no mention of \"other conceptual\n    messages\"; the scope seems to be quite rigidly confined to\n    attestation evidence.\n\n* [x] In general, whenever citing ReIM, 9334, etc. increase precision: use\n  \"Section X of Y\" whenever possible.\n\n* [x] \"This memo specifies a YANG augment\"\n  * [x] \"augment\" is the concrete YANG statement... in this context\n    \"augmentation\" may be more appropriate.\n\n* [x] \"or its [the nonce\u2019s] freshness characteristics.\"\n  * [x] Unclear what \"freshness characteristics\" is supposed to mean.\n    Please could you clarify?\n\n* [x] \"Two complementary methods [...]\"\n  * [x] Is \"complementary\" the right word? Are they supposed to be used\n    together?  If not, use \"alternative methods\" instead?\n\n* [x] \"In consequence, in some usage scenarios the timing considerations for\n  freshness [RFC9334] might have to be updated in some regular interval.\n  Analogously, there are can be additional methods that are not describe\n  by but nevertheless supported by this document.\"\n  * [x] The grammar seems a be buggy.  It's unclear to me what this\n    paragraph is supposed to mean.\n\n## \u00a73.1\n\nSimilar to reading a QFT textbook, I approached this section with my\nheart filled with expectation of enlightment, but I only found more\nconfusion ;-)\n\n* [x] The sequence diagram needs some attention: a diagram should be\nself-explanatory, but parameter names appear and disappear from one\nmessage to the next.  This lack of correlation makes it impossible to\nfollow without referring to the subsequent prose.\nIt's not a fatal flaw, but it's still slightly annoying. ;-)\n\n* [x] \"a set of PCRs of interest which the wants to appraise\"\n  * add \"[...] the RP/Verifier wants [...]\"\n\n* [x] \"a handle (see Section 6. in\n  [I-D.ietf-rats-reference-interaction-models], which is either the\n  initially received nonce or a more recently received Epoch ID\"\n  * Not sure how \"a more recently received Epoch ID\" is conveyed?\n  * Also, the use of parentheses is broken in this bullet point\n\n* [x] \"is elaborated on in the follow section Section 3.2.\"\n  * remove \"follow section\"\n\n* [x] unclear what \"acquire a new time synchronisation\" means.  Please\n  rephrase using simpler terms.\n\n## \u00a73.2.2\n\n* [x] s/countersr/counters/\n\n## \u00a74.3.1\n\n* [x] s/emmitted/emitted/\n\n## \u00a74.5\n\n* [x] The reference [KGV] doesn't seem to make sense\n\n## \u00a78\n\n* [ ] The security considerations look very (too?) thin.  While it's great to\nrefer to the baseline specs, it seems odd that no further security\nconsiderations are introduced by this augmentation.  For example, the\nfreshness-related aspects covered in \u00a73.2 seem relevant to security, yet\nthey are not mentioned at all (not even by reference).  In particular,\ncorrectly sizing the heartbeat would seem an interesting topic to\nexplore.\nYou may also wish to discuss the attack surface that is potentially\nenabled in a pub-sub scope, e.g.:\n  * [ ] DoS the node via oversubscription/resource exhaustion\n  * [ ] Amplification attacks (AFAIU, the notifications include an\n    ever-increasing event log (\u00a73.1 says: \"log entries [...] since\n    boot\")\n\n## Final words\n\n* [ ] One final consideration is that the document would benefit from a\nback-to-back edit to improve its readability, including the prose and\ndiagrams.",
+      "body": "Archived-at: https://mailarchive.ietf.org/arch/msg/rats/zZIPbD5Erq3an-j9OrOPA-amgxM/\n\n## Abstract\n\n* [x] \"this document provides the methods and means to define additional\n  Event Streams for other Conceptual Messages\"\n  * [x] Which \"methods and means\" are provided?  I have read the whole\n    document but I didn\u2019t find them.\n  * [x] Like ReIM, this document seems to suffer from an \"unlimited scope\"\n    problem. IMO, too much emphasis is placed on the idea that the\n    interaction can be generalised to other CMs. This seems an even\n    more radical assumption here because, unlike ReIM, this\n    specification provides a real wire protocol rather than a set of\n    interaction models.  As such, it should clearly explain how this\n    idea is realised.\n\n* [x] Ignorant question: What does \"providing the same protected\n  capabilities as TPMs\" mean concretely?  Would a DICE RoT be considered\n  equivalent?\n\n## \u00a71\n\n* [x] s/Conceptional/Conceptual/ :-)\n\n* [x] \"[RFC9683] and [RFC9684] define the operational prerequisites and a\n  YANG Model for the acquisition of Evidence and other Conceptional\n  Messages [...]\"\n  * [x] Skimming RFC968[34], there is no mention of \"other conceptual\n    messages\"; the scope seems to be quite rigidly confined to\n    attestation evidence.\n\n* [x] In general, whenever citing ReIM, 9334, etc. increase precision: use\n  \"Section X of Y\" whenever possible.\n\n* [x] \"This memo specifies a YANG augment\"\n  * [x] \"augment\" is the concrete YANG statement... in this context\n    \"augmentation\" may be more appropriate.\n\n* [x] \"or its [the nonce\u2019s] freshness characteristics.\"\n  * [x] Unclear what \"freshness characteristics\" is supposed to mean.\n    Please could you clarify?\n\n* [x] \"Two complementary methods [...]\"\n  * [x] Is \"complementary\" the right word? Are they supposed to be used\n    together?  If not, use \"alternative methods\" instead?\n\n* [x] \"In consequence, in some usage scenarios the timing considerations for\n  freshness [RFC9334] might have to be updated in some regular interval.\n  Analogously, there are can be additional methods that are not describe\n  by but nevertheless supported by this document.\"\n  * [x] The grammar seems a be buggy.  It's unclear to me what this\n    paragraph is supposed to mean.\n\n## \u00a73.1\n\nSimilar to reading a QFT textbook, I approached this section with my\nheart filled with expectation of enlightment, but I only found more\nconfusion ;-)\n\n* [x] The sequence diagram needs some attention: a diagram should be\nself-explanatory, but parameter names appear and disappear from one\nmessage to the next.  This lack of correlation makes it impossible to\nfollow without referring to the subsequent prose.\nIt's not a fatal flaw, but it's still slightly annoying. ;-)\n\n* [x] \"a set of PCRs of interest which the wants to appraise\"\n  * add \"[...] the RP/Verifier wants [...]\"\n\n* [x] \"a handle (see Section 6. in\n  [I-D.ietf-rats-reference-interaction-models], which is either the\n  initially received nonce or a more recently received Epoch ID\"\n  * Not sure how \"a more recently received Epoch ID\" is conveyed?\n  * Also, the use of parentheses is broken in this bullet point\n\n* [x] \"is elaborated on in the follow section Section 3.2.\"\n  * remove \"follow section\"\n\n* [x] unclear what \"acquire a new time synchronisation\" means.  Please\n  rephrase using simpler terms.\n\n## \u00a73.2.2\n\n* [x] s/countersr/counters/\n\n## \u00a74.3.1\n\n* [x] s/emmitted/emitted/\n\n## \u00a74.5\n\n* [x] The reference [KGV] doesn't seem to make sense\n\n## \u00a78\n\n* [x] The security considerations look very (too?) thin.  While it's great to\nrefer to the baseline specs, it seems odd that no further security\nconsiderations are introduced by this augmentation.  For example, the\nfreshness-related aspects covered in \u00a73.2 seem relevant to security, yet\nthey are not mentioned at all (not even by reference).  In particular,\ncorrectly sizing the heartbeat would seem an interesting topic to\nexplore.\nYou may also wish to discuss the attack surface that is potentially\nenabled in a pub-sub scope, e.g.:\n  * [x] DoS the node via oversubscription/resource exhaustion\n  * [x] Amplification attacks (AFAIU, the notifications include an\n    ever-increasing event log (\u00a73.1 says: \"log entries [...] since\n    boot\")\n\n## Final words\n\n* [ ] One final consideration is that the document would benefit from a\nback-to-back edit to improve its readability, including the prose and\ndiagrams.",
       "createdAt": "2025-11-10T12:13:06Z",
-      "updatedAt": "2025-12-08T11:04:56Z",
-      "closedAt": null,
+      "updatedAt": "2025-12-12T08:06:39Z",
+      "closedAt": "2025-12-12T08:06:39Z",
       "comments": [
         {
           "author": "henkbirkholz",
@@ -144,6 +144,20 @@
           "body": "Protected Capability is defined in: https://trustedcomputinggroup.org/wp-content/uploads/TCG-Glossary-V1.1-Rev-1.0.pdf",
           "createdAt": "2025-12-08T10:59:39Z",
           "updatedAt": "2025-12-08T10:59:39Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "> Protected Capability is defined in: https://trustedcomputinggroup.org/wp-content/uploads/TCG-Glossary-V1.1-Rev-1.0.pdf\n\nAdded via PR",
+          "createdAt": "2025-12-12T08:00:52Z",
+          "updatedAt": "2025-12-12T08:00:52Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "split out \"final words\" and closing this one",
+          "createdAt": "2025-12-12T08:06:39Z",
+          "updatedAt": "2025-12-12T08:06:39Z"
         }
       ]
     },
@@ -159,9 +173,17 @@
       "labels": [],
       "body": "Archived-at: https://mailarchive.ietf.org/arch/msg/rats/6TdPGSakqgrtevbKVo25J0YvdKY\n\n## Nit\n\nIn Section 4.6.  Configuring the <attestation> Event Stream:\n<tpm2-heartbeat> defines the maximum amount of time which should pass.\nI think, the heartbeat is a minimum time not the maximum time, as aligned with other part of the specification.",
       "createdAt": "2025-11-10T18:42:33Z",
-      "updatedAt": "2025-11-10T18:42:33Z",
+      "updatedAt": "2025-12-12T08:28:36Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "AFAIU, a heartbeat interval is the upper bound of a timeframe in which you need to receive the heartbeat message or run into a timeout.",
+          "createdAt": "2025-12-12T08:28:36Z",
+          "updatedAt": "2025-12-12T08:28:36Z"
+        }
+      ]
     },
     {
       "number": 20,
@@ -184,16 +206,24 @@
       "id": "I_kwDOGOJeq87X4lZ3",
       "title": "Add text defining/refering to Verifying Relying Party",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/21",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "The term \"Verifying Relying Party\" is used in other RATS or SEAT work. Those roles are quite often collapsed in common practice which is captured in RIV (RFC 9683) [Figure 2](https://www.rfc-editor.org/rfc/rfc9683.html#figure-2). The term seems to be have introduced via the aTLS work.",
       "createdAt": "2025-11-13T16:33:25Z",
-      "updatedAt": "2025-11-13T16:33:25Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-12-12T09:13:02Z",
+      "closedAt": "2025-12-12T09:13:01Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "This seems to be a bad approach, needlessly convoluting the meaning of RATS roles that are already designed to be composable. The diagrams will retain the \"Relying Party / Verifier\" composition.",
+          "createdAt": "2025-12-12T09:12:58Z",
+          "updatedAt": "2025-12-12T09:12:58Z"
+        }
+      ]
     },
     {
       "number": 23,
@@ -208,6 +238,22 @@
       "body": "the nonce should be nonce' in the delta update part of the figure, as it is different from the orignial nonce.",
       "createdAt": "2025-11-28T09:55:17Z",
       "updatedAt": "2025-11-28T09:55:17Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 31,
+      "id": "I_kwDOGOJeq87d3_au",
+      "title": "Thomas' Final Point",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/31",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "One final consideration is that the document would benefit from a back-to-back edit to improve its readability, including the prose and diagrams.",
+      "createdAt": "2025-12-12T08:05:50Z",
+      "updatedAt": "2025-12-12T08:06:00Z",
       "closedAt": null,
       "comments": []
     }
@@ -1664,24 +1710,26 @@
       "id": "PR_kwDOGOJeq863qHTD",
       "title": "Adding Details to Privacy and Security Conisderation",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/29",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "final open item from Issue #17 ",
       "createdAt": "2025-12-08T11:39:04Z",
-      "updatedAt": "2025-12-08T14:38:36Z",
+      "updatedAt": "2025-12-12T07:51:44Z",
       "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "baseRefName": "main",
       "baseRefOid": "49c2c8f677351f5b6a5b7f6c963c40f339b1c4c6",
       "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "headRefName": "sec-con-sec-1",
-      "headRefOid": "b2504dc3d4b2d2d95e0dad9c206ccdb93875a1b7",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "a6a05c2485e164c3b740382bffc6f77464f054cb",
+      "closedAt": "2025-12-12T07:51:44Z",
+      "mergedAt": "2025-12-12T07:51:44Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "e8c0c5d6c5650f21129451f918172cb563bce8a3"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1741,6 +1789,175 @@
               "body": "```suggestion\r\nShout-out to Thomas Fossati, Zhuoyao Lin, Yogesh Despande, Jun Zhang, Thanassis Giannetsos, Michael Richardson, Ned Smith, and Chunchi (Peter) Liu for their extensive review feedback that was vital to produce this document.\r\n```",
               "createdAt": "2025-12-08T14:37:57Z",
               "updatedAt": "2025-12-08T14:38:36Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOGOJeq864g-YS",
+      "title": "reference for protected capability",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/30",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-12T08:01:08Z",
+      "updatedAt": "2025-12-12T08:10:22Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "e8c0c5d6c5650f21129451f918172cb563bce8a3",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "protected-capability",
+      "headRefOid": "ca5eb1807a6f5ec017821fb15db81d6fa5e79605",
+      "closedAt": "2025-12-12T08:10:22Z",
+      "mergedAt": "2025-12-12T08:10:21Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "3d3f62d0ffd61cfabbccf5b80470a60e62e316fc"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87U1bX5",
+          "commit": {
+            "abbreviatedOid": "ca5eb18"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for sifting!",
+          "createdAt": "2025-12-12T08:09:31Z",
+          "updatedAt": "2025-12-12T08:09:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOGOJeq864hxWH",
+      "title": "Addressing nits from Jun and a few others",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/32",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-12T09:20:24Z",
+      "updatedAt": "2025-12-12T09:22:23Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "3d3f62d0ffd61cfabbccf5b80470a60e62e316fc",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "jun-item-1",
+      "headRefOid": "be79b2656124a60483b40db7938b3bbfd3024554",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87U2WIp",
+          "commit": {
+            "abbreviatedOid": "be79b26"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-12T09:22:23Z",
+          "updatedAt": "2025-12-12T09:22:23Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOGOJeq864hx0l",
+      "title": "Clarification of nonce re-use",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/33",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-12T09:21:10Z",
+      "updatedAt": "2025-12-12T09:28:54Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "3d3f62d0ffd61cfabbccf5b80470a60e62e316fc",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "jun-item-2",
+      "headRefOid": "c0293151b321daffb837320298b867bf634ae21c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87U2YXz",
+          "commit": {
+            "abbreviatedOid": "1e32a0b"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-12T09:25:08Z",
+          "updatedAt": "2025-12-12T09:25:09Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\n* `handle` is substituted with `nonce`, a nonce generated by the Verifying Relying Party. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}. A 'nonce' value in this case is populated out-of-band and can be used more than once in the scope of a subscription (based on local policy that enforces freshness requirements).\n```",
+              "createdAt": "2025-12-12T09:25:09Z",
+              "updatedAt": "2025-12-12T09:25:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87U2YBB",
+          "commit": {
+            "abbreviatedOid": "443f692"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-12T09:24:42Z",
+          "updatedAt": "2025-12-12T09:25:54Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "suggest reflow to eliminate expositional clunkiness\r\n\r\n\r\n```suggestion\r\n* `handle` is substituted with `nonce`, a nonce generated by the Verifying Relying Party. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}. In this case, a 'nonce' value is populated out of band and can be used more than once within the scope of a subscription, based on local policies that enforce freshness requirements.\r\n```",
+              "createdAt": "2025-12-12T09:24:42Z",
+              "updatedAt": "2025-12-12T09:25:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87U2cc1",
+          "commit": {
+            "abbreviatedOid": "443f692"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-12T09:28:50Z",
+          "updatedAt": "2025-12-12T09:28:50Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\n* `handle` is substituted with `nonce`, a nonce generated by the Verifier. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}. Hence, a 'nonce' value in this case is populated out-of-band and can be used more than once in the scope of a subscription (based on local policy that enforces freshness requirements).\n```",
+              "createdAt": "2025-12-12T09:28:50Z",
+              "updatedAt": "2025-12-12T09:28:50Z"
             }
           ]
         }
