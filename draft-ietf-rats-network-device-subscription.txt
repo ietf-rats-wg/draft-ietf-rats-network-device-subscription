@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 15 June 2026                                              Cisco
+Expires: 18 June 2026                                              Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                        12 December 2025
+                                                        15 December 2025
 
 
                  Attestation Event Stream Subscription
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 June 2026.
+   This Internet-Draft will expire on 18 June 2026.
 
 Copyright Notice
 
@@ -303,7 +303,7 @@ Table of Contents
 || collectClaims(PcrQuotes, ?PcrSelection)                        |   ||
 ||   | => collectedClaimsDelta                                    |   ||
 ||   |                                                            |   ||
-|| generateEvidence(nonce, TpmName, collectedClaimsDelta)        |   ||
+|| generateEvidence(nonce, TpmName, collectedClaimsDelta)         |   ||
 ||   | => evidence                                                |   ||
 ||   |                                                            |   ||
 ||   | {evidence, eventLogsDelta} ------------------------------->|   ||
@@ -359,7 +359,7 @@ Table of Contents
         |                                    attestationResult <= |
         ~                                                         ~
       time(VG')                                                   |
-   generateClaimes(attestingEnvironment)                          |
+   generateClaims(attestingEnvironment)                           |
         | => PcrQuotes, eventLogsDelta                            |
         |                                                         |
    collectClaims(PcrQuotes, ?PcrSelection)                        |
@@ -594,11 +594,11 @@ Table of Contents
 
    This notification documents when a subscribed PCR is extended within
    a single TPM cryptoprocessor.  It SHOULD be emitted no less than the
-   <marshalling-period> after an the PCR is first extended.  (The reason
+   <marshalling-period> after the PCR is first extended.  (The reason
    for the marshalling is that it is quite possible that multiple
    extensions to the same PCR have been made in quick succession, and
    these should be reflected in the same notification.)  This
-   notification MUST be emmitted prior to a <tpm12-attestation> or
+   notification MUST be emitted prior to a <tpm12-attestation> or
    <tpm20-attestation> notification which has included and signed the
    results of any specific PCR extension.  If pcr extending events occur
    during the generation of the <tpm12-attestation> or
