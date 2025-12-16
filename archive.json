@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-14T00:57:08.245070+00:00",
+  "timestamp": "2025-12-16T00:53:48.407160+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
   "labels": [
     {
@@ -166,15 +166,15 @@
       "id": "I_kwDOGOJeq87XILms",
       "title": "Yogesh's WGLC review",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Archived-at: https://mailarchive.ietf.org/arch/msg/rats/6TdPGSakqgrtevbKVo25J0YvdKY\n\n## Nit\n\nIn Section 4.6.  Configuring the <attestation> Event Stream:\n<tpm2-heartbeat> defines the maximum amount of time which should pass.\nI think, the heartbeat is a minimum time not the maximum time, as aligned with other part of the specification.",
       "createdAt": "2025-11-10T18:42:33Z",
-      "updatedAt": "2025-12-12T08:28:36Z",
-      "closedAt": null,
+      "updatedAt": "2025-12-15T12:34:21Z",
+      "closedAt": "2025-12-15T12:34:21Z",
       "comments": [
         {
           "author": "henkbirkholz",
@@ -182,6 +182,13 @@
           "body": "AFAIU, a heartbeat interval is the upper bound of a timeframe in which you need to receive the heartbeat message or run into a timeout.",
           "createdAt": "2025-12-12T08:28:36Z",
           "updatedAt": "2025-12-12T08:28:36Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "All other items seem to be addressed. ",
+          "createdAt": "2025-12-15T12:34:21Z",
+          "updatedAt": "2025-12-15T12:34:21Z"
         }
       ]
     },
@@ -190,16 +197,24 @@
       "id": "I_kwDOGOJeq87X4brp",
       "title": "Jun's WGLC Review",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/20",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Archived at: https://mailarchive.ietf.org/arch/msg/rats/fL6svmwM3MvveYmPElE_HVkgGWM\n\nRequired fixes: item (1) and item (4)",
       "createdAt": "2025-11-13T16:22:35Z",
-      "updatedAt": "2025-11-13T16:22:35Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-12-15T12:35:20Z",
+      "closedAt": "2025-12-15T12:35:20Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Both item (1) and (4) seem clarified or addressed now.",
+          "createdAt": "2025-12-15T12:35:20Z",
+          "updatedAt": "2025-12-15T12:35:20Z"
+        }
+      ]
     },
     {
       "number": 21,
@@ -230,16 +245,24 @@
       "id": "I_kwDOGOJeq87bAU71",
       "title": "the nonce issue in the delta update",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/issues/23",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "junzhanghw",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "the nonce should be nonce' in the delta update part of the figure, as it is different from the orignial nonce.",
       "createdAt": "2025-11-28T09:55:17Z",
-      "updatedAt": "2025-11-28T09:55:17Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-12-15T12:36:05Z",
+      "closedAt": "2025-12-15T12:36:05Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "It is not always a new nonce value, which is now expressed in main.",
+          "createdAt": "2025-12-15T12:36:05Z",
+          "updatedAt": "2025-12-15T12:36:05Z"
+        }
+      ]
     },
     {
       "number": 31,
@@ -1841,24 +1864,26 @@
       "id": "PR_kwDOGOJeq864hxWH",
       "title": "Addressing nits from Jun and a few others",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/32",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-12-12T09:20:24Z",
-      "updatedAt": "2025-12-12T09:22:23Z",
+      "updatedAt": "2025-12-15T12:30:48Z",
       "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "baseRefName": "main",
       "baseRefOid": "3d3f62d0ffd61cfabbccf5b80470a60e62e316fc",
       "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "headRefName": "jun-item-1",
       "headRefOid": "be79b2656124a60483b40db7938b3bbfd3024554",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-12-15T12:30:48Z",
+      "mergedAt": "2025-12-15T12:30:48Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "791cc1506f5f4bf7145f09c5d7eae80cb383a872"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1881,24 +1906,26 @@
       "id": "PR_kwDOGOJeq864hx0l",
       "title": "Clarification of nonce re-use",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/33",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-12-12T09:21:10Z",
-      "updatedAt": "2025-12-12T09:28:54Z",
+      "updatedAt": "2025-12-15T12:37:23Z",
       "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "baseRefName": "main",
       "baseRefOid": "3d3f62d0ffd61cfabbccf5b80470a60e62e316fc",
       "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "headRefName": "jun-item-2",
-      "headRefOid": "c0293151b321daffb837320298b867bf634ae21c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "cf3bc1c9a0004e567788135adb3dd7574e55fb06",
+      "closedAt": "2025-12-15T12:37:16Z",
+      "mergedAt": "2025-12-15T12:37:16Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "80cafa9461b544f95304f0816cdba31dcea23790"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1958,6 +1985,26 @@
               "body": "```suggestion\n* `handle` is substituted with `nonce`, a nonce generated by the Verifier. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}. Hence, a 'nonce' value in this case is populated out-of-band and can be used more than once in the scope of a subscription (based on local policy that enforces freshness requirements).\n```",
               "createdAt": "2025-12-12T09:28:50Z",
               "updatedAt": "2025-12-12T09:28:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87VQwqy",
+          "commit": {
+            "abbreviatedOid": "c029315"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-15T12:35:34Z",
+          "updatedAt": "2025-12-15T12:35:40Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n* `handle` is substituted with `nonce`, a nonce generated by the Verifier. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{!RFC9684}}. Hence, in this case, a 'nonce' value is populated out of band and can be used more than once within the scope of a subscription, based on local policies that enforce freshness requirements.\r\n```",
+              "createdAt": "2025-12-15T12:35:34Z",
+              "updatedAt": "2025-12-15T12:35:40Z"
             }
           ]
         }
