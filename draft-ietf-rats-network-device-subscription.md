@@ -370,13 +370,13 @@ If the Verifier does not want to see the logged extend operations for all PCRs a
 
 Unless it is relying on Reference Values for TPM Quotes only, a Verifier will need to acquire a history of PCR extensions since the Attester has been booted.  This history may be requested from the Attester as part of the \<establish-subscription\> RPC.  This request is accomplished by placing a very old \<replay-start-time\> within the original RPC request.  As the very old \<replay-start-time\> will pre-date the time of Attester boot, a \<replay-start-time-revision\> will be returned in the \<establish-subscription\> RPC response, indicating when the Attester booted.  Immediately following the response (and before the notifications above) one or more \<pcr-extend\> notifications which document all extend operations which have occurred for the requested PCRs since boot will be sent.  Multiple extend operations to a single PCR index on a single TPM can be included within a single notification.
 
-Note that if a Verifier has a partial history of extensions, the \<replay-start-time\> can be adjusted so that known extensions are not forwarded.
+Note that if a Verifier has a partial history of extensions, the \<replay-start-time\> can be adjusted so that already known extensions are not forwarded.
 
 The end of this history replay will be indicated with the {{RFC8639}} \<replay-completed\> notification.  For more on this sequence, see Section 2.4.2.1 of {{RFC8639}}.
 
 After the \<replay-complete\> notification is provided, a TPM Quote will be requested and the result passed to the Verifier via a \<tpm12-attestation\> and \<tpm20-attestation\> notification.  If there have been any additional extend operations which have changed a subscribed PCR value in this quote, these MUST be pushed to the Verifier before the \<tpm12-attestation\> and \<tpm20-attestation\> notification.
 
-At this point the Verifier has sufficient Evidence appraise the reported extend operations for each PCR, as well compare the expected value of the PCR value against that signed by the TPM.
+At this point, the Verifier has sufficient Evidence to appraise the reported extend operations for each PCR, as well as to compare a Reference Value derived from the replay of the Event Log history of extensions of the PCR value against those extensions signed by the TPM in its most recent Quote.
 
 ### TPM2 Heartbeat
 
