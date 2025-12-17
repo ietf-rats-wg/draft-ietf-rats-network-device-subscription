@@ -229,7 +229,7 @@ The terminology specialization is as follows:
 {{-rats-arch}} defines "Relevant Events over Time" in RATS which also provides the input for {{Figure 3 of -rats-riv}}.
 The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party.
 The action of conveying "collectClaims", which is defined in {{Section 6 of -rats-models}}, is not defined by {{-rats-arch}}.
-As a result, it cannot be matched to a specified event time.
+As a result, that action cannot be matched to a specified event time.
 
 ~~~~ aasvg
 .----------.                             .--------------------------.
