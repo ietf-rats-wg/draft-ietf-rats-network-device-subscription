@@ -144,7 +144,7 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 ## Sequence Diagrams
 
-This section illustrates the subscription interaction model by mapping terms from {{-rats-models}} and illustrating timing consideration based on {{Figure 3 of -rats-riv}}.
+This section illustrates the subscription interaction model by mapping terms from {{-rats-models}} and illustrating timing consideration based on Figure 3 of {{-rats-riv}}.
 Both sequence diagrams {{term-sequence}} and {{time-sequence}} highlight TPM-specific aspects and the Dynamic Subscription (as specified in {{RFC8639}}) to an \<attestation\> Event Stream.
 The contents of the \<attestation\> Event Stream are defined below within {{attestationstream}}.
 
@@ -226,7 +226,7 @@ The terminology specialization is as follows:
 
 ### Time Considerations Mapping
 
-{{-rats-arch}} defines "Relevant Events over Time" in RATS which also provides the input for {{Figure 3 of -rats-riv}}.
+{{-rats-arch}} defines "Relevant Events over Time" in RATS which also provides the input for Figure 3 of {{-rats-riv}}.
 The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party.
 The action of conveying "collectClaims", which is defined in {{Section 6 of -rats-models}}, is not defined by {{-rats-arch}}.
 As a result, that action cannot be matched to a specified event time.
@@ -285,7 +285,7 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
 
 * time(VG,RG,RA) are identical to the corresponding time definitions from {{-rats-riv}}.
 
-* time(VG',RG',RA') are subsequent instances of the corresponding times from Figure 5 in {{-rats-riv}}.
+* time(VG',RG',RA') are subsequent instances of the corresponding times from Figure 3 in {{-rats-riv}}.
 
 * time(NS) – the subscriber generates a nonce and makes an {{RFC8639}} \<establish-subscription\> request based on that nonce value. This request also includes the augmentations defined in this document's YANG model. Key subscription RPC parameters include:
   * the nonce,
