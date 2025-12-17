@@ -83,7 +83,7 @@ informative:
 --- abstract
 
 This document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS).
-Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type.
+Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type and auxiliary Event Logs as part of that Evidence.
 The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running.
 
 --- middle
@@ -104,12 +104,12 @@ Essentially, the limitation of poll-based interactions has two adverse effects:
 1. Conceptual Messages are not streamed to interested consumers of information (e.g., Verifiers or Relying Parties) as soon as they are generated.
 
 2. Even if they were streamed, the freshness of Conceptual Messages cannot be appraised in every scenario.
-This is particularly important for Conceptual Messages that depend heavily on freshness, such as Evidence and the corresponding Attestation Results.
+This is particularly important for Conceptual Messages, such as Evidence, that depend heavily on freshness.
 
 This specification addresses the first adverse effect by enabling consumers of Conceptual Messages (subscribers) to request a continuous stream of new or updated Conceptual Messages via an {{RFC8639}} subscription to an \<attestation\> Event Stream.
 This new Event Stream is defined in this document and is provided by the producer of Conceptual Messages (the publisher).
-In the case of a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier.
-For example, when a network device's Evidence changes following events such as booting, updating, control unit fallover, plugging in or out of forwarding units, an attack, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.
+As covered by this document, via a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier.
+For example, when a network device's Evidence changes following events such as booting, updating, control unit failover, plugging in or out of forwarding units, an attack, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.
 
 The second adverse effect stems from the use of nonces in the challenge-response interaction model {{Section 7.1 of -rats-models}} realized in {{-charra}}.
 According to {{-charra}}, an Attester must wait for a new nonce from a Verifier before generating a new TPM Quote.
@@ -125,10 +125,10 @@ Two alternative methods are taken into account by this document:
 2. A nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by {{-charra}}.
 
 Both approaches assume that clock drift can occur between the entities involved.
-Consequently, other conditions arising in different application scenarios ought to be considered in the same way. For example, the time of Claims collection ought to be taken into account.
+Consequently, other conditions arising in different application scenarios ought to be considered in the same way. For example, the time of Claims collection ought to be taken into account as it potentially impacts the freshness of Evidence.
 
 The scope of this document is limited to the removal of the two adverse effects described when using the specified YANG augmentation.
-For example, the YANG augmentation enables a RATS Verifier to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.
+In essence, the YANG augmentation enables RATS Verifiers to maintain a continuous appraisal procedure of verifiably fresh Attester Evidence without relying on continuous polling.
 
 # Terminology
 
