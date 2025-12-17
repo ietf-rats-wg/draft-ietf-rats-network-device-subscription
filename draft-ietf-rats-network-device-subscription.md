@@ -314,15 +314,15 @@ The {{RFC8639}} notification format includes the \<eventTime\> object.  This can
 
 ### TPM 2 Quote
 
-When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including an initial nonce in the {{RFC8639}} subscription request, fresh values for these counters are pushed as part of the first TPM Quote returned to the Verifier. As shown by {{-TUDA}}, subsequent TPM Quotes delivered to the Verifier can be appraised for freshness based on the predictable incrementing of these time-related counters.
+When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including an initial nonce in the {{RFC8639}} subscription request, fresh values for these counters are pushed to the Verifier as part of the first TPM Quote. As shown by {{-TUDA}}, subsequent TPM Quotes delivered to the Verifier out-of-band can be appraised for freshness based on the predictable incrementing of these time-related counters.
 
 The relevant internal time-related counters defined within {{TPM2.0}} can be seen within \<tpms-clock-info\>.   These counters include the \<clock\>, \<reset-counter\>, and \<restart-counter\> objects.  The rules for appraising these objects are as follows:
 
-* If the \<clock\> has incremented for no more than the same duration as both the \<eventTime\> and the Verifier's internal time since the initial time(EG) and any previous time(EG'), then the TPM Quote may be considered fresh. Note that {{TPM2.0}} allows for +/- 15% clock drift.  However many chips significantly improve on this maximum drift.  If available, chip specific maximum drifts SHOULD be considered during the appraisal process.
+* If the \<clock\> has incremented for no more than the same duration as both the \<eventTime\> and the Verifier's internal time since the initial time(EG) and any previous time(EG'), then the TPM Quote may be considered fresh. Note that {{TPM2.0}} allows for +/- 15% clock drift.  However, many hardware implementations significantly improve on this maximum drift.  If available, chip specific maximum drifts SHOULD be considered during the appraisal procedure of the Verifier.
 
 * If the \<reset-counter\>, \<restart-counter\> has incremented.  The existing subscription MUST be terminated, and a new \<establish-subscription\> SHOULD be generated.
 
-* If a TPM Quote on any subscribed PCR has not been pushed to the Verifier for a duration of an Attester defined heartbeat interval, then a new TPM Quote notification should be sent to the Verifier.  This may often be the case, as certain PCRs might be infrequently updated.
+* If a TPM Quote on any subscribed PCR has not been pushed to the Verifier for a duration of an Attester defined heartbeat interval, then a new TPM Quote notification SHOULD be sent to the Verifier.  This may often be the case, as certain PCRs might be infrequently updated.
 
 ~~~~
 .----------.                        .--------------------------.
