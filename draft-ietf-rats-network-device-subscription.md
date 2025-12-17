@@ -380,7 +380,7 @@ At this point, the Verifier has sufficient Evidence to appraise the reported ext
 
 ### TPM2 Heartbeat
 
-For TPM2, make sure that every requested PCR is sent within an \<tpm20-attestation\> no less frequently than once per heartbeat interval.   This MAY be done with a single \<tpm20-attestation\> notification that includes all requested PCRs every heartbeat interval.  This MAY be done with several \<tpm20-attestation\> notifications at different times during that heartbeat interval.
+For TPM 2.0, every requested PCR MUST be sent within an \<tpm20-attestation\> and no less frequently than once per heartbeat interval.   This MAY be done with a single \<tpm20-attestation\> notification that includes all requested PCRs inside every heartbeat interval.  This MAY be done with several \<tpm20-attestation\> notifications at different times during a heartbeat interval.
 
 ## YANG notifications placed on the \<attestation\> Event Stream
 
