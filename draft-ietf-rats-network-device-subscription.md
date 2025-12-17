@@ -287,19 +287,19 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
 
 * time(VG',RG',RA') are subsequent instances of the corresponding times from Figure 5 in {{-rats-riv}}.
 
-* time(NS) – the subscriber generates a nonce and makes an {{RFC8639}} \<establish-subscription\> request based on a nonce. This request also includes the augmentations defined in this document's YANG model. Key subscription RPC parameters include:
+* time(NS) – the subscriber generates a nonce and makes an {{RFC8639}} \<establish-subscription\> request based on that nonce value. This request also includes the augmentations defined in this document's YANG model. Key subscription RPC parameters include:
   * the nonce,
-  * a set of PCRs of interest which the Relying Party or Verifier wants to be appraised, and
-  * an optional filter which can reduce the logged events on the \<attestation\> stream pushed to the Verifier.
+  * a set of PCRs of interest which the Verifier wants to be appraised, and
+  * an optional filter that can reduce the logged events on the \<attestation\> stream pushed to the Verifier.
 
 * time(EG) – an initial response of Evidence is returned to the Verifier. This includes:
-  * a replay of filtered log entries which have extended into a PCR of interest since boot are sent in the \<pcr-extend\> notification, and
-  * a signed TPM quote that contains at least the PCRs from the \<establish-subscription\> RPC are included in a \<tpm12-attestation\> or \<tpm20-attestation\>). This quote must have included the nonce provided at time(NS).
+  * a replay of filtered log entries, which have extended into a PCR of interest since boot, are sent in the \<pcr-extend\> notification, and
+  * a signed TPM quote that contains at least the PCRs from the \<establish-subscription\> RPC are included in a \<tpm12-attestation\> or \<tpm20-attestation\>). This quote must have been generated based on the nonce value provided at time(NS).
 
 * time(VG',EG') – this occurs when a PCR is extended subsequent to time(EG). Immediately after the extension, the following information needs to be pushed to the Verifier:
   * any values extended into a PCR of interest,
   * a signed TPM Quote showing the result the PCR extension, and
-  * and a handle (see {{Section 6 of -rats-models}}), which is either the initially received nonce or a more recently received Epoch ID (see {{Section 10.3 of -rats-arch}}) that contains a new nonce or equivalent qualified data.
+  * a nonce value (see 'handle' above or {{Section 6 of -rats-models}}), which is either the initially received nonce or a more recently received nonce value, for example, a nonce value extracted or derived from an Epoch ID (see {{Section 10.3 of -rats-arch}}) that contains a new nonce value or equivalent qualified data used as a nonce value.
 
 One way to acquire a new time synchronisation that allows for the reuse of the initially received nonce as a fresh handle is elaborated on in {{freshness-handles}} below.
 
