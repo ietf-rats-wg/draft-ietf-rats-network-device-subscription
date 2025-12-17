@@ -382,9 +382,9 @@ At this point, the Verifier has sufficient Evidence to appraise the reported ext
 
 For TPM 2.0, every requested PCR MUST be sent within an \<tpm20-attestation\> and no less frequently than once per heartbeat interval.   This MAY be done with a single \<tpm20-attestation\> notification that includes all requested PCRs inside every heartbeat interval.  This MAY be done with several \<tpm20-attestation\> notifications at different times during a heartbeat interval.
 
-## YANG notifications placed on the \<attestation\> Event Stream
+## YANG Notifications Placed on the \<attestation\> Event Stream
 
-### pcr-extend
+### PCR Extend
 
 This notification documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It SHOULD be emitted no less than the \<marshalling-period\> after the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification MUST be emitted prior to a \<tpm12-attestation\> or \<tpm20-attestation\> notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the \<tpm12-attestation\> or \<tpm20-attestation\> notification, the marshalling period MUST be extended so that a new \<pcr-extend\> is not sent until the corresponding notifications have been sent.
 
