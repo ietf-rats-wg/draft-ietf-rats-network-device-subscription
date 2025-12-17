@@ -142,9 +142,11 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 {{-rats-riv}} describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model {{Section 7.1 of -rats-models}}. The operational model and corresponding sequence diagram described in this section is based on {{-charra}}. The basis for interoperability required for additional types of Event Streams is covered in {{otherstreams}}. The following sub-section focuses on subscription to YANG Notifications to the \<attestation\> Event Stream.
 
-## Sequence Diagram
+## Sequence Diagrams
 
-{{sequence}} below is a sequence diagram which updates Figure 5 of {{-rats-riv}}. This sequence diagram adapts {{-rats-riv}} by replacing the TPM-specific challenge-response interaction model with a {{RFC8639}} Dynamic Subscription to an \<attestation\> Event Stream. The contents of the \<attestation\> Event Stream are defined below within {{attestationstream}}.
+This section illustrates the subscription interaction model by mapping terms from {{-rats-models}} and illustrating timing consideration based on {{Figure 3 of -rats-riv}}.
+Both sequence diagrams {{term-sequence}} and {{time-sequence}} highlight TPM-specific aspects and the Dynamic Subscription (as specified in {{RFC8639}}) to an \<attestation\> Event Stream.
+The contents of the \<attestation\> Event Stream are defined below within {{attestationstream}}.
 
 ### Term Specialization
 
@@ -220,7 +222,7 @@ The terminology specialization is as follows:
  '--------------------------------------------------------------------'
      |                                                            |
 ~~~~
-{: #newsequence title="YANG Subscription Model for Remote Attestation"}
+{: #term-sequence title="YANG Subscription Model for Remote Attestation"}
 
 ### Time Considerations Mapping
 
@@ -278,7 +280,7 @@ generateEvidence(nonce, TpmName, collectedClaimsDelta)         |
      |                                    attestationResult <= |
      |                                                         |
 ~~~~
-{: #sequence title="YANG Subscription Model for Remote Attestation"}
+{: #time-sequence title="YANG Subscription Model for Remote Attestation"}
 
 * time(VG,RG,RA) are identical to the corresponding time definitions from {{-rats-riv}}.
 
