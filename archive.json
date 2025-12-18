@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-16T00:53:48.407160+00:00",
+  "timestamp": "2025-12-18T00:48:48.116115+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
   "labels": [
     {
@@ -2009,6 +2009,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 34,
+      "id": "PR_kwDOGOJeq865HvY4",
+      "title": "SVG-fy SD",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/34",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A _very_ important patch!",
+      "createdAt": "2025-12-16T10:30:50Z",
+      "updatedAt": "2025-12-16T10:31:20Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "80cafa9461b544f95304f0816cdba31dcea23790",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "svgfy-sd",
+      "headRefOid": "0b64a6f7ba122e5803080c9b91efa62adf3d5260",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
