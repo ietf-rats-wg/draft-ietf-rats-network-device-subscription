@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 18 June 2026                                              Cisco
+Expires: 22 June 2026                                              Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                        15 December 2025
+                                                        19 December 2025
 
 
                  Attestation Event Stream Subscription
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 June 2026.
+   This Internet-Draft will expire on 22 June 2026.
 
 Copyright Notice
 
