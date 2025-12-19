@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 20 June 2026                                              Cisco
+Expires: 22 June 2026                                              Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                        17 December 2025
+                                                        19 December 2025
 
 
                  Attestation Event Stream Subscription
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 June 2026.
+   This Internet-Draft will expire on 22 June 2026.
 
 Copyright Notice
 
@@ -591,7 +591,7 @@ Table of Contents
 4.2.1.  TPM2 Heartbeat
 
    For TPM 2.0, every requested PCR MUST be sent within an
-   <tpm20-attestation> and no less frequently than once per heartbeat
+   <tpm20-attestation> and no less frequent than once per heartbeat
    interval.  This MAY be done with a single <tpm20-attestation>
    notification that includes all requested PCRs inside every heartbeat
    interval.  This MAY be done with several <tpm20-attestation>
@@ -609,7 +609,7 @@ Table of Contents
    these should be reflected in the same notification.)  This
    notification MUST be emitted prior to a <tpm12-attestation> or
    <tpm20-attestation> notification which has included and signed the
-   results of any specific PCR extension.  If pcr extending events occur
+   results of any specific PCR extension.  If PCR extending events occur
    during the generation of the <tpm12-attestation> or
    <tpm20-attestation> notification, the marshalling period MUST be
    extended so that a new <pcr-extend> is not sent until the
@@ -699,12 +699,12 @@ Table of Contents
    two points in time:
 
    *  every time at least one PCR has changed from a previous
-      tpm20-attestation.  In this case, the notification SHOULD be
+      <tpm20-attestation>.  In this case, the notification SHOULD be
       emitted within 10 seconds of the corresponding <pcr-extend> being
       sent:
 
    *  after a locally configurable minimum heartbeat period since a
-      previous tpm20-attestation was sent.
+      previous <tpm20-attestation> was sent.
 
        +---n tpm20-attestation {taa:TPM20}?
           +--ro certificate-name       tpm:certificate-name-ref
@@ -723,9 +723,9 @@ Table of Contents
 4.4.  Filtering Evidence at the Attester
 
    It can be useful _not_ to receive all Evidence related to a PCR.  An
-   example of this is would be a when a Verifier maintains known good
-   values of a PCR.  In this case, it is not necessary to send each
-   extend operation.
+   example of this is when a Verifier maintains Reference Values (known
+   good values) of a PCR.  In this case, it is not necessary to send a
+   log of each consecutive extend operation.
 
    To accomplish this reduction, when an RFC8639 <establish-
    subscription> RPC is sent, a <stream-filter> as per RFC8639,

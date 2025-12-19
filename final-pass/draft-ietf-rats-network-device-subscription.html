@@ -23,10 +23,10 @@ The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardw
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.5.0
+    lxml 6.0.2
+    platformdirs 4.5.1
     pycountry 24.6.1
-    PyYAML 6.0.2
+    PyYAML 6.0.3
     requests 2.32.5
     wcwidth 0.2.14
 -->
@@ -1051,7 +1051,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 20 June 2026</td>
+<td class="center">Expires 22 June 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1064,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-network-device-subscription-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-17" class="published">17 December 2025</time>
+<time datetime="2025-12-19" class="published">19 December 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-06-20">20 June 2026</time></dd>
+<dd class="expires"><time datetime="2026-06-22">22 June 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardw
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1838,7 +1838,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
           <h4 id="name-tpm2-heartbeat">
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-tpm2-heartbeat" class="section-name selfRef">TPM2 Heartbeat</a>
           </h4>
-<p id="section-4.2.1-1">For TPM 2.0, every requested PCR <span class="bcp14">MUST</span> be sent within an &lt;tpm20-attestation&gt; and no less frequently than once per heartbeat interval.   This <span class="bcp14">MAY</span> be done with a single &lt;tpm20-attestation&gt; notification that includes all requested PCRs inside every heartbeat interval.  This <span class="bcp14">MAY</span> be done with several &lt;tpm20-attestation&gt; notifications at different times during a heartbeat interval.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-1">For TPM 2.0, every requested PCR <span class="bcp14">MUST</span> be sent within an &lt;tpm20-attestation&gt; and no less frequent than once per heartbeat interval.   This <span class="bcp14">MAY</span> be done with a single &lt;tpm20-attestation&gt; notification that includes all requested PCRs inside every heartbeat interval.  This <span class="bcp14">MAY</span> be done with several &lt;tpm20-attestation&gt; notifications at different times during a heartbeat interval.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1853,7 +1853,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
           <h4 id="name-pcr-extend">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-pcr-extend" class="section-name selfRef">pcr-extend</a>
           </h4>
-<p id="section-4.3.1-1">This notification type documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It <span class="bcp14">SHOULD</span> be emitted no less than the &lt;marshalling-period&gt; after the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification <span class="bcp14">MUST</span> be emitted prior to a &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification, the marshalling period <span class="bcp14">MUST</span> be extended so that a new &lt;pcr-extend&gt; is not sent until the corresponding notifications have been sent.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-1">This notification type documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It <span class="bcp14">SHOULD</span> be emitted no less than the &lt;marshalling-period&gt; after the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification <span class="bcp14">MUST</span> be emitted prior to a &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification which has included and signed the results of any specific PCR extension.  If PCR extending events occur during the generation of the &lt;tpm12-attestation&gt; or &lt;tpm20-attestation&gt; notification, the marshalling period <span class="bcp14">MUST</span> be extended so that a new &lt;pcr-extend&gt; is not sent until the corresponding notifications have been sent.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3.1-2">
 <pre>
 +---n pcr-extend
@@ -1897,7 +1897,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
                   +--ro signature?                 binary
 </pre><a href="#section-4.3.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3.1-3">Each &lt;pcr-extend&gt; <span class="bcp14">MUST</span> include one or more values being extended into the PCR.   These are passed within the &lt;extended-with&gt; object.  For each extension, details of the event <span class="bcp14">SHOULD</span> be provided within the &lt;event-details&gt; object.
+<p id="section-4.3.1-3">Each &lt;pcr-extend&gt; <span class="bcp14">MUST</span> include one or more values being extended into the PCR.  These are passed within the &lt;extended-with&gt; object.  For each extension, details of the event <span class="bcp14">SHOULD</span> be provided within the &lt;event-details&gt; object.
 The format of any included &lt;event-details&gt; is identified by the &lt;event-type&gt;.  This document includes two YANG structures which may be inserted into the &lt;event-details&gt;.  These two structures are: &lt;ima-event-log&gt; and &lt;bios-event-log&gt;.  Implementations wanting to provide additional documentation of a type of PCR extension may choose to define additional YANG structures which can be placed into &lt;event-details&gt;.<a href="#section-4.3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1930,10 +1930,10 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
 <p id="section-4.3.3-1">This notification contains an instance of TPM2 style signed cryptoprocessor measurements. It is supplemented by Attester information which is not signed. This notification is generated at two points in time:<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.3.3-2.1">
-              <p id="section-4.3.3-2.1.1">every time at least one PCR has changed from a previous tpm20-attestation. In this case, the notification <span class="bcp14">SHOULD</span> be emitted within 10 seconds of the corresponding &lt;pcr-extend&gt; being sent:<a href="#section-4.3.3-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.3-2.1.1">every time at least one PCR has changed from a previous &lt;tpm20-attestation&gt;. In this case, the notification <span class="bcp14">SHOULD</span> be emitted within 10 seconds of the corresponding &lt;pcr-extend&gt; being sent:<a href="#section-4.3.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.3.3-2.2">
-              <p id="section-4.3.3-2.2.1">after a locally configurable minimum heartbeat period since a previous tpm20-attestation was sent.<a href="#section-4.3.3-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.3-2.2.1">after a locally configurable minimum heartbeat period since a previous &lt;tpm20-attestation&gt; was sent.<a href="#section-4.3.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <div class="alignLeft art-text artwork" id="section-4.3.3-3">
@@ -1960,7 +1960,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
         <h3 id="name-filtering-evidence-at-the-a">
 <a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-filtering-evidence-at-the-a" class="section-name selfRef">Filtering Evidence at the Attester</a>
         </h3>
-<p id="section-4.4-1">It can be useful <em>not</em> to receive all Evidence related to a PCR.  An example of this is would be a when a Verifier maintains known good values of a PCR.  In this case, it is not necessary to send each extend operation.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-1">It can be useful <em>not</em> to receive all Evidence related to a PCR.  An example of this is when a Verifier maintains Reference Values (known good values) of a PCR.  In this case, it is not necessary to send a log of each consecutive extend operation.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 <p id="section-4.4-2">To accomplish this reduction, when an RFC8639 &lt;establish-subscription&gt; RPC is sent, a &lt;stream-filter&gt; as per RFC8639, Section 2.2 can be set to discard a &lt;pcr-extend&gt;  notification when the &lt;pcr-index-changed&gt; is uninteresting to the verifier.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
