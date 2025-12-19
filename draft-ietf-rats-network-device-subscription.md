@@ -321,7 +321,7 @@ The relevant internal time-related counters defined within {{TPM2.0}} can be see
 
 * If a TPM Quote on any subscribed PCR has not been pushed to the Verifier for a duration of an Attester defined heartbeat interval, then a new TPM Quote notification should be sent to the Verifier.  This may often be the case, as certain PCRs might be infrequently updated.
 
-~~~~
+~~~~ aasvg
 .----------.                        .--------------------------.
 | Attester |                        | Relying Party / Verifier |
 '----------'                        '--------------------------'
