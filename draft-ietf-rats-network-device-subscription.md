@@ -380,19 +380,19 @@ At this point, the Verifier has sufficient Evidence to appraise the reported ext
 
 ### TPM2 Heartbeat
 
-For TPM 2.0, every requested PCR MUST be sent within an \<tpm20-attestation\> and no less frequently than once per heartbeat interval.   This MAY be done with a single \<tpm20-attestation\> notification that includes all requested PCRs inside every heartbeat interval.  This MAY be done with several \<tpm20-attestation\> notifications at different times during a heartbeat interval.
+For TPM 2.0, every requested PCR MUST be sent within an \<tpm20-attestation\> and no less frequent than once per heartbeat interval.   This MAY be done with a single \<tpm20-attestation\> notification that includes all requested PCRs inside every heartbeat interval.  This MAY be done with several \<tpm20-attestation\> notifications at different times during a heartbeat interval.
 
 ## YANG Notifications Placed on the \<attestation\> Event Stream
 
 ### pcr-extend
 
-This notification type documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It SHOULD be emitted no less than the \<marshalling-period\> after the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification MUST be emitted prior to a \<tpm12-attestation\> or \<tpm20-attestation\> notification which has included and signed the results of any specific PCR extension.   If pcr extending events occur during the generation of the \<tpm12-attestation\> or \<tpm20-attestation\> notification, the marshalling period MUST be extended so that a new \<pcr-extend\> is not sent until the corresponding notifications have been sent.
+This notification type documents when a subscribed PCR is extended within a single TPM cryptoprocessor.  It SHOULD be emitted no less than the \<marshalling-period\> after the PCR is first extended.  (The reason for the marshalling is that it is quite possible that multiple extensions to the same PCR have been made in quick succession, and these should be reflected in the same notification.)  This notification MUST be emitted prior to a \<tpm12-attestation\> or \<tpm20-attestation\> notification which has included and signed the results of any specific PCR extension.  If PCR extending events occur during the generation of the \<tpm12-attestation\> or \<tpm20-attestation\> notification, the marshalling period MUST be extended so that a new \<pcr-extend\> is not sent until the corresponding notifications have been sent.
 
 ~~~~
 {::include ietf-tpm-remote-attestation-stream_pcr-extend.tree}
 ~~~~
 
-Each \<pcr-extend\> MUST include one or more values being extended into the PCR.   These are passed within the \<extended-with\> object.  For each extension, details of the event SHOULD be provided within the \<event-details\> object.
+Each \<pcr-extend\> MUST include one or more values being extended into the PCR.  These are passed within the \<extended-with\> object.  For each extension, details of the event SHOULD be provided within the \<event-details\> object.
 The format of any included \<event-details\> is identified by the \<event-type\>.  This document includes two YANG structures which may be inserted into the \<event-details\>.  These two structures are: \<ima-event-log\> and \<bios-event-log\>.  Implementations wanting to provide additional documentation of a type of PCR extension may choose to define additional YANG structures which can be placed into \<event-details\>.
 
 ### tpm12-attestation
@@ -409,9 +409,9 @@ All YANG objects above are defined within {{-charra}}.  The \<tpm12-attestation\
 
 This notification contains an instance of TPM2 style signed cryptoprocessor measurements. It is supplemented by Attester information which is not signed. This notification is generated at two points in time:
 
-* every time at least one PCR has changed from a previous tpm20-attestation. In this case, the notification SHOULD be emitted within 10 seconds of the corresponding \<pcr-extend\> being sent:
+* every time at least one PCR has changed from a previous \<tpm20-attestation\>. In this case, the notification SHOULD be emitted within 10 seconds of the corresponding \<pcr-extend\> being sent:
 
-* after a locally configurable minimum heartbeat period since a previous tpm20-attestation was sent.
+* after a locally configurable minimum heartbeat period since a previous \<tpm20-attestation\> was sent.
 
 ~~~~
 {::include ietf-tpm-remote-attestation-stream_tpm20-attestation.tree}
@@ -421,7 +421,7 @@ All YANG objects above are defined within {{-charra}}.  The \<tpm20-attestation\
 
 ## Filtering Evidence at the Attester
 
-It can be useful *not* to receive all Evidence related to a PCR.  An example of this is would be a when a Verifier maintains known good values of a PCR.  In this case, it is not necessary to send each extend operation.
+It can be useful *not* to receive all Evidence related to a PCR.  An example of this is when a Verifier maintains Reference Values (known good values) of a PCR.  In this case, it is not necessary to send a log of each consecutive extend operation.
 
 To accomplish this reduction, when an RFC8639 \<establish-subscription\> RPC is sent, a \<stream-filter\> as per RFC8639, Section 2.2 can be set to discard a \<pcr-extend\>  notification when the \<pcr-index-changed\> is uninteresting to the verifier.
 
