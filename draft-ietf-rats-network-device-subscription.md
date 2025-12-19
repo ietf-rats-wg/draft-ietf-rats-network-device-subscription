@@ -425,16 +425,16 @@ It can be useful *not* to receive all Evidence related to a PCR.  An example of 
 
 To accomplish this reduction, when an RFC8639 \<establish-subscription\> RPC is sent, a \<stream-filter\> as per RFC8639, Section 2.2 can be set to discard a \<pcr-extend\>  notification when the \<pcr-index-changed\> is uninteresting to the verifier.
 
-## Replaying previous PCR Extend events
+## Replaying Previous PCR Extend Events
 
-To verify the value of a PCR, a Verifier must either know that the value is a "known good" value (see Section 2.3.3 of {{KGV}}) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \<attestation\> Event Stream MUST support the RFC8639 \<replay\> feature. Through the \<replay\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.
+To verify the value of a PCR, a Verifier must either know that the value is a "known good" value (see Section 2.3.3 of {{KGV}} about Reference Values) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the \<attestation\> Event Stream MUST support the RFC8639 \<replay\> feature. Through the \<replay\> feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. Thereby, the Verifier has access to all the Evidence needed to verify a PCR's current value.
 
 {: #configuring "Configuring the Attestation Stream"}
 ## Configuring the \<attestation\> Event Stream
 
-{{attestationconfig}} is tree diagram which exposes the operator configurable elements of the \<attestation\> Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of stream.
+{{attestationconfig}} is tree diagram which exposes the operator configurable elements of the \<attestation\> Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of the stream.
 
-Almost all YANG objects below are defined via reference from {{-charra}}. There is one object which is new with this model however. \<tpm2-heartbeat\> defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a \<tpm20-attestation\> notification from devices which contain a TPM2.
+Almost all YANG objects below are defined via reference from {{-charra}}. However, there is one object which is new in this model. \<tpm2-heartbeat\> defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a \<tpm20-attestation\> notification from devices which contain a TPM2.
 
 ~~~~
 {::include ietf-tpm-remote-attestation-stream_attestation-config.tree}
@@ -444,10 +444,10 @@ Almost all YANG objects below are defined via reference from {{-charra}}. There 
 {: #YANG-Module}
 # YANG Module
 
-This YANG module imports modules from {{-charra}} and {{RFC8639}}.  It is also work-in-progress.
+This YANG module imports modules from {{-charra}} and {{RFC8639}}.
 
 ~~~~ YANG
-<CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-01-06.yang
+<CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-12-19.yang
 {::include ietf-tpm-remote-attestation-stream@2020-12-15.yang}
 <CODE ENDS>
 ~~~~
