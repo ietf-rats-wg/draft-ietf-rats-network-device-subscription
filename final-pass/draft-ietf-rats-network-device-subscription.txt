@@ -90,7 +90,7 @@ Table of Contents
        4.3.2.  tpm12-attestation
        4.3.3.  tpm20-attestation
      4.4.  Filtering Evidence at the Attester
-     4.5.  Replaying previous PCR Extend events
+     4.5.  Replaying Previous PCR Extend Events
      4.6.  Configuring the <attestation> Event Stream
    5.  YANG Module
    6.  Event Streams for Conceptual Messages
@@ -732,17 +732,18 @@ Table of Contents
    Section 2.2 can be set to discard a <pcr-extend> notification when
    the <pcr-index-changed> is uninteresting to the verifier.
 
-4.5.  Replaying previous PCR Extend events
+4.5.  Replaying Previous PCR Extend Events
 
    To verify the value of a PCR, a Verifier must either know that the
-   value is a "known good" value (see Section 2.3.3 of [KGV]) or be able
-   to reconstruct the hash value by viewing all the PCR-Extends since
-   the Attester rebooted.  Wherever a hash reconstruction might be
-   needed, the <attestation> Event Stream MUST support the RFC8639
-   <replay> feature.  Through the <replay> feature, it is possible for a
-   Verifier to retrieve and sequentially hash all of the PCR extending
-   events since an Attester booted.  And thus, the Verifier has access
-   to all the evidence needed to verify a PCR's current value.
+   value is a "known good" value (see Section 2.3.3 of [KGV] about
+   Reference Values) or be able to reconstruct the hash value by viewing
+   all the PCR-Extends since the Attester rebooted.  Wherever a hash
+   reconstruction might be needed, the <attestation> Event Stream MUST
+   support the RFC8639 <replay> feature.  Through the <replay> feature,
+   it is possible for a Verifier to retrieve and sequentially hash all
+   of the PCR extending events since an Attester booted.  Thereby, the
+   Verifier has access to all the Evidence needed to verify a PCR's
+   current value.
 
 4.6.  Configuring the <attestation> Event Stream
 
@@ -750,10 +751,10 @@ Table of Contents
    elements of the <attestation> Event Stream.  This allows an Attester
    to select what information should be available on the stream.  A
    fetch operation also allows an external device such as a Verifier to
-   understand the current configuration of stream.
+   understand the current configuration of the stream.
 
    Almost all YANG objects below are defined via reference from
-   [RFC9684].  There is one object which is new with this model however.
+   [RFC9684].  However, there is one object which is new in this model.
    <tpm2-heartbeat> defines the maximum amount of time which should pass
    before a subscriber to the Event Stream should get a
    <tpm20-attestation> notification from devices which contain a TPM2.
@@ -783,10 +784,9 @@ Table of Contents
 
 5.  YANG Module
 
-   This YANG module imports modules from [RFC9684] and [RFC8639].  It is
-   also work-in-progress.
+   This YANG module imports modules from [RFC9684] and [RFC8639].
 
-   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-01-06.yang
+   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-12-19.yang
    module ietf-tpm-remote-attestation-stream {
      yang-version 1.1;
      namespace

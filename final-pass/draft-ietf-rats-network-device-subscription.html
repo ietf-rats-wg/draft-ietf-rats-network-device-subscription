@@ -1223,7 +1223,7 @@ The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardw
                 <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-filtering-evidence-at-the-a" class="internal xref">Filtering Evidence at the Attester</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
-                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="auto internal xref">4.5</a>.  <a href="#name-replaying-previous-pcr-exte" class="internal xref">Replaying previous PCR Extend events</a></p>
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="auto internal xref">4.5</a>.  <a href="#name-replaying-previous-pcr-exte" class="internal xref">Replaying Previous PCR Extend Events</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.6">
                 <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="auto internal xref">4.6</a>.  <a href="#name-configuring-the-attestation" class="internal xref">Configuring the &lt;attestation&gt; Event Stream</a></p>
@@ -1967,9 +1967,9 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
 <div id="replaying-previous-pcr-extend-events">
 <section id="section-4.5">
         <h3 id="name-replaying-previous-pcr-exte">
-<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-replaying-previous-pcr-exte" class="section-name selfRef">Replaying previous PCR Extend events</a>
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-replaying-previous-pcr-exte" class="section-name selfRef">Replaying Previous PCR Extend Events</a>
         </h3>
-<p id="section-4.5-1">To verify the value of a PCR, a Verifier must either know that the value is a "known good" value (see Section 2.3.3 of <span>[<a href="#KGV" class="cite xref">KGV</a>]</span>) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the &lt;attestation&gt; Event Stream <span class="bcp14">MUST</span> support the RFC8639 &lt;replay&gt; feature. Through the &lt;replay&gt; feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. And thus, the Verifier has access to all the evidence needed to verify a PCR's current value.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-1">To verify the value of a PCR, a Verifier must either know that the value is a "known good" value (see Section 2.3.3 of <span>[<a href="#KGV" class="cite xref">KGV</a>]</span> about Reference Values) or be able to reconstruct the hash value by viewing all the PCR-Extends since the Attester rebooted. Wherever a hash reconstruction might be needed, the &lt;attestation&gt; Event Stream <span class="bcp14">MUST</span> support the RFC8639 &lt;replay&gt; feature. Through the &lt;replay&gt; feature, it is possible for a Verifier to retrieve and sequentially hash all of the PCR extending events since an Attester booted. Thereby, the Verifier has access to all the Evidence needed to verify a PCR's current value.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="configuring">
@@ -1977,8 +1977,8 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
         <h3 id="name-configuring-the-attestation">
 <a href="#section-4.6" class="section-number selfRef">4.6. </a><a href="#name-configuring-the-attestation" class="section-name selfRef">Configuring the &lt;attestation&gt; Event Stream</a>
         </h3>
-<p id="section-4.6-1"><a href="#attestationconfig" class="auto internal xref">Figure 3</a> is tree diagram which exposes the operator configurable elements of the &lt;attestation&gt; Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of stream.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
-<p id="section-4.6-2">Almost all YANG objects below are defined via reference from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. There is one object which is new with this model however. &lt;tpm2-heartbeat&gt; defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a &lt;tpm20-attestation&gt; notification from devices which contain a TPM2.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
+<p id="section-4.6-1"><a href="#attestationconfig" class="auto internal xref">Figure 3</a> is tree diagram which exposes the operator configurable elements of the &lt;attestation&gt; Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of the stream.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
+<p id="section-4.6-2">Almost all YANG objects below are defined via reference from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. However, there is one object which is new in this model. &lt;tpm2-heartbeat&gt; defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a &lt;tpm20-attestation&gt; notification from devices which contain a TPM2.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
 <span id="name-configuring-the-attestation-"></span><div id="attestationconfig">
 <figure id="figure-3">
           <div class="alignLeft art-text artwork" id="section-4.6-3.1">
@@ -2018,10 +2018,10 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
       <h2 id="name-yang-module">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-yang-module" class="section-name selfRef">YANG Module</a>
       </h2>
-<p id="section-5-1">This YANG module imports modules from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> and <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>.  It is also work-in-progress.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">This YANG module imports modules from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> and <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div class="breakable lang-YANG sourcecode" id="section-5-2">
 <pre>
-&lt;CODE BEGINS&gt; ietf-tpm-remote-attestation-stream@2025-01-06.yang
+&lt;CODE BEGINS&gt; ietf-tpm-remote-attestation-stream@2025-12-19.yang
 module ietf-tpm-remote-attestation-stream {
   yang-version 1.1;
   namespace
