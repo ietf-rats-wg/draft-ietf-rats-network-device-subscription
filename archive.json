@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-18T00:48:48.116115+00:00",
+  "timestamp": "2025-12-21T00:56:57.515546+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
   "labels": [
     {
@@ -2015,26 +2015,82 @@
       "id": "PR_kwDOGOJeq865HvY4",
       "title": "SVG-fy SD",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/34",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "thomas-fossati",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "A _very_ important patch!",
       "createdAt": "2025-12-16T10:30:50Z",
-      "updatedAt": "2025-12-16T10:31:20Z",
+      "updatedAt": "2025-12-19T14:50:10Z",
       "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "baseRefName": "main",
       "baseRefOid": "80cafa9461b544f95304f0816cdba31dcea23790",
       "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "headRefName": "svgfy-sd",
       "headRefOid": "0b64a6f7ba122e5803080c9b91efa62adf3d5260",
+      "closedAt": "2025-12-19T14:50:10Z",
+      "mergedAt": "2025-12-19T14:50:10Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "7220ffe6b7f3ec8179f2886fe203dab21168617e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87Wgp5R",
+          "commit": {
+            "abbreviatedOid": "0b64a6f"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "thank you for your attention to detail!",
+          "createdAt": "2025-12-19T14:47:54Z",
+          "updatedAt": "2025-12-19T14:47:54Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "id": "PR_kwDOGOJeq8651m74",
+      "title": "Final Editorial Pass",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/35",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes Issue #31 ",
+      "createdAt": "2025-12-19T14:49:45Z",
+      "updatedAt": "2025-12-19T15:25:54Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "80cafa9461b544f95304f0816cdba31dcea23790",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "final-pass",
+      "headRefOid": "6e76d43e8a78293b1e2a637590683ea98c8a7500",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOGOJeq87WhKrJ",
+          "commit": {
+            "abbreviatedOid": "6e76d43"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks beautiful.",
+          "createdAt": "2025-12-19T15:25:54Z",
+          "updatedAt": "2025-12-19T15:25:54Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
