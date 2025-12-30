@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-21T00:56:57.515546+00:00",
+  "timestamp": "2025-12-30T00:53:37.751293+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
   "labels": [
     {
@@ -2057,25 +2057,35 @@
       "id": "PR_kwDOGOJeq8651m74",
       "title": "Final Editorial Pass",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/35",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "fixes Issue #31 ",
       "createdAt": "2025-12-19T14:49:45Z",
-      "updatedAt": "2025-12-19T15:25:54Z",
+      "updatedAt": "2025-12-29T12:24:48Z",
       "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "baseRefName": "main",
       "baseRefOid": "80cafa9461b544f95304f0816cdba31dcea23790",
       "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "headRefName": "final-pass",
       "headRefOid": "6e76d43e8a78293b1e2a637590683ea98c8a7500",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2025-12-29T12:24:48Z",
+      "mergedAt": "2025-12-29T12:24:48Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "81b9403d1eb82db46f857b43a59e3cf755764bf2"
+      },
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "Ack'ed by Wei and Eric",
+          "createdAt": "2025-12-29T12:24:39Z",
+          "updatedAt": "2025-12-29T12:24:39Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOGOJeq87WhKrJ",
