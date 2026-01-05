@@ -148,7 +148,7 @@ This section illustrates the subscription interaction model by mapping terms fro
 Both sequence diagrams {{term-sequence}} and {{time-sequence}} highlight TPM-specific aspects and the Dynamic Subscription (as specified in {{RFC8639}}) to an \<attestation\> Event Stream.
 The contents of the \<attestation\> Event Stream are defined below within {{attestationstream}}.
 
-### Term Mapping 
+### Term Mapping
 
 The terms defined in {{-charra}} are mapped to the model described in {{Section 7.3.1 of -rats-models}} (Streaming Remote Attestation without a Broker) to produce the sequence diagram {{term-sequence}}.
 
