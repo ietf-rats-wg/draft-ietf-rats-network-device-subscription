@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 2 July 2026                                               Cisco
+Expires: 9 July 2026                                               Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                        29 December 2025
+                                                          5 January 2026
 
 
                  Attestation Event Stream Subscription
@@ -53,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 July 2026.
+   This Internet-Draft will expire on 9 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -786,7 +786,7 @@ Table of Contents
 
    This YANG module imports modules from [RFC9684] and [RFC8639].
 
-   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-12-19.yang
+   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-12-29.yang
    module ietf-tpm-remote-attestation-stream {
      yang-version 1.1;
      namespace
