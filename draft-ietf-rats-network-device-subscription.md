@@ -1,6 +1,6 @@
 ---
 title: Attestation Event Stream Subscription
-abbrev: RATS Subscription
+abbrev: RATS YANG Subscription
 docname: draft-ietf-rats-network-device-subscription-latest
 wg: RATS Working Group
 stand_alone: true
@@ -447,7 +447,7 @@ Almost all YANG objects below are defined via reference from {{-charra}}. Howeve
 This YANG module imports modules from {{-charra}} and {{RFC8639}}.
 
 ~~~~ YANG
-<CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-12-19.yang
+<CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-12-29.yang
 {::include ietf-tpm-remote-attestation-stream@2020-12-15.yang}
 <CODE ENDS>
 ~~~~
