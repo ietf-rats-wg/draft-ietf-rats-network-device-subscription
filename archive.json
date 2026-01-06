@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-30T00:53:37.751293+00:00",
+  "timestamp": "2026-01-06T00:54:36.068276+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
   "labels": [
     {
@@ -2101,6 +2101,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOGOJeq867g5X8",
+      "title": "Fising title and itemized list",
+      "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/36",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-01-05T11:16:41Z",
+      "updatedAt": "2026-01-05T11:18:01Z",
+      "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "baseRefName": "main",
+      "baseRefOid": "b831eaf32f69eded6c2d0a68b45828a032d846a2",
+      "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
+      "headRefName": "mapping",
+      "headRefOid": "2be92937a6f194b421c208e9b4932703a98f528d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
