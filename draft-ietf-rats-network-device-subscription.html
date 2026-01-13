@@ -1051,7 +1051,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 9 July 2026</td>
+<td class="center">Expires 17 July 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1064,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-network-device-subscription-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-01-05" class="published">5 January 2026</time>
+<time datetime="2026-01-13" class="published">13 January 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-07-09">9 July 2026</time></dd>
+<dd class="expires"><time datetime="2026-07-17">17 July 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardw
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1171,7 +1171,7 @@ The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardw
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-sequence-diagrams" class="internal xref">Sequence Diagrams</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.1">
-                    <p id="section-toc.1-1.3.2.1.2.1.1"><a href="#section-3.1.1" class="auto internal xref">3.1.1</a>.  <a href="#name-term-specialization" class="internal xref">Term Specialization</a></p>
+                    <p id="section-toc.1-1.3.2.1.2.1.1"><a href="#section-3.1.1" class="auto internal xref">3.1.1</a>.  <a href="#name-terminology-mapping" class="internal xref">Terminology Mapping</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.2">
                     <p id="section-toc.1-1.3.2.1.2.2.1"><a href="#section-3.1.2" class="auto internal xref">3.1.2</a>.  <a href="#name-time-considerations-mapping" class="internal xref">Time Considerations Mapping</a></p>
@@ -1347,23 +1347,37 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
 <p id="section-3.1-1">This section illustrates the subscription interaction model by mapping terms from <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> and illustrating timing consideration based on Figure 3 of <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>.
 Both sequence diagrams <a href="#term-sequence" class="auto internal xref">Figure 1</a> and <a href="#time-sequence" class="auto internal xref">Figure 2</a> highlight TPM-specific aspects and the Dynamic Subscription (as specified in <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>) to an &lt;attestation&gt; Event Stream.
 The contents of the &lt;attestation&gt; Event Stream are defined below within <a href="#attestationstream" class="auto internal xref">Section 4</a>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<div id="term-specialization">
+<div id="terminology-mapping">
 <section id="section-3.1.1">
-          <h4 id="name-term-specialization">
-<a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-term-specialization" class="section-name selfRef">Term Specialization</a>
+          <h4 id="name-terminology-mapping">
+<a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-terminology-mapping" class="section-name selfRef">Terminology Mapping</a>
           </h4>
 <p id="section-3.1.1-1">The terms defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> are mapped to the model described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-15#section-7.3.1" class="relref">Section 7.3.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> (Streaming Remote Attestation without a Broker) to produce the sequence diagram <a href="#term-sequence" class="auto internal xref">Figure 1</a>.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.1-2">The terminology specialization is as follows:
-* <code>handle</code> is substituted with <code>nonce</code>, a nonce generated by the Verifier. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. Hence, in this case, a 'nonce' value is populated out of band and can be used more than once within the scope of a subscription, based on local policies that enforce freshness requirements.
-* <code>attEnvIDs</code> is substituted with <code>TpmName</code>, a TPM "name" text string selected from the <code>tpms</code> Container, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>
-* <code>claimsSelection</code> is substituted with <code>PcrSelection</code>, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. If no PCR is selected, all PCR banks are returned.
-* <code>claims</code> is substituted with <code>PcrQuotes</code>, which is the "output" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.
-* <code>eventLogs</code> represents "system-event-logs" that are in the "output" of the log-retrieval RPC, as defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.
-* <code>eventLogsDelta</code> represents "system-event-logs" as specified in the "output" of the log-retrieval RPC as defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> where the "output" is limited as if the "input" were parameterized via an index type (last-entry, index, timestamp) set to the last event in the previously conveyed <code>eventLogs</code>.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-2">The terminology mapping is as follows:<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1.1-3.1">
+              <p id="section-3.1.1-3.1.1"><code>handle</code> is substituted with <code>nonce</code>, a nonce generated by the Verifier. This is a nonce-value byte string, obtained from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. Hence, in this case, a 'nonce' value is populated out of band and can be used more than once within the scope of a subscription, based on local policies that enforce freshness requirements.<a href="#section-3.1.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.1.1-3.2">
+              <p id="section-3.1.1-3.2.1"><code>attEnvIDs</code> is substituted with <code>TpmName</code>, a TPM "name" text string selected from the <code>tpms</code> Container, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span><a href="#section-3.1.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.1.1-3.3">
+              <p id="section-3.1.1-3.3.1"><code>claimsSelection</code> is substituted with <code>PcrSelection</code>, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. If no PCR is selected, all PCR banks are returned.<a href="#section-3.1.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.1.1-3.4">
+              <p id="section-3.1.1-3.4.1"><code>claims</code> is substituted with <code>PcrQuotes</code>, which is the "output" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.<a href="#section-3.1.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.1.1-3.5">
+              <p id="section-3.1.1-3.5.1"><code>eventLogs</code> represents "system-event-logs" that are in the "output" of the log-retrieval RPC, as defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-3.1.1-3.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.1.1-3.6">
+              <p id="section-3.1.1-3.6.1"><code>eventLogsDelta</code> represents "system-event-logs" as specified in the "output" of the log-retrieval RPC as defined in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> where the "output" is limited as if the "input" were parameterized via an index type (last-entry, index, timestamp) set to the last event in the previously conveyed <code>eventLogs</code>.<a href="#section-3.1.1-3.6.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 <span id="name-yang-subscription-model-for"></span><div id="term-sequence">
 <figure id="figure-1">
-            <div id="section-3.1.1-3.1">
-              <div class="alignLeft art-svg artwork" id="section-3.1.1-3.1.1">
+            <div id="section-3.1.1-4.1">
+              <div class="alignLeft art-svg artwork" id="section-3.1.1-4.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="992" width="584" viewBox="0 0 584 992" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                   <path d="M 8,32 L 8,64" fill="none" stroke="black"></path>
                   <path d="M 8,112 L 8,944" fill="none" stroke="black"></path>
@@ -1523,7 +1537,7 @@ The contents of the &lt;attestation&gt; Event Stream are defined below within <a
                     <text x="48" y="980">|</text>
                     <text x="536" y="980">|</text>
                   </g>
-                </svg><a href="#section-3.1.1-3.1.1" class="pilcrow">¶</a>
+                </svg><a href="#section-3.1.1-4.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
@@ -2530,7 +2544,7 @@ registry <span>[<a href="#yang-parameters" class="cite xref">yang-parameters</a>
       <h2 id="name-acknowledgements">
 <a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="appendix-A-1">Shout-out to Thomas Fossati, Zhuoyao Lin, Yogesh Despande, Jun Zhang, Thanassis Giannetsos, Michael Richardson, Ned Smith, and Chunchi (Peter) Liu for their extensive review feedback that was vital to produce this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Shout-out to Thomas Fossati, Zhuoyao Lin, Yogesh Deshpande, Jun Zhang, Thanassis Giannetsos, Michael Richardson, Ned Smith, and Chunchi (Peter) Liu for their extensive review feedback that was vital to produce this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
