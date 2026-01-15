@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-13T00:50:40.066980+00:00",
+  "timestamp": "2026-01-15T00:53:07.604048+00:00",
   "repo": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
   "labels": [
     {
@@ -2107,25 +2107,35 @@
       "id": "PR_kwDOGOJeq867g5X8",
       "title": "Fising title and itemized list",
       "url": "https://github.com/ietf-rats-wg/draft-ietf-rats-network-device-subscription/pull/36",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "henkbirkholz",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-01-05T11:16:41Z",
-      "updatedAt": "2026-01-12T17:19:31Z",
+      "updatedAt": "2026-01-13T17:47:45Z",
       "baseRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "baseRefName": "main",
       "baseRefOid": "b831eaf32f69eded6c2d0a68b45828a032d846a2",
       "headRepository": "ietf-rats-wg/draft-ietf-rats-network-device-subscription",
       "headRefName": "mapping",
-      "headRefOid": "2be92937a6f194b421c208e9b4932703a98f528d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "1a3769f405134515def8f59eb2b4cf2088bd99f4",
+      "closedAt": "2026-01-13T17:47:45Z",
+      "mergedAt": "2026-01-13T17:47:45Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "38c00ed0df7dc18245cf8745f154d53041e3bdd0"
+      },
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "body": "and fixed Yogesh's last name... soz",
+          "createdAt": "2026-01-13T17:47:39Z",
+          "updatedAt": "2026-01-13T17:47:39Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOGOJeq87Zqg2w",
@@ -2164,6 +2174,46 @@
               "body": "s/Term/Terminology/ ?",
               "createdAt": "2026-01-12T17:19:30Z",
               "updatedAt": "2026-01-12T17:19:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87Z-oid",
+          "commit": {
+            "abbreviatedOid": "2be9293"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-01-13T17:45:35Z",
+          "updatedAt": "2026-01-13T17:45:35Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "yes",
+              "createdAt": "2026-01-13T17:45:35Z",
+              "updatedAt": "2026-01-13T17:45:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGOJeq87Z-olI",
+          "commit": {
+            "abbreviatedOid": "2be9293"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-01-13T17:45:38Z",
+          "updatedAt": "2026-01-13T17:45:38Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "yes",
+              "createdAt": "2026-01-13T17:45:38Z",
+              "updatedAt": "2026-01-13T17:45:38Z"
             }
           ]
         }
