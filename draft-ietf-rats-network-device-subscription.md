@@ -48,6 +48,7 @@ normative:
   RFC9683: rats-riv
   RFC9684: charra
   I-D.ietf-rats-reference-interaction-models: rats-models
+  I-D.ietf-rats-msg-wrap: cmw
   RFC8639:
   TPM2.0:
     author:
@@ -83,7 +84,7 @@ informative:
 --- abstract
 
 This document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS).
-Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type and auxiliary Event Logs as part of that Evidence.
+Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages as defined in {{Section 1 of -CWT}} of the Evidence type and auxiliary Event Logs as part of that Evidence.
 The module defined requires that at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running.
 
 --- middle
@@ -94,7 +95,7 @@ The module defined requires that at least one TPM 1.2 or TPM 2.0 (or equivalent 
 However, these documents are based on the challenge-response interaction model (CHARRA in {{Section 7.1 of -rats-models}}), which has limitations.
 One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
 This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as a Verifiers or a Relying Parties, can be unacceptably long.
-It is common to convey Conceptual Messages ad-hoc or periodically via requests.
+It is common to convey Conceptual Messages as defined in {{Section 1 of -CWT}} ad-hoc or periodically via requests.
 As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need for continuous polling.
 Subscription to YANG Notifications {{RFC8639}} provides a set of standardized tools to facilitate these emerging requirements.
 This memo specifies a YANG augmentation for subscribing to YANG-modelled remote attestation Evidence, as defined in {{-charra}}.
