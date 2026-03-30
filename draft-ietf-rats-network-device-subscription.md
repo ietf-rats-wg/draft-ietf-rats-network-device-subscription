@@ -84,7 +84,7 @@ informative:
 --- abstract
 
 This document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS).
-Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages as defined in {{Section 1 of -cmw}} of the Evidence type and auxiliary Event Logs as part of that Evidence.
+Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type and auxiliary Event Logs as part of that Evidence.
 The module defined requires that at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running.
 
 --- middle
