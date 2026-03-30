@@ -349,7 +349,7 @@ The relevant internal time-related counters defined within {{TPM2.0}} can be see
 {: #attestationstream}
 # Remote Attestation Event Stream
 
-The \<attestation\> Event Stream is an {{RFC8639}} compliant Event Stream which is defined within this section and within the YANG Module of {{-charra}}. This Event Stream contains YANG notifications which carry Evidence to assist a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within {{configuring}} allow the configuration of this Event Stream's contents on an Attester.
+The \<attestation\> Event Stream is an {{RFC8639}} compliant Event Stream which is defined within this section and within the YANG Module of {{-charra}}. This Event Stream contains YANG notifications which carry Evidence to assist a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within {{configuring}} allow the configuration of this Event Stream's contents originating from an Attester.
 
 This \<attestation\> Event Stream may only be exposed on Attesters supporting {{-rats-riv}}. As with {{-rats-riv}}, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.
 
