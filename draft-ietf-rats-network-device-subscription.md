@@ -141,7 +141,7 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 # Operational Model
 
-{{-rats-riv}} describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model {{Section 7.1 of -rats-models}}. The operational model and corresponding sequence diagram described in this section is based on {{-charra}}. The basis for interoperability required for additional types of Event Streams is covered in {{otherstreams}}. The following sub-section focuses on subscription to YANG Notifications to the \<attestation\> Event Stream.
+{{-rats-riv}} describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model {{Section 7.1 of -rats-models}}. The operational model and corresponding sequence diagram described in this section is based on {{-charra}}. The basis for interoperability required for additional types of Event Streams is covered in {{otherstreams}}. The following sub-section focuses on subscription to YANG Notifications of the \<attestation\> Event Stream.
 
 ## Sequence Diagrams
 
