@@ -137,7 +137,7 @@ The following terms are imported from {{-rats-arch}}: Attester, Conceptual Messa
 
 ## Requirements Notation
 
-{::boilerplate bcp14-tagged}
+{::boilerplate bcp14-tagged-bcp14}
 
 # Operational Model
 
