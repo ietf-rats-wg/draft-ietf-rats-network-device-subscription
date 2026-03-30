@@ -95,7 +95,7 @@ The module defined requires that at least one TPM 1.2 or TPM 2.0 (or equivalent 
 However, these documents are based on the challenge-response interaction model (CHARRA in {{Section 7.1 of -rats-models}}), which has limitations.
 One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
 This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as a Verifiers or a Relying Parties, can be unacceptably long.
-It is common to convey Conceptual Messages as defined in {{Section 1 of -CWT}} ad-hoc or periodically via requests.
+It is common to convey Conceptual Messages as defined in {{Section 1 of -cwt}} ad-hoc or periodically via requests.
 As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need for continuous polling.
 Subscription to YANG Notifications {{RFC8639}} provides a set of standardized tools to facilitate these emerging requirements.
 This memo specifies a YANG augmentation for subscribing to YANG-modelled remote attestation Evidence, as defined in {{-charra}}.
