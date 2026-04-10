@@ -465,17 +465,17 @@ Analogous to the {{RFC8639}} compliant \<attestation\> Event Stream for the conv
 
 # Privacy Considerations
 
-The Privacy Considerations of {{-rats-riv}} (Remote Integrity Verification of Network Devices Containing Trusted Platform Modules) apply.
-Additionally, the Security Considerations from {{RFC8641}} (Subscription to YANG Notifications for Datastore Updates) how information about the system's internal structures or capabilities can be leaked, which could impact personally identifiable information (PII).
+The privacy considerations of {{-rats-riv}} (Remote Integrity Verification of Network Devices Containing Trusted Platform Modules) apply.
+Additionally, the security considerations from {{RFC8641}} (Subscription to YANG Notifications for Datastore Updates) how information about the system's internal structures or capabilities can be leaked, which could impact personally identifiable information (PII), apply.
 
 There are no additional privacy considerations introduced by this document.
 
 # Security Considerations
 
-The Security Considerations of {{-charra}} and {{-rats-riv}} apply.
+The security considerations of {{-charra}} and {{-rats-riv}} apply.
 
-Additionally, the Security Requirements ({{Section 4.2.5 of RFC7923}}) and the Security Considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
-Subscription to YANG Notifications for Datastore Updates ({{RFC8641}}) illustrates specific Security Considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
+Additionally, the security requirements ({{Section 4.2.5 of RFC7923}}) and the security considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
+Subscription to YANG Notifications for Datastore Updates ({{RFC8641}}) illustrates specific security considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
 
 There are no additional security considerations introduced by this document.
 
