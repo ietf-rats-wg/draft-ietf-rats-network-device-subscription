@@ -466,7 +466,7 @@ Analogous to the {{RFC8639}} compliant \<attestation\> Event Stream for the conv
 # Privacy Considerations
 
 The Privacy Considerations of {{-rats-riv}} (Remote Integrity Verification of Network Devices Containing Trusted Platform Modules) apply.
-Additionally, the Security Considerations from {{RFC8641}} (Subscription to YANG Notifications for Datastore Updates) outline how internal structures or capabilities about the system can leak, which can have an impact in personally identifiable information (PII).
+Additionally, the Security Considerations from {{RFC8641}} (Subscription to YANG Notifications for Datastore Updates) how information about the system's internal structures or capabilities can be leaked, which could impact personally identifiable information (PII).
 
 There are no additional privacy considerations introduced by this document.
 
