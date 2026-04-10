@@ -474,7 +474,7 @@ There are no additional privacy considerations introduced by this document.
 
 The Security Considerations of {{-charra}} and {{-rats-riv}} apply.
 
-Additionally, the Security Requirements {{Section 4.2.5 of RFC7923}} and the Security Considerations {{Section 5 of RFC7923}} from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
+Additionally, the Security Requirements ({{Section 4.2.5 of RFC7923}}) and the Security Considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
 Subscription to YANG Notifications for Datastore Updates ({{RFC8641}}) illustrates specific Security Considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
 
 There are no additional security considerations introduced by this document.
