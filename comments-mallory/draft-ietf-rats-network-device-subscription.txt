@@ -1153,8 +1153,8 @@ Table of Contents
 
    The Security Considerations of [RFC9684] and [RFC9683] apply.
 
-   Additionally, the Security Requirements Section 4.2.5 of [RFC7923]
-   and the Security Considerations Section 5 of [RFC7923] from RFC7923
+   Additionally, the Security Requirements (Section 4.2.5 of [RFC7923])
+   and the Security Considerations (Section 5 of [RFC7923]) from RFC7923
    (Requirements for Subscription to YANG Datastores) apply.
    Subscription to YANG Notifications for Datastore Updates ([RFC8641])
    illustrates specific Security Considerations concerning YANG
