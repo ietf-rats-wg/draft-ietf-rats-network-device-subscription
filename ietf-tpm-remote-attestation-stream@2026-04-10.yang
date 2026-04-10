@@ -92,7 +92,7 @@ module ietf-tpm-remote-attestation-stream {
   augment "/sn:establish-subscription/sn:input" {
     when 'derived-from-or-self(sn:stream, "attestation")';
     description
-      "This augmentation adds a nonce to as a subscription parameters
+      "This augmentation adds a nonce to the subscription parameters
        that apply specifically to datastore updates to RPC input.";
     uses tpm:nonce;
     leaf-list pcr-index {

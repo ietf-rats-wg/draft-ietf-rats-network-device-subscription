@@ -19,7 +19,7 @@ author:
   name: Henk Birkholz
   org: Fraunhofer SIT
   abbrev: Fraunhofer SIT
-  email: henk.birkholz@sit.fraunhofer.de
+  email: henk.birkholz@ietf.contact
   street: Rheinstrasse 75
   code: '64295'
   city: Darmstadt
@@ -84,7 +84,7 @@ informative:
 
 This document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS).
 Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type and auxiliary Event Logs as part of that Evidence.
-The module defined requires at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running.
+The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running.
 
 --- middle
 
@@ -178,7 +178,7 @@ The terminology mapping is as follows:
 |    |                                                 generateNonce() |
 |    |                                                    nonce<= |    |
 |    |                                                            |    |
-|    |<------------------ subscribe(nonce, TpmName, ?PcrSelecion) |    |
+|    |<----------------- subscribe(nonce, TpmName, ?PcrSelection) |    |
 |    | {nonce} -------------------------------------------------->|    |
 |    |                                                            |    |
 | ===============[Evidence Generation and Conveyance]================= |
@@ -453,8 +453,8 @@ Almost all YANG objects below are defined via reference from {{-charra}}. Howeve
 This YANG module imports modules from {{-charra}} and {{RFC8639}}.
 
 ~~~~ YANG
-<CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-12-29.yang
-{::include ietf-tpm-remote-attestation-stream@2020-12-15.yang}
+<CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-04-10.yang
+{::include ietf-tpm-remote-attestation-stream@2026-04-10.yang}
 <CODE ENDS>
 ~~~~
 
@@ -465,14 +465,19 @@ Analogous to the {{RFC8639}} compliant \<attestation\> Event Stream for the conv
 
 # Privacy Considerations
 
-The Privacy Considerations of {{-rats-riv}} apply.
-Additionally, the Security Considerations from {{RFC8641}} outline how internal structures or capabilities about the system can leak, which can have an impact in personally identifiable information (PII).
+The privacy considerations of {{-rats-riv}} (Remote Integrity Verification of Network Devices Containing Trusted Platform Modules) apply.
+Additionally, the security considerations from {{RFC8641}} (Subscription to YANG Notifications for Datastore Updates) how information about the system's internal structures or capabilities can be leaked, which could impact personally identifiable information (PII), apply.
+
+There are no additional privacy considerations introduced by this document.
 
 # Security Considerations
 
-The Security Considerations of {{-charra}} and {{-rats-riv}} apply.
-Additionally, the Security Requirements from {{Section 4.2.5 of RFC7923}} and the Security Considerations from {{Section 5 of RFC7923}} apply.
-{{RFC8641}} illustrates specific Security Considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
+The security considerations of {{-charra}} and {{-rats-riv}} apply.
+
+Additionally, the security requirements ({{Section 4.2.5 of RFC7923}}) and the security considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
+Subscription to YANG Notifications for Datastore Updates ({{RFC8641}}) illustrates specific security considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
+
+There are no additional security considerations introduced by this document.
 
 # IANA Considerations {#IANA}
 
