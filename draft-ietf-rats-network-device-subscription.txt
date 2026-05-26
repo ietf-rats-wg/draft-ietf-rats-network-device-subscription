@@ -247,7 +247,9 @@ Table of Contents
       challenge-response-attestation RPC, as specified in [RFC9684].
       Hence, in this case, a 'nonce' value is populated out of band and
       can be used more than once within the scope of a subscription,
-      based on local policies that enforce freshness requirements.
+      based on local policies that enforce freshness requirements (see
+      definition of handle in Section 6 of
+      [I-D.ietf-rats-reference-interaction-models]).
 
    *  attEnvIDs is substituted with TpmName, a TPM "name" text string
       selected from the tpms Container, as specified in [RFC9684]
