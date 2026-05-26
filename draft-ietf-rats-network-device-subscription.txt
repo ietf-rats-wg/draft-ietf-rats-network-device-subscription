@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 12 October 2026                                           Cisco
+Expires: 27 November 2026                                          Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                           10 April 2026
+                                                             26 May 2026
 
 
                  Attestation Event Stream Subscription
@@ -18,14 +18,14 @@ Abstract
 
    This document defines how to subscribe to YANG Event Streams for
    Remote Attestation Procedures (RATS).  Specifically, this document
-   defines a YANG module that augments the YANG module for TPM-based
-   Challenge-Response Remote Attestation (CHARRA), enabling subscription
-   to RATS Conceptual Messages of the Evidence type and auxiliary Event
-   Logs as part of that Evidence.  The module defined requires at least
-   one Trusted Platform Module (TPM) 1.2 or TPM 2.0 (or equivalent
-   hardware implementation providing the same protected capabilities as
-   a TPM) must be available on the Attester on which the YANG server is
-   running.
+   defines a YANG module that augments the YANG module for Trusted
+   Platform Module (TPM)-based Challenge-Response Remote Attestation
+   (CHARRA), enabling subscription to RATS Conceptual Messages of the
+   Evidence type and auxiliary Event Logs as part of that Evidence.  The
+   module defined requires at least one Trusted Platform Module (TPM)
+   1.2 or TPM 2.0 (or equivalent hardware implementation providing the
+   same protected capabilities as a TPM) must be available on the
+   Attester on which the YANG server is running.
 
 Discussion Venues
 
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 October 2026.
+   This Internet-Draft will expire on 27 November 2026.
 
 Copyright Notice
 
@@ -97,6 +97,9 @@ Table of Contents
    6.  Event Streams for Conceptual Messages
    7.  Privacy Considerations
    8.  Security Considerations
+     8.1.  Remote ATttestation procedureS (RATS)
+     8.2.  Yet Another Next Generation (YANG)
+     8.3.  Other
    9.  IANA Considerations
    10. References
      10.1.  Normative References
@@ -1151,16 +1154,22 @@ Table of Contents
 
 8.  Security Considerations
 
+8.1.  Remote ATttestation procedureS (RATS)
+
    The security considerations of [RFC9684] and [RFC9683] apply.
 
-   Additionally, the security requirements (Section 4.2.5 of [RFC7923])
-   and the security considerations (Section 5 of [RFC7923]) from RFC7923
+8.2.  Yet Another Next Generation (YANG)
+
+   The security requirements (Section 4.2.5 of [RFC7923]) and the
+   security considerations (Section 5 of [RFC7923]) from RFC7923
    (Requirements for Subscription to YANG Datastores) apply.
    Subscription to YANG Notifications for Datastore Updates ([RFC8641])
    illustrates specific security considerations concerning YANG
    Notifications for Datastore Updates.  For example, it provides
    guidance on identifying sensitive writable subtrees and sensitive
    readable nodes.
+
+8.3.  Other
 
    There are no additional security considerations introduced by this
    document.
