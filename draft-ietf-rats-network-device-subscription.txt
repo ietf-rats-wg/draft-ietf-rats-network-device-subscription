@@ -257,7 +257,8 @@ Table of Contents
    *  claimsSelection is substituted with PcrSelection, an optional
       "pcr-index" from either the tpm12-challenge-response-attestation
       RPC or the tpm20-challenge-response-attestation RPC as specified
-      in [RFC9684].  If no PCR is selected, all PCR banks are returned.
+      in [RFC9684].  If none of the TPM's Platform Configration
+      Registers (PCR) are selected, all PCR banks are returned.
 
    *  claims is substituted with PcrQuotes, which is the "output" of
       either the tpm12-challenge-response-attestation RPC or the tpm20-
