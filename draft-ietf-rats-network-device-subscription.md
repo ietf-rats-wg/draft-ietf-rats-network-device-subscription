@@ -472,7 +472,7 @@ There are no additional privacy considerations introduced by this document.
 
 # Security Considerations
 
-## Renote ATttestation procedureS (RATS)
+## Remote ATttestation procedureS (RATS)
 
 The security considerations of {{-charra}} and {{-rats-riv}} apply.
 
