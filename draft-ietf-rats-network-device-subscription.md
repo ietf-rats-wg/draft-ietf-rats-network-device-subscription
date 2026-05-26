@@ -83,7 +83,7 @@ informative:
 --- abstract
 
 This document defines how to subscribe to YANG Event Streams for Remote Attestation Procedures (RATS).
-Specifically, this document defines a YANG module that augments the YANG module for TPM-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type and auxiliary Event Logs as part of that Evidence.
+Specifically, this document defines a YANG module that augments the YANG module for Trusted Platform Module (TPM)-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type and auxiliary Event Logs as part of that Evidence.
 The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running.
 
 --- middle
@@ -472,10 +472,16 @@ There are no additional privacy considerations introduced by this document.
 
 # Security Considerations
 
+## Remote ATttestation procedureS (RATS)
+
 The security considerations of {{-charra}} and {{-rats-riv}} apply.
 
-Additionally, the security requirements ({{Section 4.2.5 of RFC7923}}) and the security considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
+## Yet Another Next Generation (YANG)
+
+The security requirements ({{Section 4.2.5 of RFC7923}}) and the security considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
 Subscription to YANG Notifications for Datastore Updates ({{RFC8641}}) illustrates specific security considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
+
+## Other
 
 There are no additional security considerations introduced by this document.
 
