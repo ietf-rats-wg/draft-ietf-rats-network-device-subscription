@@ -158,7 +158,7 @@ The terminology mapping is as follows:
 
 * `attEnvIDs` is substituted with `TpmName`, a TPM "name" text string selected from the `tpms` Container, as specified in {{-charra}}
 
-* `claimsSelection` is substituted with `PcrSelection`, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in {{-charra}}. If no PCR is selected, all PCR banks are returned.
+* `claimsSelection` is substituted with `PcrSelection`, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in {{-charra}}. If none of the TPM's Platform Configration Registers (PCR) are selected, all PCR banks are returned.
 
 * `claims` is substituted with `PcrQuotes`, which is the "output" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{-charra}}. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.
 
