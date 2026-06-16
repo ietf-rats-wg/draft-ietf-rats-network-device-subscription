@@ -1047,11 +1047,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">RATS YANG Subscription</td>
-<td class="right">May 2026</td>
+<td class="right">June 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 27 November 2026</td>
+<td class="center">Expires 18 December 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1064,12 @@ svg {
 <dd class="internet-draft">draft-ietf-rats-network-device-subscription-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-05-26" class="published">26 May 2026</time>
+<time datetime="2026-06-16" class="published">16 June 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-11-27">27 November 2026</time></dd>
+<dd class="expires"><time datetime="2026-12-18">18 December 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TP
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1739,13 +1739,13 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
         <h3 id="name-continuously-verifying-fres">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-continuously-verifying-fres" class="section-name selfRef">Continuously Verifying Freshness</a>
         </h3>
-<p id="section-3.2-1">As there is no new Verifier nonce provided at time(EG'), it is important to validate the freshness of TPM Quotes which are delivered at that time.Methods of doing this verification vary based on the capabilities of the TPM cryptoprocessor used.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">As there is no new Verifier nonce provided at time(EG'), it is important to validate the freshness of TPM Quotes which are delivered at that time.  Methods of doing this verification vary based on the capabilities of the TPM cryptoprocessor used (see .<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <div id="tpm-12-quote">
 <section id="section-3.2.1">
           <h4 id="name-tpm-12-quote">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-tpm-12-quote" class="section-name selfRef">TPM 1.2 Quote</a>
           </h4>
-<p id="section-3.2.1-1">The <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> notification format includes the &lt;eventTime&gt; object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However, this time is not part of the signed results which are returned from the Quote and therefore is not trustworthy as objects returned as part of the Quote.  Therefore, a Verifier <span class="bcp14">MUST</span> periodically issue a new nonce and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-1">The <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> notification format includes the &lt;eventTime&gt; object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However, this time is not returned as part of the signed results of the TPM Quote and therefore is not as trustworthy as the objects included in the TPM Quote.  Therefore, a Verifier <span class="bcp14">MUST</span> periodically issue a new nonce and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tpm-2-quote">
@@ -1753,14 +1753,14 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
           <h4 id="name-tpm-2-quote">
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-tpm-2-quote" class="section-name selfRef">TPM 2 Quote</a>
           </h4>
-<p id="section-3.2.2-1">When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including an initial nonce in the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> subscription request, fresh values for these counters are pushed to the Verifier as part of the first TPM Quote. As shown by <span>[<a href="#I-D.birkholz-rats-tuda" class="cite xref">I-D.birkholz-rats-tuda</a>]</span>, subsequent TPM Quotes delivered to the Verifier out-of-band can be appraised for freshness based on the predictable incrementing of these time-related counters.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-1">When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote and thereby are trustworthy.  By including an initial nonce in the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> subscription request, fresh values for these counters are pushed to the Verifier as part of the first TPM Quote.  In order to assess the freshness of the TPM Quotes that the Attester continuesly generates over time, the Verifier can aquire separate TPM Quotes via the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> out-of-band.  These separate TPM Quotes include fresh time-related counters that can be appraised for freshness based on the predictable incrementing of these time-related counters. An example for how that can be realized is illustared in <span>[<a href="#I-D.birkholz-rats-tuda" class="cite xref">I-D.birkholz-rats-tuda</a>]</span>.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-2">The relevant internal time-related counters defined within <span>[<a href="#TPM2.0" class="cite xref">TPM2.0</a>]</span> can be seen within &lt;tpms-clock-info&gt;.   These counters include the &lt;clock&gt;, &lt;reset-counter&gt;, and &lt;restart-counter&gt; objects.  The rules for appraising these objects are as follows:<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2.2-3.1">
-              <p id="section-3.2.2-3.1.1">If the &lt;clock&gt; has incremented for no more than the same duration as both the &lt;eventTime&gt; and the Verifier's internal time since the initial time(EG) and any previous time(EG'), then the TPM Quote may be considered fresh. Note that <span>[<a href="#TPM2.0" class="cite xref">TPM2.0</a>]</span> allows for +/- 15% clock drift.  However, many hardware implementations significantly improve on this maximum drift.  If available, chip specific maximum drifts <span class="bcp14">SHOULD</span> be considered during the appraisal procedure of the Verifier.<a href="#section-3.2.2-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.2-3.1.1">If the &lt;clock&gt; has incremented for no more than the same duration as both the &lt;eventTime&gt; and the Verifier's internal time since the initial time(EG) and any previous time(EG'), then the TPM Quote is considered fresh. Note that <span>[<a href="#TPM2.0" class="cite xref">TPM2.0</a>]</span> allows for +/- 15% clock drift.  However, many hardware implementations significantly improve on this maximum drift.  If available, chip specific maximum drifts <span class="bcp14">MUST</span> be considered during the appraisal procedure of the Verifier.<a href="#section-3.2.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.2-3.2">
-              <p id="section-3.2.2-3.2.1">If the &lt;reset-counter&gt;, &lt;restart-counter&gt; has incremented.  The existing subscription <span class="bcp14">MUST</span> be terminated, and a new &lt;establish-subscription&gt; <span class="bcp14">SHOULD</span> be generated.<a href="#section-3.2.2-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.2-3.2.1">If the &lt;reset-counter&gt;, &lt;restart-counter&gt; has incremented, the existing subscription <span class="bcp14">MUST</span> be terminated, and a new &lt;establish-subscription&gt; <span class="bcp14">SHOULD</span> be generated.<a href="#section-3.2.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.2-3.3">
               <p id="section-3.2.2-3.3.1">If a TPM Quote on any subscribed PCR has not been pushed to the Verifier for a duration of an Attester defined heartbeat interval, then a new TPM Quote notification <span class="bcp14">SHOULD</span> be sent to the Verifier.  This may often be the case, as certain PCRs might be infrequently updated.<a href="#section-3.2.2-3.3.1" class="pilcrow">¶</a></p>
@@ -1819,7 +1819,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-remote-attestation-event-st" class="section-name selfRef">Remote Attestation Event Stream</a>
       </h2>
 <p id="section-4-1">The &lt;attestation&gt; Event Stream is an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant Event Stream which is defined within this section and within the YANG Module of <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within <a href="#configuring" class="auto internal xref">Section 4.6</a> allow the configuration of this Event Stream's contents on an Attester.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">This &lt;attestation&gt; Event Stream may only be exposed on Attesters supporting <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>. As with <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-2">This &lt;attestation&gt; Event Stream can only be exposed on Attesters supporting <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>. As with <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <div id="subscription-to-the-attestation-event-stream">
 <section id="section-4.1">
         <h3 id="name-subscription-to-the-attesta">
