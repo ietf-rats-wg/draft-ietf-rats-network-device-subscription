@@ -1285,7 +1285,7 @@ The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TP
 <p id="section-1-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> and <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> define the operational prerequisites and a YANG Model for acquiring Evidence from a network device containing at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations providing the same protected capabilities <span>[<a href="#TCG-Glossary" class="cite xref">TCG-Glossary</a>]</span> as a TPM).
 However, these documents are based on the challenge-response interaction model (CHARRA in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-17#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which has limitations.
 One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
-This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as a Verifiers or a Relying Parties, can be unacceptably long.
+This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as Verifiers or a Relying Parties, can be unacceptably long.
 It is common to convey Conceptual Messages ad-hoc or periodically via requests.
 As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need for continuous polling.
 Subscription to YANG Notifications <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> provides a set of standardized tools to facilitate these emerging requirements.
@@ -1349,7 +1349,7 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
       <h2 id="name-operational-model">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-operational-model" class="section-name selfRef">Operational Model</a>
       </h2>
-<p id="section-3-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-17#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>. The operational model and corresponding sequence diagram described in this section is based on <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. The basis for interoperability required for additional types of Event Streams is covered in <a href="#otherstreams" class="auto internal xref">Section 6</a>. The following sub-section focuses on subscription to YANG Notifications to the &lt;attestation&gt; Event Stream.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-17#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>. The operational model and corresponding sequence diagram described in this section is based on <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. The basis for interoperability required for additional types of Event Streams is covered in <a href="#otherstreams" class="auto internal xref">Section 6</a>. The following subsection focuses on subscription to YANG Notifications to the &lt;attestation&gt; Event Stream.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="sequence-diagrams">
 <section id="section-3.1">
         <h3 id="name-sequence-diagrams">
@@ -1745,7 +1745,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
           <h4 id="name-tpm-12-quote">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-tpm-12-quote" class="section-name selfRef">TPM 1.2 Quote</a>
           </h4>
-<p id="section-3.2.1-1">The <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> notification format includes the &lt;eventTime&gt; object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However, this time is not returned as part of the signed results of the TPM Quote and therefore is not as trustworthy as the objects included in the TPM Quote.  Therefore, a Verifier <span class="bcp14">MUST</span> periodically issue a new nonce and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-1">The <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> notification format includes the &lt;eventTime&gt; object.  This can be used to determine the amount of time after the initial subscription each notification was sent.  However, this time is not returned as part of the signed results of the TPM Quote and therefore is not as trustworthy as the objects included in the TPM Quote.  Therefore, a Verifier <span class="bcp14">MUST</span> periodically issue a new nonce and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tpm-2-quote">
@@ -2069,7 +2069,7 @@ module ietf-tpm-remote-attestation-stream {
 
   organization "IETF";
   contact
-    "WG Web:   &lt;http://tools.ietf.org/wg/rats/&gt;
+    "WG Web:   &lt;https://datatracker.ietf.org/wg/rats/&gt;
      WG List:  &lt;mailto:rats@ietf.org&gt;
 
      Editor:   Eric Voit
@@ -2087,7 +2087,7 @@ module ietf-tpm-remote-attestation-stream {
 
      Redistribution and use in source and binary forms, with
      or without modification, is permitted pursuant to, and
-     subject to the license terms contained in, the Simplified
+     subject to the license terms contained in, the Revised
      BSD License set forth in Section 4.c of the IETF Trust's
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
@@ -2381,7 +2381,7 @@ module ietf-tpm-remote-attestation-stream {
       <h2 id="name-event-streams-for-conceptua">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-event-streams-for-conceptua" class="section-name selfRef">Event Streams for Conceptual Messages</a>
       </h2>
-<p id="section-6-1">Analogous to the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant &lt;attestation&gt; Event Stream for the conveyance of remote attestation Evidence as defined in Section <a href="#attestationstream" class="auto internal xref">Section 4</a>, additional Event Streams can be defined for this YANG augment. Additional Event Streams require separate YANG augment specifications that provide the Event Stream definition and optionally a content format definition either via subscriptions to YANG datastores or dedicated YANG Notifications. It is possible to use either YANG subscription methods to other YANG modules for RATS Conceptual Messages or to define Event Streams for other none-YANG-modeled data. In the context of RATS Conceptual Messages, both options <span class="bcp14">MUST</span> be a specified via YANG augments to this specification.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">Analogous to the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant &lt;attestation&gt; Event Stream for the conveyance of remote attestation Evidence as defined in <a href="#attestationstream" class="auto internal xref">Section 4</a>, additional Event Streams can be defined for this YANG augment. Additional Event Streams require separate YANG augment specifications that provide the Event Stream definition and optionally a content format definition either via subscriptions to YANG datastores or dedicated YANG Notifications. It is possible to use either YANG subscription methods to other YANG modules for RATS Conceptual Messages or to define Event Streams for other none-YANG-modeled data. In the context of RATS Conceptual Messages, both options <span class="bcp14">MUST</span> be a specified via YANG augments to this specification.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
