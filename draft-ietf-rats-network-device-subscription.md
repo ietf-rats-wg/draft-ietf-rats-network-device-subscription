@@ -312,21 +312,21 @@ One way to acquire a new time synchronisation that allows for the reuse of the i
 {: #freshness-handles "Continuously Verifying Freshness"}
 ## Continuously Verifying Freshness
 
-As there is no new Verifier nonce provided at time(EG'), it is important to validate the freshness of TPM Quotes which are delivered at that time.Methods of doing this verification vary based on the capabilities of the TPM cryptoprocessor used.
+As there is no new Verifier nonce provided at time(EG'), it is important to validate the freshness of TPM Quotes which are delivered at that time.  Methods of doing this verification vary based on the capabilities of the TPM cryptoprocessor used (see .
 
 ### TPM 1.2 Quote
 
-The {{RFC8639}} notification format includes the \<eventTime\> object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However, this time is not part of the signed results which are returned from the Quote and therefore is not trustworthy as objects returned as part of the Quote.  Therefore, a Verifier MUST periodically issue a new nonce and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the \<tpm12-challenge-response-attestation\> RPC from {{-charra}}.
+The {{RFC8639}} notification format includes the \<eventTime\> object.  This can be used to determine the amount of time subsequent to the initial subscription each notification was sent.  However, this time is not returned as part of the signed results of the TPM Quote and therefore is not as trustworthy as the objects included in the TPM Quote.  Therefore, a Verifier MUST periodically issue a new nonce and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the \<tpm12-challenge-response-attestation\> RPC from {{-charra}}.
 
 ### TPM 2 Quote
 
-When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote.  By including an initial nonce in the {{RFC8639}} subscription request, fresh values for these counters are pushed to the Verifier as part of the first TPM Quote. As shown by {{-TUDA}}, subsequent TPM Quotes delivered to the Verifier out-of-band can be appraised for freshness based on the predictable incrementing of these time-related counters.
+When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote and thereby are trustworthy.  By including an initial nonce in the {{RFC8639}} subscription request, fresh values for these counters are pushed to the Verifier as part of the first TPM Quote.  In order to assess the freshness of the TPM Quotes that the Attester continuesly generates over time, the Verifier can aquire separate TPM Quotes via the \<tpm12-challenge-response-attestation\> RPC from {{-charra}} out-of-band.  These separate TPM Quotes include fresh time-related counters that can be appraised for freshness based on the predictable incrementing of these time-related counters. An example for how that can be realized is illustared in {{-TUDA}}.
 
 The relevant internal time-related counters defined within {{TPM2.0}} can be seen within \<tpms-clock-info\>.   These counters include the \<clock\>, \<reset-counter\>, and \<restart-counter\> objects.  The rules for appraising these objects are as follows:
 
-* If the \<clock\> has incremented for no more than the same duration as both the \<eventTime\> and the Verifier's internal time since the initial time(EG) and any previous time(EG'), then the TPM Quote may be considered fresh. Note that {{TPM2.0}} allows for +/- 15% clock drift.  However, many hardware implementations significantly improve on this maximum drift.  If available, chip specific maximum drifts SHOULD be considered during the appraisal procedure of the Verifier.
+* If the \<clock\> has incremented for no more than the same duration as both the \<eventTime\> and the Verifier's internal time since the initial time(EG) and any previous time(EG'), then the TPM Quote is considered fresh. Note that {{TPM2.0}} allows for +/- 15% clock drift.  However, many hardware implementations significantly improve on this maximum drift.  If available, chip specific maximum drifts MUST be considered during the appraisal procedure of the Verifier.
 
-* If the \<reset-counter\>, \<restart-counter\> has incremented.  The existing subscription MUST be terminated, and a new \<establish-subscription\> SHOULD be generated.
+* If the \<reset-counter\>, \<restart-counter\> has incremented, the existing subscription MUST be terminated, and a new \<establish-subscription\> SHOULD be generated.
 
 * If a TPM Quote on any subscribed PCR has not been pushed to the Verifier for a duration of an Attester defined heartbeat interval, then a new TPM Quote notification SHOULD be sent to the Verifier.  This may often be the case, as certain PCRs might be infrequently updated.
 
@@ -344,13 +344,12 @@ The relevant internal time-related counters defined within {{TPM2.0}} can be see
      |                                                   |
 ~~~~
 
-
 {: #attestationstream}
 # Remote Attestation Event Stream
 
 The \<attestation\> Event Stream is an {{RFC8639}} compliant Event Stream which is defined within this section and within the YANG Module of {{-charra}}. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within {{configuring}} allow the configuration of this Event Stream's contents on an Attester.
 
-This \<attestation\> Event Stream may only be exposed on Attesters supporting {{-rats-riv}}. As with {{-rats-riv}}, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.
+This \<attestation\> Event Stream can only be exposed on Attesters supporting {{-rats-riv}}. As with {{-rats-riv}}, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.
 
 ## Subscription to the \<attestation\> Event Stream
 
