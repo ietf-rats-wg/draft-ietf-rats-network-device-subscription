@@ -47,9 +47,9 @@ module ietf-tpm-remote-attestation-stream {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
      itself for full legal notices.";
   
-  revision 2024-07-06 {
+  revision 2026-06-16 {
     description
-      "Initial version.";    
+      "Final Version";    
     reference 
       "draft-ietf-rats-network-device-subscription";
   }
@@ -222,8 +222,8 @@ module ietf-tpm-remote-attestation-stream {
     uses tpm:tpm20-attestation {
       description  
         "Provides the attestation info.  Also ensures PCRs can be
-        XPATH filtered by refining the unsigned data so that it
-        appears.";
+        XPATH (see Section 6.4. of RFC6010) filtered by refining
+        the unsigned data so that it appears,";
       refine unsigned-pcr-values {
         min-elements 1;
       }

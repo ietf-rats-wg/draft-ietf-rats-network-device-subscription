@@ -452,8 +452,8 @@ Almost all YANG objects below are defined via reference from {{-charra}}. Howeve
 This YANG module imports modules from {{-charra}} and {{RFC8639}}.
 
 ~~~~ YANG
-<CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-04-10.yang
-{::include ietf-tpm-remote-attestation-stream@2026-04-10.yang}
+<CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-06-16.yang
+{::include ietf-tpm-remote-attestation-stream@2026-06-16.yang}
 <CODE ENDS>
 ~~~~
 
