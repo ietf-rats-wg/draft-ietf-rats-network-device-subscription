@@ -2046,7 +2046,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
 <p id="section-5-1">This YANG module imports modules from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> and <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div class="breakable lang-YANG sourcecode" id="section-5-2">
 <pre>
-&lt;CODE BEGINS&gt; ietf-tpm-remote-attestation-stream@2026-04-10.yang
+&lt;CODE BEGINS&gt; ietf-tpm-remote-attestation-stream@2026-06-16.yang
 module ietf-tpm-remote-attestation-stream {
   yang-version 1.1;
   namespace
@@ -2096,9 +2096,9 @@ module ietf-tpm-remote-attestation-stream {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
      itself for full legal notices.";
 
-  revision 2024-07-06 {
+  revision 2026-06-16 {
     description
-      "Initial version.";
+      "Final Version";
     reference
       "draft-ietf-rats-network-device-subscription";
   }
@@ -2271,8 +2271,8 @@ module ietf-tpm-remote-attestation-stream {
     uses tpm:tpm20-attestation {
       description
         "Provides the attestation info.  Also ensures PCRs can be
-        XPATH filtered by refining the unsigned data so that it
-        appears.";
+        XPATH (see Section 6.4. of RFC6010) filtered by refining
+        the unsigned data so that it appears,";
       refine unsigned-pcr-values {
         min-elements 1;
       }

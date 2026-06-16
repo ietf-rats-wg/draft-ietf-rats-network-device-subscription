@@ -805,7 +805,7 @@ Table of Contents
 
    This YANG module imports modules from [RFC9684] and [RFC8639].
 
-   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-04-10.yang
+   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-06-16.yang
    module ietf-tpm-remote-attestation-stream {
      yang-version 1.1;
      namespace
@@ -855,9 +855,9 @@ Table of Contents
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
         itself for full legal notices.";
 
-     revision 2024-07-06 {
+     revision 2026-06-16 {
        description
-         "Initial version.";
+         "Final Version";
        reference
          "draft-ietf-rats-network-device-subscription";
      }
@@ -1030,8 +1030,8 @@ Table of Contents
        uses tpm:tpm20-attestation {
          description
            "Provides the attestation info.  Also ensures PCRs can be
-           XPATH filtered by refining the unsigned data so that it
-           appears.";
+           XPATH (see Section 6.4. of RFC6010) filtered by refining
+           the unsigned data so that it appears,";
          refine unsigned-pcr-values {
            min-elements 1;
          }
