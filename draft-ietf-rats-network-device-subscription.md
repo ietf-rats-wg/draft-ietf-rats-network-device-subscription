@@ -42,6 +42,12 @@ author:
   email: william.panwei@huawei.com
 
 normative:
+  RFC6241:
+  RFC6242:
+  RFC8040:
+  RFC8341:
+  RFC8446:
+  RFC9907:
   RFC3688:
   RFC6020:
   RFC9334: rats-arch
@@ -414,7 +420,7 @@ All YANG objects above are defined within {{-charra}}.  The \<tpm12-attestation\
 
 This notification contains an instance of TPM2 style signed cryptoprocessor measurements. It is supplemented by Attester information which is not signed. This notification is generated at two points in time:
 
-* every time at least one PCR has changed from a previous \<tpm20-attestation\>. In this case, the notification SHOULD be emitted within 10 seconds of the corresponding \<pcr-extend\> being sent:
+* every time at least one PCR has changed from a previous \<tpm20-attestation\>. In this case, the notification SHOULD be emitted promptly after the corresponding <pcr-extend> is sent, and no later than twice the configured marshalling-period. The marshalling-period value in effect is retrievable from /tpm:rats-support-structures.
 
 * after a locally configurable minimum heartbeat period since a previous \<tpm20-attestation\> was sent.
 
@@ -479,6 +485,60 @@ The security considerations of {{-charra}} and {{-rats-riv}} apply.
 
 The security requirements ({{Section 4.2.5 of RFC7923}}) and the security considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
 Subscription to YANG Notifications for Datastore Updates ({{RFC8641}}) illustrates specific security considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
+
+8.  Security Considerations
+
+# Security Considerations
+
+# Security Considerations
+
+This section uses the template described in {{Section 3.7 of RFC9907}}.
+
+The YANG module defined in this document is designed to be accessed via network management protocols such as NETCONF {{RFC6241}} or RESTCONF {{RFC8040}}. The lowest NETCONF layer is the secure transport layer, and the mandatory-to-implement secure transport is SSH {{RFC6242}}; the lowest RESTCONF layer is HTTPS, with the mandatory-to-implement secure transport being TLS {{RFC8446}}. The Network Configuration Access Control Model (NACM) {{RFC8341}} provides the means to restrict access for particular users to a preconfigured subset of available protocol operations and content.
+
+The security considerations of {{RFC9683}} and {{RFC9684}} (the CHARRA YANG model from which this module imports its data nodes) apply in full. The security requirements ({{Section 4.2.5 of RFC7923}}) and security considerations ({{Section 5 of RFC7923}}) of "Requirements for Subscription to YANG Datastores" apply, as do the considerations of {{RFC8639}} and {{RFC8641}}, which describe how the act of subscribing and the contents of notifications can leak information about a system's internal structure and state.
+
+## Writable Data Nodes
+
+There are a number of data nodes defined in this YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) and delete operations to these data nodes without proper protection or authentication can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:
+
+* `/tpm:rats-support-structures/tras:marshalling-period`: This leaf controls the maximum delay between a PCR being extended and the corresponding `<pcr-extend>` notification reaching a subscriber. An attacker who can write this node can degrade the timeliness of Evidence: setting an excessively large value widens the window during which a malicious PCR extension can occur without being promptly reported, undermining the freshness guarantees that are the central purpose of this specification. Because the bound on the `<tpm20-attestation>` emission delay is derived from this value, tampering here also relaxes the signed-quote timing. Write access MUST be restricted.
+
+* `/tpm:rats-support-structures/tras:tpm20-subscription-heartbeat` (and the `heartbeat` grouping it uses): This leaf governs how often a fresh, signed quote is pushed in the absence of PCR changes. Setting it to an excessively large value suppresses the periodic "still trustworthy" confirmation, allowing a Verifier to operate on stale Evidence for longer than intended; an attacker could use this to mask the absence of liveness. Setting it to an excessively small value can be used as a denial-of-service vector against the Attester's cryptoprocessor and against subscribers. Write access MUST be restricted.
+
+* `/tpm:rats-support-structures/tras:tpm12-subscribed-signature-scheme` and `/tpm:rats-support-structures/tras:tpm20-subscribed-signature-scheme`: These leafrefs select the signature scheme used to sign all Evidence placed on the `<attestation>` stream. This is the most security-critical writable node set in the module. An attacker able to write these nodes could steer the Attester toward the weakest scheme the platform happens to support, weakening the cryptographic binding of every quote subsequently produced and potentially enabling forgery or downgrade attacks against the entire attestation relationship. Implementations SHOULD reject the selection of deprecated or weak schemes, and write access MUST be tightly restricted.
+
+* `/tpm:rats-support-structures/tpm:tpms/tras:subscription-aik`: This leaf binds the notifications on the `<attestation>` stream of a given TPM to a specific Attestation Identity Key certificate-name. An attacker who can rewrite this node could cause Evidence to be signed under, or associated with, a key other than the one a Verifier expects, breaking the trust binding between the reported Evidence and the cryptoprocessor identity. This can facilitate masquerade or misattribution of Evidence. Write access MUST be restricted, and a Verifier SHOULD independently confirm the AIK/certificate it expects rather than relying solely on the configured value.
+
+* `/tpm:rats-support-structures/tpm:tpms/tras:subscribable` (the `tpm12-stream`/`tpm20-stream` cases, including `tpm12-hash-algo`, `tpm20-hash-algo`, `tpm12-pcr-index`, and `tpm20-pcr-index`): These nodes determine which PCRs and which hash algorithms are eligible to be subscribed on a given TPM. An attacker able to modify these nodes can (a) remove security-relevant PCRs from the subscribable set, so that compromise reflected in those PCRs can never be streamed to a Verifier (a blinding attack), or (b) force a weak hash algorithm, undermining the integrity of the reported measurements. Write access MUST be restricted; removal of a PCR from the subscribable set is itself a security-relevant operation and SHOULD be auditable.
+
+## Readable Data Nodes and Notifications
+
+Some of the readable data nodes and, in particular, the notifications defined in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or subscription) to these objects. These are the subtrees and data nodes and their sensitivity/vulnerability:
+
+* The `<pcr-extend>`, `<tpm12-attestation>`, and `<tpm20-attestation>` notifications: These notifications carry remote attestation Evidence: signed TPM quotes, PCR index/value pairs, and detailed event-log entries (BIOS/UEFI, IMA, and network-equipment-boot logs via the `event-details` choice). Collectively this Evidence reveals the software and firmware composition, boot history, and configuration state of the Attester. Exposure to an unauthorized party provides a detailed map of the platform that is highly valuable for reconnaissance and targeted attack. The `<eventTime>` and `<up-time>` values, and the time-related counters carried within the TPM2 quote, additionally expose liveness and timing information. Read/subscribe access to the `<attestation>` Event Stream MUST be restricted to authorized Verifiers, and the transport MUST provide confidentiality.
+
+* The configuration nodes in {{configuring-the-attestation-event-stream}} when read: The subscribable PCR set, configured signature scheme, heartbeat, marshalling period, and `subscription-aik` together describe the attestation posture and capabilities of the device. Disclosure aids an attacker in understanding what is and is not being monitored. Read access SHOULD be restricted consistent with the write protections above.
+
+The nonce material conveyed at subscription time (the augmented `nonce-value`) and within quotes is freshness material, not a long-term secret; however, the binding between a nonce and the resulting quote MUST be protected in transit so that an on-path attacker cannot substitute or replay quotes.
+
+## RPC Operations
+
+This module augments the `establish-subscription` RPC defined in {{RFC8639}} with a `nonce-value` and a `pcr-index` selection. The security considerations for `establish-subscription` in {{RFC8639}} apply. Additionally:
+
+* An attacker able to invoke this augmented RPC could establish unauthorized subscriptions to a TPM's Evidence (an information-disclosure vector equivalent to reading the notifications above), or could attempt resource exhaustion by establishing many subscriptions, requesting large replay histories (via a very old `<replay-start-time>`), or selecting large PCR sets. Implementations MUST authenticate and authorize subscribers and SHOULD apply rate limiting and per-subscriber resource bounds.
+
+* The `nonce-value` is supplied by the subscriber. An Attester MUST treat it only as opaque freshness input to the quote and MUST NOT assume it carries any authorization meaning. A Verifier remains responsible for enforcing its own freshness policy on the returned quotes, since within a subscription a nonce may be reused subject to local policy.
+
+## Privacy
+
+See {{privacy-considerations}}. As noted there, the disclosure characteristics described in {{RFC8641}} regarding system internal structure also have privacy implications and apply to this module.
+
+## Privacy
+
+See {{privacy-considerations}}. As noted there, the disclosure
+characteristics described in {{RFC8641}} regarding system internal
+structure also have privacy implications and apply to this module.
 
 ## Other
 
