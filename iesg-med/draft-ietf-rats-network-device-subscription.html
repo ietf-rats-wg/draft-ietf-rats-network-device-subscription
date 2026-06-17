@@ -1955,7 +1955,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
 <p id="section-4.3.3-1">This notification contains an instance of TPM2 style signed cryptoprocessor measurements. It is supplemented by Attester information which is not signed. This notification is generated at two points in time:<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.3.3-2.1">
-              <p id="section-4.3.3-2.1.1">every time at least one PCR has changed from a previous &lt;tpm20-attestation&gt;. In this case, the notification <span class="bcp14">SHOULD</span> be emitted within 10 seconds of the corresponding &lt;pcr-extend&gt; being sent:<a href="#section-4.3.3-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.3-2.1.1">every time at least one PCR has changed from a previous &lt;tpm20-attestation&gt;. In this case, the notification <span class="bcp14">SHOULD</span> be emitted within 10 seconds of the corresponding &lt;pcr-extend&gt; being sent. Implementations can have different latencies than 10 seconds. In general, the effective frequency of expected PCR changes has to be taken into account.<a href="#section-4.3.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.3.3-2.2">
               <p id="section-4.3.3-2.2.1">after a locally configurable minimum heartbeat period since a previous &lt;tpm20-attestation&gt; was sent.<a href="#section-4.3.3-2.2.1" class="pilcrow">¶</a></p>

@@ -720,7 +720,9 @@ Table of Contents
    *  every time at least one PCR has changed from a previous
       <tpm20-attestation>.  In this case, the notification SHOULD be
       emitted within 10 seconds of the corresponding <pcr-extend> being
-      sent:
+      sent.  Implementations can have different latencies than 10
+      seconds.  In general, the effective frequency of expected PCR
+      changes has to be taken into account.
 
    *  after a locally configurable minimum heartbeat period since a
       previous <tpm20-attestation> was sent.
