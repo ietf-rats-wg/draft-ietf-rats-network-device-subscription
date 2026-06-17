@@ -1,8 +1,9 @@
-    +---n tpm12-attestation {taa:TPM12}?
-       +--ro certificate-name       tpm:certificate-name-ref
-       +--ro up-time?               uint32
-       +--ro TPM_QUOTE2?            binary
-       +--ro TPM12-hash-algo?       identityref
-       +--ro unsigned-pcr-values* []
-          +--ro pcr-index*   tpm:pcr
-          +--ro pcr-value*   binary
++---n tpm12-attestation {taa:TPM12}?
+   +--ro certificate-name       tpm:certificate-name-ref
+   +--ro up-time?               uint32
+   +--ro TPM_QUOTE2?            binary
+   +--ro TPM12-hash-algo?       identityref
+   +--ro unsigned-pcr-values* []
+      +--ro pcr-values* [pcr-index]
+         +--ro pcr-index    tpm:pcr
+         +--ro pcr-value?   binary
