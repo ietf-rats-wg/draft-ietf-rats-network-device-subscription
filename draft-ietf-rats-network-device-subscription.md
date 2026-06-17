@@ -369,7 +369,7 @@ To establish a subscription to an Attester in a way which provides provably fres
 
 The result of the subscription will be that passing of the following information:
 
-1. \<tpm12-attestation\> and \<tpm20-attestation\> notifications which include the provided \<nonce-value\>.  These attestation notifications MUST at least include all the \<pcr-indicies\> requested in the RPC.
+1. \<tpm12-attestation\> and \<tpm20-attestation\> notifications which include the provided \<nonce-value\>.  These attestation notifications MUST at least include all the PCRs identified by the pcr-index leaf-list requested in the RPC.
 
 2. a series of \<pcr-extend\> notifications which reference the requested PCRs on all TPM based cryptoprocessors on the Attester.
 
@@ -466,7 +466,7 @@ This YANG module imports modules from {{-charra}} and {{RFC8639}}.
 {: #otherstreams}
 # Event Streams for Conceptual Messages
 
-Analogous to the {{RFC8639}} compliant \<attestation\> Event Stream for the conveyance of remote attestation Evidence as defined in {{attestationstream}}, additional Event Streams can be defined for this YANG augment. Additional Event Streams require separate YANG augment specifications that provide the Event Stream definition and optionally a content format definition either via subscriptions to YANG datastores or dedicated YANG Notifications. It is possible to use either YANG subscription methods to other YANG modules for RATS Conceptual Messages or to define Event Streams for other none-YANG-modeled data. In the context of RATS Conceptual Messages, both options MUST be a specified via YANG augments to this specification.
+Analogous to the {{RFC8639}} compliant \<attestation\> Event Stream for the conveyance of remote attestation Evidence as defined in {{attestationstream}}, additional Event Streams can be defined for this YANG augment. Additional Event Streams for RATS Conceptual Messages MAY be conveyed either by subscribing to other YANG modules or by defining Event Streams for non-YANG-modeled data. In either case, any such additional Event Stream that extends this specification MUST be defined via a YANG augment to this module, ensuring consistent subscription and freshness semantics.
 
 # Privacy Considerations
 
@@ -482,17 +482,6 @@ There are no additional privacy considerations introduced by this document.
 The security considerations of {{-charra}} and {{-rats-riv}} apply.
 
 ## Yet Another Next Generation (YANG)
-
-The security requirements ({{Section 4.2.5 of RFC7923}}) and the security considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
-Subscription to YANG Notifications for Datastore Updates ({{RFC8641}}) illustrates specific security considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
-
-8.  Security Considerations
-
-# Security Considerations
-
-# Security Considerations
-
-This section uses the template described in {{Section 3.7 of RFC9907}}.
 
 The YANG module defined in this document is designed to be accessed via network management protocols such as NETCONF {{RFC6241}} or RESTCONF {{RFC8040}}. The lowest NETCONF layer is the secure transport layer, and the mandatory-to-implement secure transport is SSH {{RFC6242}}; the lowest RESTCONF layer is HTTPS, with the mandatory-to-implement secure transport being TLS {{RFC8446}}. The Network Configuration Access Control Model (NACM) {{RFC8341}} provides the means to restrict access for particular users to a preconfigured subset of available protocol operations and content.
 
@@ -533,12 +522,6 @@ This module augments the `establish-subscription` RPC defined in {{RFC8639}} wit
 ## Privacy
 
 See {{privacy-considerations}}. As noted there, the disclosure characteristics described in {{RFC8641}} regarding system internal structure also have privacy implications and apply to this module.
-
-## Privacy
-
-See {{privacy-considerations}}. As noted there, the disclosure
-characteristics described in {{RFC8641}} regarding system internal
-structure also have privacy implications and apply to this module.
 
 ## Other
 
