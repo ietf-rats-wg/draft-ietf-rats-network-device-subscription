@@ -414,7 +414,7 @@ All YANG objects above are defined within {{-charra}}.  The \<tpm12-attestation\
 
 This notification contains an instance of TPM2 style signed cryptoprocessor measurements. It is supplemented by Attester information which is not signed. This notification is generated at two points in time:
 
-* every time at least one PCR has changed from a previous \<tpm20-attestation\>. In this case, the notification SHOULD be emitted within 10 seconds of the corresponding \<pcr-extend\> being sent:
+* every time at least one PCR has changed from a previous \<tpm20-attestation\>. In this case, the notification SHOULD be emitted within 10 seconds of the corresponding \<pcr-extend\> being sent. Implementations can have different latencies than 10 seconds. In general, the effective frequency of expected PCR changes has to be taken into account.
 
 * after a locally configurable minimum heartbeat period since a previous \<tpm20-attestation\> was sent.
 
