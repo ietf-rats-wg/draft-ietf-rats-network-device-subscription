@@ -363,7 +363,7 @@ To establish a subscription to an Attester in a way which provides provably fres
 
 The result of the subscription will be that passing of the following information:
 
-1. \<tpm12-attestation\> and \<tpm20-attestation\> notifications which include the provided \<nonce-value\>.  These attestation notifications MUST at least include all the \<pcr-indicies\> requested in the RPC.
+1. \<tpm12-attestation\> and \<tpm20-attestation\> notifications which include the provided \<nonce-value\>.  These attestation notifications MUST at least include every \<pcr-index\> as requested in the RPC.
 
 2. a series of \<pcr-extend\> notifications which reference the requested PCRs on all TPM based cryptoprocessors on the Attester.
 
@@ -402,7 +402,7 @@ The format of any included \<event-details\> is identified by the \<event-type\>
 
 ### tpm12-attestation
 
-This notification contains an instance of a TPM1.2 style signed cryptoprocessor measurement. It is supplemented by Attester information which is not signed. This notification is generated and emitted from an Attester when at least one PCR identified within the subscribed \<pcr-indices\> has changed from the previous \<tpm12-attestation\> notification.  This notification MUST NOT include the results of any PCR extensions not previously reported by a \<pcr-extend\>.  This notification SHOULD be emitted as soon as a TPM Quote can extract the latest PCR hashed values.  This notification MUST be emitted prior to a subsequent \<pcr-extend\>.
+This notification contains an instance of a TPM1.2 style signed cryptoprocessor measurement. It is supplemented by Attester information which is not signed. This notification is generated and emitted from an Attester when at least one PCR identified within the subscribed selections of \<pcr-index\> has changed from the previous \<tpm12-attestation\> notification.  This notification MUST NOT include the results of any PCR extensions not previously reported by a \<pcr-extend\>.  This notification SHOULD be emitted as soon as a TPM Quote can extract the latest PCR hashed values.  This notification MUST be emitted prior to a subsequent \<pcr-extend\>.
 
 ~~~~
 {::include ietf-tpm-remote-attestation-stream_tpm12-attestation.tree}
@@ -414,7 +414,7 @@ All YANG objects above are defined within {{-charra}}.  The \<tpm12-attestation\
 
 This notification contains an instance of TPM2 style signed cryptoprocessor measurements. It is supplemented by Attester information which is not signed. This notification is generated at two points in time:
 
-* every time at least one PCR has changed from a previous \<tpm20-attestation\>. In this case, the notification SHOULD be emitted within 10 seconds of the corresponding \<pcr-extend\> being sent:
+* every time at least one PCR has changed from a previous \<tpm20-attestation\>. In this case, the notification SHOULD be emitted within 10 seconds of the corresponding \<pcr-extend\> being sent. Implementations can have different latencies than 10 seconds. In general, the effective frequency of expected PCR changes has to be taken into account.
 
 * after a locally configurable minimum heartbeat period since a previous \<tpm20-attestation\> was sent.
 
