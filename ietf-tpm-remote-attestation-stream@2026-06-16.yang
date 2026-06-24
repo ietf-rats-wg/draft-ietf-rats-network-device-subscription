@@ -16,6 +16,10 @@ module ietf-tpm-remote-attestation-stream {
   } 
   import ietf-tcg-algs {
     prefix taa;
+    reference
+      "RFC 9684: A YANG Data Model for Challenge-Response-
+       Based Remote Attestation (CHARRA) Procedures Using 
+       Trusted Platform Modules (TPMs)"; 
   }
    
   organization "IETF";
@@ -49,9 +53,9 @@ module ietf-tpm-remote-attestation-stream {
   
   revision 2026-06-16 {
     description
-      "Final Version";    
+      "Initial Version";    
     reference 
-      "draft-ietf-rats-network-device-subscription";
+      reference "RFC XXXX: Attestation Event Stream Subscription";
   }
    
   /*
@@ -74,8 +78,11 @@ module ietf-tpm-remote-attestation-stream {
       "Allows an Attester to push verifiable, current TPM PCR values 
       even when there have been no recent changes to PCRs.";    
     leaf tpm20-subscription-heartbeat {
-      type uint16;
+      type uint16 {
+        range "1..max";
+      }
       units "seconds";
+      default 300;
       description
         "Number of seconds before the Attestation stream should send
         a new notification with a fresh quote.  This allows
