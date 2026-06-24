@@ -164,7 +164,7 @@ The terminology mapping is as follows:
 
 * `attEnvIDs` is substituted with `TpmName`, a TPM "name" text string selected from the `tpms` Container, as specified in {{-charra}}
 
-* `claimsSelection` is substituted with `PcrSelection`, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in {{-charra}}. If none of the TPM's Platform Configration Registers (PCR) are selected, all PCR banks are returned.
+* `claimsSelection` is substituted with `PcrSelection`, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in {{-charra}}. If none of the TPM's Platform Configuration Registers (PCR) are selected in those challenge-response RPCs, all PCR banks are returned.  Note that this "all banks returned" behavior applies only to the {{-charra}} challenge-response RPCs; by contrast, a subscription established via this document MUST specify at least one "pcr-index"
 
 * `claims` is substituted with `PcrQuotes`, which is the "output" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in {{-charra}}. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.
 
@@ -445,7 +445,7 @@ To verify the value of a PCR, a Verifier must either know that the value is a "k
 
 {{attestationconfig}} is tree diagram which exposes the operator configurable elements of the \<attestation\> Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of the stream.
 
-Almost all YANG objects below are defined via reference from {{-charra}}. However, there is one object which is new in this model. \<tpm2-heartbeat\> defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a \<tpm20-attestation\> notification from devices which contain a TPM2.
+Almost all YANG objects below are defined via reference from {{-charra}}. However, there is one object which is new in this model. \<tpm2-heartbeat\> defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a \<tpm20-attestation\> notification from devices which contain a TPM2. This heartbeat applies platform-wide to the \<attestation\> Event    Stream rather than to an individual TPM; the quotes from each TPM exposed by the Attester are emitted within this common interval,
 
 ~~~~
 {::include ietf-tpm-remote-attestation-stream_attestation-config.tree}
