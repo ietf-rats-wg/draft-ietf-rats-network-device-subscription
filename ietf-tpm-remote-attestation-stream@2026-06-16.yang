@@ -12,7 +12,9 @@ module ietf-tpm-remote-attestation-stream {
   import ietf-tpm-remote-attestation { 
     prefix tpm; 
     reference  
-      "draft-ietf-rats-yang-tpm-charra";  
+      "RFC 9684: A YANG Data Model for Challenge-Response-
+       Based Remote Attestation (CHARRA) Procedures Using 
+       Trusted Platform Modules (TPMs)"; 
   } 
   import ietf-tcg-algs {
     prefix taa;
@@ -228,9 +230,7 @@ module ietf-tpm-remote-attestation-stream {
     }            
     uses tpm:tpm20-attestation {
       description  
-        "Provides the attestation info.  Also ensures PCRs can be
-        XPATH (see Section 6.4. of RFC6010) filtered by refining
-        the unsigned data so that it appears,";
+        "Provides the attestation info.";
       refine unsigned-pcr-values {
         min-elements 1;
       }
