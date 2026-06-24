@@ -171,7 +171,7 @@ module ietf-tpm-remote-attestation-stream {
           case netequip-boot-event-log {
             if-feature "tpm:netequip_boot";
             description
-              "IMA event log format";
+              "Network equipment boot event log format";
             uses tpm:network-equipment-boot-event-log;
           }
         }       
