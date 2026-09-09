@@ -466,7 +466,7 @@ Table of Contents
    As there is no new Verifier nonce provided at time(EG'), it is
    important to validate the freshness of TPM Quotes which are delivered
    at that time.  Methods of doing this verification vary based on the
-   capabilities of the TPM cryptoprocessor used (see .
+   capabilities of the TPM cryptoprocessor used.
 
 3.2.1.  TPM 1.2 Quote
 
