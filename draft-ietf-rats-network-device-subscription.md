@@ -317,7 +317,7 @@ One way to acquire a new time synchronisation that allows for the reuse of the i
 {: #freshness-handles "Continuously Verifying Freshness"}
 ## Continuously Verifying Freshness
 
-As there is no new Verifier nonce provided at time(EG'), it is important to validate the freshness of TPM Quotes which are delivered at that time.  Methods of doing this verification vary based on the capabilities of the TPM cryptoprocessor used (see .
+As there is no new Verifier nonce provided at time(EG'), it is important to validate the freshness of TPM Quotes which are delivered at that time.  Methods of doing this verification vary based on the capabilities of the TPM cryptoprocessor used.
 
 ### TPM 1.2 Quote
 
