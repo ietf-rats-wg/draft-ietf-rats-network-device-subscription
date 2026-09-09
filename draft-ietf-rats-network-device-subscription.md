@@ -111,18 +111,23 @@ This new Event Stream is defined in this document and is provided by the produce
 As covered by this document, via a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier.
 For example, when a network device's Evidence changes following events such as booting, updating, control unit failover, plugging in or out of forwarding units, an attack, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.
 
-The second adverse effect stems from the use of nonces in the challenge-response interaction model {{Section 7.1 of -rats-models}} realized in {{-charra}}.
-According to {{-charra}}, an Attester must wait for a new nonce from a Verifier before generating a new TPM Quote.
+The second adverse effect stems from the use of nonces in the challenge-response interaction model {{Section 7.1 of -rats-models}} realized in {{-charra}} (CHARRA).
+According to CHARRA, an Attester must wait for a new nonce from a Verifier before generating a new TPM Quote.
 To address delays resulting from this wait, this specification allows freshness to be asserted asynchronously via the streaming attestation interaction model {{-rats-models}}.
 To convey a RATS Conceptual Message, an initial nonce is provided when subscribing to an Event Stream.
 
 There are several options to populate or refresh the nonce value provided by the initial subscription.
 All of these methods are out-of-band of an established subscription to YANG Notifications.
-Two alternative methods are taken into account by this document:
+Once a subscription has been set up using an initial nonce, two alternative methods can be used to provide freshness handles for the subscription going forward:
 
-1. A central provider supplies new, fresh nonces (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain as described in {{-rats-arch}} and as facilitated by the Uni-Directional Remote Attestation described in {{Section 7.2 of -rats-models}}), or
+1. A central provider supplies new, fresh handles (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain, as described in {{-rats-arch}} and facilitated by the Uni-Directional Remote Attestation described in {{Section 7.2 of -rats-models}}), or
 
-2. A nonce can be updated by -- potentially periodically or ad-hoc -- sending out-of-band TPM Quote requests as facilitated by {{-charra}}.
+2. A handle can be updated by sending out-of-band TPM Quote requests periodically or ad-hoc, as facilitated by CHARRA.
+
+{:aside}
+> The YANG statement that specifies the content of the freshness handle in CHARRA is called "nonce".
+> As this specification's YANG module is based on CHARRA, the "nonce" information element name is inherited.
+> This inconveniently overloads the term's original meaning because the value is now used as a freshness handle in Streaming Remote Attestation ({{Section 7.3 of -rats-models}}).
 
 Both approaches assume that clock drift can occur between the entities involved.
 Consequently, other conditions arising in different application scenarios ought to be considered in the same way. For example, the time of Claims collection ought to be taken into account as it potentially impacts the freshness of Evidence.
@@ -312,7 +317,7 @@ One way to acquire a new time synchronisation that allows for the reuse of the i
 {: #freshness-handles "Continuously Verifying Freshness"}
 ## Continuously Verifying Freshness
 
-As there is no new Verifier nonce provided at time(EG'), it is important to validate the freshness of TPM Quotes which are delivered at that time.  Methods of doing this verification vary based on the capabilities of the TPM cryptoprocessor used (see .
+As there is no new Verifier nonce provided at time(EG'), it is important to validate the freshness of TPM Quotes which are delivered at that time.  Methods of doing this verification vary based on the capabilities of the TPM cryptoprocessor used.
 
 ### TPM 1.2 Quote
 
