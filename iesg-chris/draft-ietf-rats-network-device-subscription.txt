@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 12 October 2026                                           Cisco
+Expires: 13 March 2027                                             Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                           10 April 2026
+                                                        9 September 2026
 
 
                  Attestation Event Stream Subscription
@@ -18,13 +18,14 @@ Abstract
 
    This document defines how to subscribe to YANG Event Streams for
    Remote Attestation Procedures (RATS).  Specifically, this document
-   defines a YANG module that augments the YANG module for TPM-based
-   Challenge-Response Remote Attestation (CHARRA), enabling subscription
-   to RATS Conceptual Messages of the Evidence type and auxiliary Event
-   Logs as part of that Evidence.  The module defined requires at least
-   one TPM 1.2 or TPM 2.0 (or equivalent hardware implementation
-   providing the same protected capabilities as a TPM) must be available
-   on the Attester on which the YANG server is running.
+   defines a YANG module that augments the YANG module for Trusted
+   Platform Module (TPM)-based Challenge-Response Remote Attestation
+   (CHARRA), enabling subscription to RATS Conceptual Messages of the
+   Evidence type and auxiliary Event Logs as part of that Evidence.  The
+   module defined requires at least one Trusted Platform Module (TPM)
+   1.2 or TPM 2.0 (or equivalent hardware implementation providing the
+   same protected capabilities as a TPM) must be available on the
+   Attester on which the YANG server is running.
 
 Discussion Venues
 
@@ -53,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 October 2026.
+   This Internet-Draft will expire on 13 March 2027.
 
 Copyright Notice
 
@@ -96,6 +97,9 @@ Table of Contents
    6.  Event Streams for Conceptual Messages
    7.  Privacy Considerations
    8.  Security Considerations
+     8.1.  Remote ATttestation procedureS (RATS)
+     8.2.  Yet Another Next Generation (YANG)
+     8.3.  Other
    9.  IANA Considerations
    10. References
      10.1.  Normative References
@@ -116,11 +120,11 @@ Table of Contents
    request signed Evidence from a separate Attester containing a TPM.
    This means that the interval between a security-relevant change event
    occurring and the event becoming visible to the interested RATS
-   entities, such as a Verifiers or a Relying Parties, can be
-   unacceptably long.  It is common to convey Conceptual Messages ad-hoc
-   or periodically via requests.  As new technologies emerge, some of
-   these solutions require Conceptual Messages to be conveyed from one
-   RATS entity to another without the need for continuous polling.
+   entities, such as Verifiers or a Relying Parties, can be unacceptably
+   long.  It is common to convey Conceptual Messages ad-hoc or
+   periodically via requests.  As new technologies emerge, some of these
+   solutions require Conceptual Messages to be conveyed from one RATS
+   entity to another without the need for continuous polling.
    Subscription to YANG Notifications [RFC8639] provides a set of
    standardized tools to facilitate these emerging requirements.  This
    memo specifies a YANG augmentation for subscribing to YANG-modelled
@@ -154,9 +158,9 @@ Table of Contents
 
    The second adverse effect stems from the use of nonces in the
    challenge-response interaction model Section 7.1 of
-   [I-D.ietf-rats-reference-interaction-models] realized in [RFC9684].
-   According to [RFC9684], an Attester must wait for a new nonce from a
-   Verifier before generating a new TPM Quote.  To address delays
+   [I-D.ietf-rats-reference-interaction-models] realized in [RFC9684]
+   (CHARRA).  According to CHARRA, an Attester must wait for a new nonce
+   from a Verifier before generating a new TPM Quote.  To address delays
    resulting from this wait, this specification allows freshness to be
    asserted asynchronously via the streaming attestation interaction
    model [I-D.ietf-rats-reference-interaction-models].  To convey a RATS
@@ -165,18 +169,27 @@ Table of Contents
 
    There are several options to populate or refresh the nonce value
    provided by the initial subscription.  All of these methods are out-
-   of-band of an established subscription to YANG Notifications.  Two
-   alternative methods are taken into account by this document:
+   of-band of an established subscription to YANG Notifications.  Once a
+   subscription has been set up using an initial nonce, two alternative
+   methods can be used to provide freshness handles for the subscription
+   going forward:
 
-   1.  A central provider supplies new, fresh nonces (e.g., via a Handle
-       Provider that distributes Epoch IDs to all entities in a domain
-       as described in [RFC9334] and as facilitated by the Uni-
+   1.  A central provider supplies new, fresh handles (e.g., via a
+       Handle Provider that distributes Epoch IDs to all entities in a
+       domain, as described in [RFC9334] and facilitated by the Uni-
        Directional Remote Attestation described in Section 7.2 of
        [I-D.ietf-rats-reference-interaction-models]), or
 
-   2.  A nonce can be updated by -- potentially periodically or ad-hoc
-       -- sending out-of-band TPM Quote requests as facilitated by
-       [RFC9684].
+   2.  A handle can be updated by sending out-of-band TPM Quote requests
+       periodically or ad-hoc, as facilitated by CHARRA.
+
+      |  The YANG statement that specifies the content of the freshness
+      |  handle in CHARRA is called "nonce".  As this specification's
+      |  YANG module is based on CHARRA, the "nonce" information element
+      |  name is inherited.  This inconveniently overloads the term's
+      |  original meaning because the value is now used as a freshness
+      |  handle in Streaming Remote Attestation (Section 7.3 of
+      |  [I-D.ietf-rats-reference-interaction-models]).
 
    Both approaches assume that clock drift can occur between the
    entities involved.  Consequently, other conditions arising in
@@ -215,7 +228,7 @@ Table of Contents
    operational model and corresponding sequence diagram described in
    this section is based on [RFC9684].  The basis for interoperability
    required for additional types of Event Streams is covered in
-   Section 6.  The following sub-section focuses on subscription to YANG
+   Section 6.  The following subsection focuses on subscription to YANG
    Notifications to the <attestation> Event Stream.
 
 3.1.  Sequence Diagrams
@@ -243,7 +256,9 @@ Table of Contents
       challenge-response-attestation RPC, as specified in [RFC9684].
       Hence, in this case, a 'nonce' value is populated out of band and
       can be used more than once within the scope of a subscription,
-      based on local policies that enforce freshness requirements.
+      based on local policies that enforce freshness requirements (see
+      definition of handle in Section 6 of
+      [I-D.ietf-rats-reference-interaction-models]).
 
    *  attEnvIDs is substituted with TpmName, a TPM "name" text string
       selected from the tpms Container, as specified in [RFC9684]
@@ -251,7 +266,8 @@ Table of Contents
    *  claimsSelection is substituted with PcrSelection, an optional
       "pcr-index" from either the tpm12-challenge-response-attestation
       RPC or the tpm20-challenge-response-attestation RPC as specified
-      in [RFC9684].  If no PCR is selected, all PCR banks are returned.
+      in [RFC9684].  If none of the TPM's Platform Configration
+      Registers (PCR) are selected, all PCR banks are returned.
 
    *  claims is substituted with PcrQuotes, which is the "output" of
       either the tpm12-challenge-response-attestation RPC or the tpm20-
@@ -280,7 +296,7 @@ Table of Contents
 |    |                                                 generateNonce() |
 |    |                                                    nonce<= |    |
 |    |                                                            |    |
-|    |<------------------ subscribe(nonce, TpmName, ?PcrSelecion) |    |
+|    |<----------------- subscribe(nonce, TpmName, ?PcrSelection) |    |
 |    | {nonce} -------------------------------------------------->|    |
 |    |                                                            |    |
 | ===============[Evidence Generation and Conveyance]================= |
@@ -449,31 +465,35 @@ Table of Contents
 
    As there is no new Verifier nonce provided at time(EG'), it is
    important to validate the freshness of TPM Quotes which are delivered
-   at that time.Methods of doing this verification vary based on the
-   capabilities of the TPM cryptoprocessor used.
+   at that time.  Methods of doing this verification vary based on the
+   capabilities of the TPM cryptoprocessor used (see .
 
 3.2.1.  TPM 1.2 Quote
 
    The [RFC8639] notification format includes the <eventTime> object.
-   This can be used to determine the amount of time subsequent to the
-   initial subscription each notification was sent.  However, this time
-   is not part of the signed results which are returned from the Quote
-   and therefore is not trustworthy as objects returned as part of the
-   Quote.  Therefore, a Verifier MUST periodically issue a new nonce and
-   receive this nonce within a TPM quote response in order to ensure the
+   This can be used to determine the amount of time after the initial
+   subscription each notification was sent.  However, this time is not
+   returned as part of the signed results of the TPM Quote and therefore
+   is not as trustworthy as the objects included in the TPM Quote.
+   Therefore, a Verifier MUST periodically issue a new nonce and receive
+   this nonce within a TPM quote response in order to ensure the
    freshness of the results.  This can be done using the <tpm12-
    challenge-response-attestation> RPC from [RFC9684].
 
 3.2.2.  TPM 2 Quote
 
    When the Attester includes a TPM2-compliant cryptoprocessor, internal
-   time-related counters are included within the signed TPM Quote.  By
-   including an initial nonce in the [RFC8639] subscription request,
-   fresh values for these counters are pushed to the Verifier as part of
-   the first TPM Quote.  As shown by [I-D.birkholz-rats-tuda],
-   subsequent TPM Quotes delivered to the Verifier out-of-band can be
-   appraised for freshness based on the predictable incrementing of
-   these time-related counters.
+   time-related counters are included within the signed TPM Quote and
+   thereby are trustworthy.  By including an initial nonce in the
+   [RFC8639] subscription request, fresh values for these counters are
+   pushed to the Verifier as part of the first TPM Quote.  In order to
+   assess the freshness of the TPM Quotes that the Attester continuesly
+   generates over time, the Verifier can aquire separate TPM Quotes via
+   the <tpm12-challenge-response-attestation> RPC from [RFC9684] out-of-
+   band.  These separate TPM Quotes include fresh time-related counters
+   that can be appraised for freshness based on the predictable
+   incrementing of these time-related counters.  An example for how that
+   can be realized is illustared in [I-D.birkholz-rats-tuda].
 
    The relevant internal time-related counters defined within [TPM2.0]
    can be seen within <tpms-clock-info>.  These counters include the
@@ -482,14 +502,14 @@ Table of Contents
 
    *  If the <clock> has incremented for no more than the same duration
       as both the <eventTime> and the Verifier's internal time since the
-      initial time(EG) and any previous time(EG'), then the TPM Quote
-      may be considered fresh.  Note that [TPM2.0] allows for +/- 15%
-      clock drift.  However, many hardware implementations significantly
+      initial time(EG) and any previous time(EG'), then the TPM Quote is
+      considered fresh.  Note that [TPM2.0] allows for +/- 15% clock
+      drift.  However, many hardware implementations significantly
       improve on this maximum drift.  If available, chip specific
-      maximum drifts SHOULD be considered during the appraisal procedure
+      maximum drifts MUST be considered during the appraisal procedure
       of the Verifier.
 
-   *  If the <reset-counter>, <restart-counter> has incremented.  The
+   *  If the <reset-counter>, <restart-counter> has incremented, the
       existing subscription MUST be terminated, and a new <establish-
       subscription> SHOULD be generated.
 
@@ -520,7 +540,7 @@ Table of Contents
    Level of an Attester.  Data Nodes within Section 4.6 allow the
    configuration of this Event Stream's contents on an Attester.
 
-   This <attestation> Event Stream may only be exposed on Attesters
+   This <attestation> Event Stream can only be exposed on Attesters
    supporting [RFC9683].  As with [RFC9683], it is up to the Verifier to
    understand which types of cryptoprocessors and keys are acceptable.
 
@@ -794,7 +814,7 @@ Table of Contents
 
    This YANG module imports modules from [RFC9684] and [RFC8639].
 
-   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2025-12-29.yang
+   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-06-16.yang
    module ietf-tpm-remote-attestation-stream {
      yang-version 1.1;
      namespace
@@ -817,7 +837,7 @@ Table of Contents
 
      organization "IETF";
      contact
-       "WG Web:   <http://tools.ietf.org/wg/rats/>
+       "WG Web:   <https://datatracker.ietf.org/wg/rats/>
         WG List:  <mailto:rats@ietf.org>
 
         Editor:   Eric Voit
@@ -835,7 +855,7 @@ Table of Contents
 
         Redistribution and use in source and binary forms, with
         or without modification, is permitted pursuant to, and
-        subject to the license terms contained in, the Simplified
+        subject to the license terms contained in, the Revised
         BSD License set forth in Section 4.c of the IETF Trust's
         Legal Provisions Relating to IETF Documents
         (https://trustee.ietf.org/license-info).
@@ -844,9 +864,9 @@ Table of Contents
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
         itself for full legal notices.";
 
-     revision 2024-07-06 {
+     revision 2026-06-16 {
        description
-         "Initial version.";
+         "Final Version";
        reference
          "draft-ietf-rats-network-device-subscription";
      }
@@ -889,7 +909,7 @@ Table of Contents
      augment "/sn:establish-subscription/sn:input" {
        when 'derived-from-or-self(sn:stream, "attestation")';
        description
-         "This augmentation adds a nonce to as a subscription parameters
+         "This augmentation adds a nonce to the subscription parameters
           that apply specifically to datastore updates to RPC input.";
        uses tpm:nonce;
        leaf-list pcr-index {
@@ -1019,8 +1039,8 @@ Table of Contents
        uses tpm:tpm20-attestation {
          description
            "Provides the attestation info.  Also ensures PCRs can be
-           XPATH filtered by refining the unsigned data so that it
-           appears.";
+           XPATH (see Section 6.4. of RFC6010) filtered by refining
+           the unsigned data so that it appears,";
          refine unsigned-pcr-values {
            min-elements 1;
          }
@@ -1125,8 +1145,8 @@ Table of Contents
 
    Analogous to the [RFC8639] compliant <attestation> Event Stream for
    the conveyance of remote attestation Evidence as defined in
-   Section Section 4, additional Event Streams can be defined for this
-   YANG augment.  Additional Event Streams require separate YANG augment
+   Section 4, additional Event Streams can be defined for this YANG
+   augment.  Additional Event Streams require separate YANG augment
    specifications that provide the Event Stream definition and
    optionally a content format definition either via subscriptions to
    YANG datastores or dedicated YANG Notifications.  It is possible to
@@ -1137,20 +1157,38 @@ Table of Contents
 
 7.  Privacy Considerations
 
-   The Privacy Considerations of [RFC9683] apply.  Additionally, the
-   Security Considerations from [RFC8641] outline how internal
-   structures or capabilities about the system can leak, which can have
-   an impact in personally identifiable information (PII).
+   The privacy considerations of [RFC9683] (Remote Integrity
+   Verification of Network Devices Containing Trusted Platform Modules)
+   apply.  Additionally, the security considerations from [RFC8641]
+   (Subscription to YANG Notifications for Datastore Updates) how
+   information about the system's internal structures or capabilities
+   can be leaked, which could impact personally identifiable information
+   (PII), apply.
+
+   There are no additional privacy considerations introduced by this
+   document.
 
 8.  Security Considerations
 
-   The Security Considerations of [RFC9684] and [RFC9683] apply.
-   Additionally, the Security Requirements from Section 4.2.5 of
-   [RFC7923] and the Security Considerations from Section 5 of [RFC7923]
-   apply.  [RFC8641] illustrates specific Security Considerations
-   concerning YANG Notifications for Datastore Updates.  For example, it
-   provides guidance on identifying sensitive writable subtrees and
-   sensitive readable nodes.
+8.1.  Remote ATttestation procedureS (RATS)
+
+   The security considerations of [RFC9684] and [RFC9683] apply.
+
+8.2.  Yet Another Next Generation (YANG)
+
+   The security requirements (Section 4.2.5 of [RFC7923]) and the
+   security considerations (Section 5 of [RFC7923]) from RFC7923
+   (Requirements for Subscription to YANG Datastores) apply.
+   Subscription to YANG Notifications for Datastore Updates ([RFC8641])
+   illustrates specific security considerations concerning YANG
+   Notifications for Datastore Updates.  For example, it provides
+   guidance on identifying sensitive writable subtrees and sensitive
+   readable nodes.
+
+8.3.  Other
+
+   There are no additional security considerations introduced by this
+   document.
 
 9.  IANA Considerations
 
@@ -1283,7 +1321,7 @@ Authors' Addresses
    Rheinstrasse 75
    64295 Darmstadt
    Germany
-   Email: henk.birkholz@sit.fraunhofer.de
+   Email: henk.birkholz@ietf.contact
 
 
    Eric Voit
