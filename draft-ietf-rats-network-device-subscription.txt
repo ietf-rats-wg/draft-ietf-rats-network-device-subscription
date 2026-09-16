@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 18 December 2026                                          Cisco
+Expires: 20 March 2027                                             Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                            16 June 2026
+                                                       16 September 2026
 
 
                  Attestation Event Stream Subscription
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 December 2026.
+   This Internet-Draft will expire on 20 March 2027.
 
 Copyright Notice
 
@@ -158,9 +158,9 @@ Table of Contents
 
    The second adverse effect stems from the use of nonces in the
    challenge-response interaction model Section 7.1 of
-   [I-D.ietf-rats-reference-interaction-models] realized in [RFC9684].
-   According to [RFC9684], an Attester must wait for a new nonce from a
-   Verifier before generating a new TPM Quote.  To address delays
+   [I-D.ietf-rats-reference-interaction-models] realized in [RFC9684]
+   (CHARRA).  According to CHARRA, an Attester must wait for a new nonce
+   from a Verifier before generating a new TPM Quote.  To address delays
    resulting from this wait, this specification allows freshness to be
    asserted asynchronously via the streaming attestation interaction
    model [I-D.ietf-rats-reference-interaction-models].  To convey a RATS
@@ -169,18 +169,27 @@ Table of Contents
 
    There are several options to populate or refresh the nonce value
    provided by the initial subscription.  All of these methods are out-
-   of-band of an established subscription to YANG Notifications.  Two
-   alternative methods are taken into account by this document:
+   of-band of an established subscription to YANG Notifications.  Once a
+   subscription has been set up using an initial nonce, two alternative
+   methods can be used to provide freshness handles for the subscription
+   going forward:
 
-   1.  A central provider supplies new, fresh nonces (e.g., via a Handle
-       Provider that distributes Epoch IDs to all entities in a domain
-       as described in [RFC9334] and as facilitated by the Uni-
+   1.  A central provider supplies new, fresh handles (e.g., via a
+       Handle Provider that distributes Epoch IDs to all entities in a
+       domain, as described in [RFC9334] and facilitated by the Uni-
        Directional Remote Attestation described in Section 7.2 of
        [I-D.ietf-rats-reference-interaction-models]), or
 
-   2.  A nonce can be updated by -- potentially periodically or ad-hoc
-       -- sending out-of-band TPM Quote requests as facilitated by
-       [RFC9684].
+   2.  A handle can be updated by sending out-of-band TPM Quote requests
+       periodically or ad-hoc, as facilitated by CHARRA.
+
+      |  The YANG statement that specifies the content of the freshness
+      |  handle in CHARRA is called "nonce".  As this specification's
+      |  YANG module is based on CHARRA, the "nonce" information element
+      |  name is inherited.  This inconveniently overloads the term's
+      |  original meaning because the value is now used as a freshness
+      |  handle in Streaming Remote Attestation (Section 7.3 of
+      |  [I-D.ietf-rats-reference-interaction-models]).
 
    Both approaches assume that clock drift can occur between the
    entities involved.  Consequently, other conditions arising in
@@ -457,7 +466,7 @@ Table of Contents
    As there is no new Verifier nonce provided at time(EG'), it is
    important to validate the freshness of TPM Quotes which are delivered
    at that time.  Methods of doing this verification vary based on the
-   capabilities of the TPM cryptoprocessor used (see .
+   capabilities of the TPM cryptoprocessor used.
 
 3.2.1.  TPM 1.2 Quote
 
