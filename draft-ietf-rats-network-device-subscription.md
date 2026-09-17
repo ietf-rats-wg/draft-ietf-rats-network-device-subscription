@@ -44,11 +44,15 @@ author:
 normative:
   RFC3688:
   RFC6020:
+  RFC6241:
+  RFC8040:
+  RFC8341:
+  RFC8639:
   RFC9334: rats-arch
   RFC9683: rats-riv
   RFC9684: charra
   I-D.ietf-rats-reference-interaction-models: rats-models
-  RFC8639:
+  RFC9907:
   TPM2.0:
     author:
       org: TCG
@@ -485,9 +489,28 @@ The security considerations of {{-charra}} and {{-rats-riv}} apply.
 The security requirements ({{Section 4.2.5 of RFC7923}}) and the security considerations ({{Section 5 of RFC7923}}) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
 Subscription to YANG Notifications for Datastore Updates ({{RFC8641}}) illustrates specific security considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.
 
-## Other
+## YANG Management Security
 
-There are no additional security considerations introduced by this document.
+The `ietf-tpm-remote-attestation-stream` YANG module is intended to be accessed using YANG-based management protocols such as NETCONF {{RFC6241}} and RESTCONF {{RFC8040}}. Management access to the module needs to provide confidentiality, integrity protection, and mutual authentication. The Network Configuration Access Control Model (NACM) {{RFC8341}} can be used to restrict access to the configuration, operations, and notification content defined or augmented by this module.
+
+The writable data nodes introduced by this module include \<marshalling-period\>, \<tpm12-subscribed-signature-scheme\>, \<tpm20-subscribed-signature-scheme\>, \<tpm20-subscription-heartbeat\>, \<subscription-aik\>, \<tpm12-pcr-index\>, and \<tpm20-pcr-index\>. Unauthorized modification of these nodes could alter which Evidence is available, the rate at which Evidence is delivered, or the keys and algorithms associated with attestation. Write access to these nodes therefore needs to be restricted to authorized administrators.
+
+The \<pcr-extend\>, \<tpm12-attestation\>, and \<tpm20-attestation\> notifications can expose integrity measurements, PCR values, Event Log information, and details of the Attester's hardware and software state. This information can reveal security-relevant platform configuration. Read and subscription access to these notifications therefore needs to be restricted to authorized Verifiers and other authorized consumers.
+
+The augmentation to the \<establish-subscription\> RPC creates long-lived subscription state and can cause continuing TPM operations and notification traffic. Unauthorized or excessive subscription requests can therefore consume processing, TPM, memory, and network resources. Implementations need to authenticate and authorize subscription requests and should apply appropriate resource limits.
+
+This security analysis follows the YANG security guidance in {{RFC9907}}.
+
+## Security Considerations of Streaming Attestation
+
+Moving from request/response polling to a long-lived subscription changes the consequences of lost, delayed, or suppressed messages. In particular, the absence of a new notification is not Evidence that the Attester's state has remained unchanged.
+
+If a Verifier does not receive a required attestation notification or heartbeat within the interval required by this specification, the Verifier can no longer establish freshness using that expected notification. The Verifier needs to obtain fresh Evidence, for example through a new TPM Quote or a newly established subscription, before treating subsequent appraisal results as fresh.
+
+An attacker that can cause repeated measured events can also increase the rate of \<pcr-extend\> and attestation notifications. This can increase processing and network load at both the Attester and Verifier. Existing authorization, transport-security, and resource-management protections therefore remain important even when an attacker cannot forge TPM-signed Evidence.
+
+The security considerations of {{-charra}}, {{-rats-riv}}, {{RFC8639}},
+and the YANG modules reused by this specification also apply.
 
 # IANA Considerations {#IANA}
 
