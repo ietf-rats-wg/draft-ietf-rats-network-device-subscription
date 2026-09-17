@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 20 March 2027                                             Cisco
+Expires: 21 March 2027                                             Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                       16 September 2026
+                                                       17 September 2026
 
 
                  Attestation Event Stream Subscription
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 March 2027.
+   This Internet-Draft will expire on 21 March 2027.
 
 Copyright Notice
 
@@ -561,7 +561,7 @@ Table of Contents
 
    1.  <tpm12-attestation> and <tpm20-attestation> notifications which
        include the provided <nonce-value>.  These attestation
-       notifications MUST at least include all the <pcr-indicies>
+       notifications MUST at least include every <pcr-index> as
        requested in the RPC.
 
    2.  a series of <pcr-extend> notifications which reference the
@@ -700,7 +700,7 @@ Table of Contents
    cryptoprocessor measurement.  It is supplemented by Attester
    information which is not signed.  This notification is generated and
    emitted from an Attester when at least one PCR identified within the
-   subscribed <pcr-indices> has changed from the previous
+   subscribed selections of <pcr-index> has changed from the previous
    <tpm12-attestation> notification.  This notification MUST NOT include
    the results of any PCR extensions not previously reported by a <pcr-
    extend>.  This notification SHOULD be emitted as soon as a TPM Quote
@@ -729,7 +729,8 @@ Table of Contents
    *  every time at least one PCR has changed from a previous
       <tpm20-attestation>.  In this case, the notification SHOULD be
       emitted within 10 seconds of the corresponding <pcr-extend> being
-      sent:
+      sent.  The 10-second interval is fixed by this specification and
+      is not a configurable parameter.
 
    *  after a locally configurable minimum heartbeat period since a
       previous <tpm20-attestation> was sent.
@@ -1221,9 +1222,9 @@ Table of Contents
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
               Interaction Models for Remote Attestation Procedures",
               Work in Progress, Internet-Draft, draft-ietf-rats-
-              reference-interaction-models-17, 2 April 2026,
+              reference-interaction-models-18, 17 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              reference-interaction-models-17>.
+              reference-interaction-models-18>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
