@@ -12,13 +12,21 @@ module ietf-tpm-remote-attestation-stream {
   import ietf-tpm-remote-attestation { 
     prefix tpm; 
     reference  
-      "draft-ietf-rats-yang-tpm-charra";  
+      "RFC 9684: A YANG Data Model for Challenge-Response-Based
+       Remote Attestation (CHARRA) Procedures Using Trusted
+       Platform Modules (TPMs)";
   } 
   import ietf-tcg-algs {
     prefix taa;
-  }
+    reference
+      "RFC 9684: A YANG Data Model for Challenge-Response-Based
+       Remote Attestation (CHARRA) Procedures Using Trusted
+       Platform Modules (TPMs)";
+      }
    
-  organization "IETF";
+  organization 
+    organization
+      "IETF RATS (Remote ATtestation procedureS) Working Group";
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/rats/>
      WG List:  <mailto:rats@ietf.org>
@@ -33,7 +41,7 @@ module ietf-tpm-remote-attestation-stream {
      implementations that include the protected capabilities
      as provided by TPMs.
     
-     Copyright (c) 2024 IETF Trust and the persons identified
+     Copyright (c) 2026 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -42,6 +50,10 @@ module ietf-tpm-remote-attestation-stream {
      BSD License set forth in Section 4.c of the IETF Trust's
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
+
+     All published revisions of IETF and IANA YANG modules are available
+     from the YANG Parameters registry group
+     (https://www.iana.org/assignments/yang-parameters).
 
      This version of this YANG module is part of RFC XXXX
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
@@ -90,7 +102,7 @@ module ietf-tpm-remote-attestation-stream {
    */ 
   
   augment "/sn:establish-subscription/sn:input" {
-    when 'derived-from-or-self(sn:stream, "attestation")';
+    when 'sn:stream = "attestation"';
     description
       "This augmentation adds a nonce to the subscription parameters
        that apply specifically to datastore updates to RPC input.";
@@ -196,13 +208,19 @@ module ietf-tpm-remote-attestation-stream {
         type tpm:pcr;
         min-elements 1;
         description
-          "PCR index number.";
+          "PCR index numbers. The producer MUST provide the same 
+           number of entries in this leaf-list and the sibling 
+           'pcr-value' leaf-list. Entry N corresponds to entry N 
+           in 'pcr-value', following the TPM 1.2 PCR 
+           selection/value ordering.";
       }
       leaf-list pcr-value {
         type binary;
         description
-          "PCR value in a sequence which matches to the
-          'pcr-index'.";
+          "PCR values. The producer MUST provide the same number of
+           entries in this leaf-list and the sibling 'pcr-index'
+           leaf-list. Entry N corresponds to the PCR identified by
+           entry N in 'pcr-index'.";
       }
     }
   }
@@ -244,6 +262,7 @@ module ietf-tpm-remote-attestation-stream {
       parameters.";   
     leaf marshalling-period { 
       type uint8;
+      units "seconds";
       default 5;
       description
         "The maximum number of seconds between the time an event  
@@ -251,6 +270,8 @@ module ietf-tpm-remote-attestation-stream {
         reports it to a subscribed Verifier.  This period allows 
         multiple extend operations bundled together and handled as a
         group.";  
+      reference
+        "Section 4.3.1 of RFC XXXX.";
     }
     leaf tpm12-subscribed-signature-scheme {
       if-feature "taa:tpm12";
@@ -290,7 +311,6 @@ module ietf-tpm-remote-attestation-stream {
         notifications in the 'attestation' stream.";
     }
     choice subscribable {
-      config true;
       description
         "Indicates that the set of notifications which comprise the  
         'attestation' event stream can be modified or tuned by a 
