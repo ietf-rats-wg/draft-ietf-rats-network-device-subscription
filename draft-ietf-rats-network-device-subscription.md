@@ -466,7 +466,7 @@ This YANG module imports modules from {{-charra}} and {{RFC8639}}.
 # Event Streams for Conceptual Messages
 
 Analogous to the {{RFC8639}}-compliant \<attestation\> Event Stream defined in {{attestationstream}}, additional Event Streams can be
-defined for other RATS Conceptual Messages. 
+defined for other RATS Conceptual Messages.
 Any specification that uses this framework to define an additional RATS Conceptual Message Event Stream MUST define that Event Stream using a YANG module that augments the module defined in this document. The augmentation MAY define the Event Stream content using YANG-modelled notifications or identify the content format used for non-YANG-modelled data.
 
 # Privacy Considerations
