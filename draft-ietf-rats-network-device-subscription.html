@@ -13,23 +13,23 @@
 Specifically, this document defines a YANG module that augments the YANG module for Trusted Platform Module (TPM)-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type and auxiliary Event Logs as part of that Evidence.
 The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running. 
     " name="description">
-<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="xml2rfc 3.34.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-rats-network-device-subscription-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.0
+  xml2rfc 3.34.1
     Python 3.14.7
-    ConfigArgParse 1.7.5
+    ConfigArgParse 1.7.7
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.7
+    platformdirs 4.11.10
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.3
+    wcwidth 0.8.4
 -->
 <link href="draft-ietf-rats-network-device-subscription.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1049,7 +1049,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 21 March 2027</td>
+<td class="center">Expires 26 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1062,12 @@ svg {
 <dd class="internet-draft">draft-ietf-rats-network-device-subscription-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-17" class="published">17 September 2026</time>
+<time datetime="2026-09-22" class="published">22 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-03-21">21 March 2027</time></dd>
+<dd class="expires"><time datetime="2027-03-26">26 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1122,7 +1122,7 @@ The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TP
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2064,13 +2064,21 @@ module ietf-tpm-remote-attestation-stream {
   import ietf-tpm-remote-attestation {
     prefix tpm;
     reference
-      "draft-ietf-rats-yang-tpm-charra";
+      "RFC 9684: A YANG Data Model for Challenge-Response-Based
+       Remote Attestation (CHARRA) Procedures Using Trusted
+       Platform Modules (TPMs)";
   }
   import ietf-tcg-algs {
     prefix taa;
-  }
+    reference
+      "RFC 9684: A YANG Data Model for Challenge-Response-Based
+       Remote Attestation (CHARRA) Procedures Using Trusted
+       Platform Modules (TPMs)";
+      }
 
-  organization "IETF";
+  organization
+    organization
+      "IETF RATS (Remote ATtestation procedureS) Working Group";
   contact
     "WG Web:   &lt;https://datatracker.ietf.org/wg/rats/&gt;
      WG List:  &lt;mailto:rats@ietf.org&gt;
@@ -2085,7 +2093,7 @@ module ietf-tpm-remote-attestation-stream {
      implementations that include the protected capabilities
      as provided by TPMs.
 
-     Copyright (c) 2024 IETF Trust and the persons identified
+     Copyright (c) 2026 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -2094,6 +2102,10 @@ module ietf-tpm-remote-attestation-stream {
      BSD License set forth in Section 4.c of the IETF Trust's
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
+
+     All published revisions of IETF and IANA YANG modules are available
+     from the YANG Parameters registry group
+     (https://www.iana.org/assignments/yang-parameters).
 
      This version of this YANG module is part of RFC XXXX
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
@@ -2142,7 +2154,7 @@ module ietf-tpm-remote-attestation-stream {
    */
 
   augment "/sn:establish-subscription/sn:input" {
-    when 'derived-from-or-self(sn:stream, "attestation")';
+    when 'sn:stream = "attestation"';
     description
       "This augmentation adds a nonce to the subscription parameters
        that apply specifically to datastore updates to RPC input.";
@@ -2248,13 +2260,19 @@ module ietf-tpm-remote-attestation-stream {
         type tpm:pcr;
         min-elements 1;
         description
-          "PCR index number.";
+          "PCR index numbers. The producer MUST provide the same
+           number of entries in this leaf-list and the sibling
+           'pcr-value' leaf-list. Entry N corresponds to entry N
+           in 'pcr-value', following the TPM 1.2 PCR
+           selection/value ordering.";
       }
       leaf-list pcr-value {
         type binary;
         description
-          "PCR value in a sequence which matches to the
-          'pcr-index'.";
+          "PCR values. The producer MUST provide the same number of
+           entries in this leaf-list and the sibling 'pcr-index'
+           leaf-list. Entry N corresponds to the PCR identified by
+           entry N in 'pcr-index'.";
       }
     }
   }
@@ -2296,6 +2314,7 @@ module ietf-tpm-remote-attestation-stream {
       parameters.";
     leaf marshalling-period {
       type uint8;
+      units "seconds";
       default 5;
       description
         "The maximum number of seconds between the time an event
@@ -2303,6 +2322,8 @@ module ietf-tpm-remote-attestation-stream {
         reports it to a subscribed Verifier.  This period allows
         multiple extend operations bundled together and handled as a
         group.";
+      reference
+        "Section 4.3.1 of RFC XXXX.";
     }
     leaf tpm12-subscribed-signature-scheme {
       if-feature "taa:tpm12";
@@ -2342,7 +2363,6 @@ module ietf-tpm-remote-attestation-stream {
         notifications in the 'attestation' stream.";
     }
     choice subscribable {
-      config true;
       description
         "Indicates that the set of notifications which comprise the
         'attestation' event stream can be modified or tuned by a
@@ -2384,7 +2404,9 @@ module ietf-tpm-remote-attestation-stream {
       <h2 id="name-event-streams-for-conceptua">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-event-streams-for-conceptua" class="section-name selfRef">Event Streams for Conceptual Messages</a>
       </h2>
-<p id="section-6-1">Analogous to the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant &lt;attestation&gt; Event Stream for the conveyance of remote attestation Evidence as defined in <a href="#attestationstream" class="auto internal xref">Section 4</a>, additional Event Streams can be defined for this YANG augment. Additional Event Streams require separate YANG augment specifications that provide the Event Stream definition and optionally a content format definition either via subscriptions to YANG datastores or dedicated YANG Notifications. It is possible to use either YANG subscription methods to other YANG modules for RATS Conceptual Messages or to define Event Streams for other none-YANG-modeled data. In the context of RATS Conceptual Messages, both options <span class="bcp14">MUST</span> be a specified via YANG augments to this specification.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">Analogous to the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>-compliant &lt;attestation&gt; Event Stream defined in <a href="#attestationstream" class="auto internal xref">Section 4</a>, additional Event Streams can be
+defined for other RATS Conceptual Messages.
+Any specification that uses this framework to define an additional RATS Conceptual Message Event Stream <span class="bcp14">MUST</span> define that Event Stream using a YANG module that augments the module defined in this document. The augmentation <span class="bcp14">MAY</span> define the Event Stream content using YANG-modelled notifications or identify the content format used for non-YANG-modelled data.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">

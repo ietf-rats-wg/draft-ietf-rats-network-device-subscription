@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 21 March 2027                                             Cisco
+Expires: 26 March 2027                                             Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                       17 September 2026
+                                                       22 September 2026
 
 
                  Attestation Event Stream Subscription
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 March 2027.
+   This Internet-Draft will expire on 26 March 2027.
 
 Copyright Notice
 
@@ -830,13 +830,21 @@ Table of Contents
      import ietf-tpm-remote-attestation {
        prefix tpm;
        reference
-         "draft-ietf-rats-yang-tpm-charra";
+         "RFC 9684: A YANG Data Model for Challenge-Response-Based
+          Remote Attestation (CHARRA) Procedures Using Trusted
+          Platform Modules (TPMs)";
      }
      import ietf-tcg-algs {
        prefix taa;
-     }
+       reference
+         "RFC 9684: A YANG Data Model for Challenge-Response-Based
+          Remote Attestation (CHARRA) Procedures Using Trusted
+          Platform Modules (TPMs)";
+         }
 
-     organization "IETF";
+     organization
+       organization
+         "IETF RATS (Remote ATtestation procedureS) Working Group";
      contact
        "WG Web:   <https://datatracker.ietf.org/wg/rats/>
         WG List:  <mailto:rats@ietf.org>
@@ -851,7 +859,7 @@ Table of Contents
         implementations that include the protected capabilities
         as provided by TPMs.
 
-        Copyright (c) 2024 IETF Trust and the persons identified
+        Copyright (c) 2026 IETF Trust and the persons identified
         as authors of the code. All rights reserved.
 
         Redistribution and use in source and binary forms, with
@@ -860,6 +868,10 @@ Table of Contents
         BSD License set forth in Section 4.c of the IETF Trust's
         Legal Provisions Relating to IETF Documents
         (https://trustee.ietf.org/license-info).
+
+        All published revisions of IETF and IANA YANG modules are available
+        from the YANG Parameters registry group
+        (https://www.iana.org/assignments/yang-parameters).
 
         This version of this YANG module is part of RFC XXXX
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
@@ -908,7 +920,7 @@ Table of Contents
       */
 
      augment "/sn:establish-subscription/sn:input" {
-       when 'derived-from-or-self(sn:stream, "attestation")';
+       when 'sn:stream = "attestation"';
        description
          "This augmentation adds a nonce to the subscription parameters
           that apply specifically to datastore updates to RPC input.";
@@ -1014,13 +1026,19 @@ Table of Contents
            type tpm:pcr;
            min-elements 1;
            description
-             "PCR index number.";
+             "PCR index numbers. The producer MUST provide the same
+              number of entries in this leaf-list and the sibling
+              'pcr-value' leaf-list. Entry N corresponds to entry N
+              in 'pcr-value', following the TPM 1.2 PCR
+              selection/value ordering.";
          }
          leaf-list pcr-value {
            type binary;
            description
-             "PCR value in a sequence which matches to the
-             'pcr-index'.";
+             "PCR values. The producer MUST provide the same number of
+              entries in this leaf-list and the sibling 'pcr-index'
+              leaf-list. Entry N corresponds to the PCR identified by
+              entry N in 'pcr-index'.";
          }
        }
      }
@@ -1062,6 +1080,7 @@ Table of Contents
          parameters.";
        leaf marshalling-period {
          type uint8;
+         units "seconds";
          default 5;
          description
            "The maximum number of seconds between the time an event
@@ -1069,6 +1088,8 @@ Table of Contents
            reports it to a subscribed Verifier.  This period allows
            multiple extend operations bundled together and handled as a
            group.";
+         reference
+           "Section 4.3.1 of RFC XXXX.";
        }
        leaf tpm12-subscribed-signature-scheme {
          if-feature "taa:tpm12";
@@ -1108,7 +1129,6 @@ Table of Contents
            notifications in the 'attestation' stream.";
        }
        choice subscribable {
-         config true;
          description
            "Indicates that the set of notifications which comprise the
            'attestation' event stream can be modified or tuned by a
@@ -1144,17 +1164,14 @@ Table of Contents
 
 6.  Event Streams for Conceptual Messages
 
-   Analogous to the [RFC8639] compliant <attestation> Event Stream for
-   the conveyance of remote attestation Evidence as defined in
-   Section 4, additional Event Streams can be defined for this YANG
-   augment.  Additional Event Streams require separate YANG augment
-   specifications that provide the Event Stream definition and
-   optionally a content format definition either via subscriptions to
-   YANG datastores or dedicated YANG Notifications.  It is possible to
-   use either YANG subscription methods to other YANG modules for RATS
-   Conceptual Messages or to define Event Streams for other none-YANG-
-   modeled data.  In the context of RATS Conceptual Messages, both
-   options MUST be a specified via YANG augments to this specification.
+   Analogous to the [RFC8639]-compliant <attestation> Event Stream
+   defined in Section 4, additional Event Streams can be defined for
+   other RATS Conceptual Messages.  Any specification that uses this
+   framework to define an additional RATS Conceptual Message Event
+   Stream MUST define that Event Stream using a YANG module that
+   augments the module defined in this document.  The augmentation MAY
+   define the Event Stream content using YANG-modelled notifications or
+   identify the content format used for non-YANG-modelled data.
 
 7.  Privacy Considerations
 
