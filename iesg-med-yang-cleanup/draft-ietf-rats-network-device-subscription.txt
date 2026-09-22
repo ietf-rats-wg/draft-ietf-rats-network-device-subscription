@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 21 March 2027                                             Cisco
+Expires: 26 March 2027                                             Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                       17 September 2026
+                                                       22 September 2026
 
 
                  Attestation Event Stream Subscription
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 March 2027.
+   This Internet-Draft will expire on 26 March 2027.
 
 Copyright Notice
 
@@ -1164,17 +1164,14 @@ Table of Contents
 
 6.  Event Streams for Conceptual Messages
 
-   Analogous to the [RFC8639] compliant <attestation> Event Stream for
-   the conveyance of remote attestation Evidence as defined in
-   Section 4, additional Event Streams can be defined for this YANG
-   augment.  Additional Event Streams require separate YANG augment
-   specifications that provide the Event Stream definition and
-   optionally a content format definition either via subscriptions to
-   YANG datastores or dedicated YANG Notifications.  It is possible to
-   use either YANG subscription methods to other YANG modules for RATS
-   Conceptual Messages or to define Event Streams for other none-YANG-
-   modeled data.  In the context of RATS Conceptual Messages, both
-   options MUST be a specified via YANG augments to this specification.
+   Analogous to the [RFC8639]-compliant <attestation> Event Stream
+   defined in Section 4, additional Event Streams can be defined for
+   other RATS Conceptual Messages.  Any specification that uses this
+   framework to define an additional RATS Conceptual Message Event
+   Stream MUST define that Event Stream using a YANG module that
+   augments the module defined in this document.  The augmentation MAY
+   define the Event Stream content using YANG-modelled notifications or
+   identify the content format used for non-YANG-modelled data.
 
 7.  Privacy Considerations
 
