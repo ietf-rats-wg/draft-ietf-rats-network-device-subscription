@@ -1247,7 +1247,10 @@ The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TP
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-yet-another-next-generation" class="internal xref">Yet Another Next Generation (YANG)</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
-                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-other" class="internal xref">Other</a></p>
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-yang-management-security" class="internal xref">YANG Management Security</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-security-considerations-of-" class="internal xref">Security Considerations of Streaming Attestation</a></p>
 </li>
             </ul>
 </li>
@@ -2443,12 +2446,28 @@ Additionally, the security considerations from <span>[<a href="#RFC8641" class="
 Subscription to YANG Notifications for Datastore Updates (<span>[<a href="#RFC8641" class="cite xref">RFC8641</a>]</span>) illustrates specific security considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="other">
+<div id="yang-management-security">
 <section id="section-8.3">
-        <h3 id="name-other">
-<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-other" class="section-name selfRef">Other</a>
+        <h3 id="name-yang-management-security">
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-yang-management-security" class="section-name selfRef">YANG Management Security</a>
         </h3>
-<p id="section-8.3-1">There are no additional security considerations introduced by this document.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.3-1">The <code>ietf-tpm-remote-attestation-stream</code> YANG module is intended to be accessed using YANG-based management protocols such as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. Management access to the module needs to provide confidentiality, integrity protection, and mutual authentication. The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> can be used to restrict access to the configuration, operations, and notification content defined or augmented by this module.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.3-2">The writable data nodes introduced by this module include &lt;marshalling-period&gt;, &lt;tpm12-subscribed-signature-scheme&gt;, &lt;tpm20-subscribed-signature-scheme&gt;, &lt;tpm20-subscription-heartbeat&gt;, &lt;subscription-aik&gt;, &lt;tpm12-pcr-index&gt;, and &lt;tpm20-pcr-index&gt;. Unauthorized modification of these nodes could alter which Evidence is available, the rate at which Evidence is delivered, or the keys and algorithms associated with attestation. Write access to these nodes therefore needs to be restricted to authorized administrators.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
+<p id="section-8.3-3">The &lt;pcr-extend&gt;, &lt;tpm12-attestation&gt;, and &lt;tpm20-attestation&gt; notifications can expose integrity measurements, PCR values, Event Log information, and details of the Attester's hardware and software state. This information can reveal security-relevant platform configuration. Read and subscription access to these notifications therefore needs to be restricted to authorized Verifiers and other authorized consumers.<a href="#section-8.3-3" class="pilcrow">¶</a></p>
+<p id="section-8.3-4">The augmentation to the &lt;establish-subscription&gt; RPC creates long-lived subscription state and can cause continuing TPM operations and notification traffic. Unauthorized or excessive subscription requests can therefore consume processing, TPM, memory, and network resources. Implementations need to authenticate and authorize subscription requests and should apply appropriate resource limits.<a href="#section-8.3-4" class="pilcrow">¶</a></p>
+<p id="section-8.3-5">This security analysis follows the YANG security guidance in <span>[<a href="#RFC9907" class="cite xref">RFC9907</a>]</span>.<a href="#section-8.3-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-considerations-of-streaming-attestation">
+<section id="section-8.4">
+        <h3 id="name-security-considerations-of-">
+<a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-security-considerations-of-" class="section-name selfRef">Security Considerations of Streaming Attestation</a>
+        </h3>
+<p id="section-8.4-1">Moving from request/response polling to a long-lived subscription changes the consequences of lost, delayed, or suppressed messages. In particular, the absence of a new notification is not Evidence that the Attester's state has remained unchanged.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.4-2">If a Verifier does not receive a required attestation notification or heartbeat within the interval required by this specification, the Verifier can no longer establish freshness using that expected notification. The Verifier needs to obtain fresh Evidence, for example through a new TPM Quote or a newly established subscription, before treating subsequent appraisal results as fresh.<a href="#section-8.4-2" class="pilcrow">¶</a></p>
+<p id="section-8.4-3">An attacker that can cause repeated measured events can also increase the rate of &lt;pcr-extend&gt; and attestation notifications. This can increase processing and network load at both the Attester and Verifier. Existing authorization, transport-security, and resource-management protections therefore remain important even when an attacker cannot forge TPM-signed Evidence.<a href="#section-8.4-3" class="pilcrow">¶</a></p>
+<p id="section-8.4-4">The security considerations of <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>, <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>, <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>,
+and the YANG modules reused by this specification also apply.<a href="#section-8.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2534,9 +2553,21 @@ registry <span>[<a href="#yang-parameters" class="cite xref">yang-parameters</a>
         <dd>
 <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refTitle">"YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6020</span>, <span class="seriesInfo">DOI 10.17487/RFC6020</span>, <time datetime="2010-10" class="refDate">October 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6020">https://www.rfc-editor.org/rfc/rfc6020</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC6241">[RFC6241]</dt>
+        <dd>
+<span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6241">https://www.rfc-editor.org/rfc/rfc6241</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8040">[RFC8040]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8341">[RFC8341]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span> and <span class="refAuthor">M. Bjorklund</span>, <span class="refTitle">"Network Configuration Access Control Model"</span>, <span class="seriesInfo">STD 91</span>, <span class="seriesInfo">RFC 8341</span>, <span class="seriesInfo">DOI 10.17487/RFC8341</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8341">https://www.rfc-editor.org/rfc/rfc8341</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8639">[RFC8639]</dt>
         <dd>
@@ -2553,6 +2584,10 @@ registry <span>[<a href="#yang-parameters" class="cite xref">yang-parameters</a>
 <dt id="RFC9684">[RFC9684]</dt>
         <dd>
 <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Bhandari, S.</span>, <span class="refAuthor">Voit, E.</span>, <span class="refAuthor">Sulzen, B.</span>, <span class="refAuthor">Xia, L.</span>, <span class="refAuthor">Laffey, T.</span>, and <span class="refAuthor">G. C. Fedorkow</span>, <span class="refTitle">"A YANG Data Model for Challenge-Response-Based Remote Attestation (CHARRA) Procedures Using Trusted Platform Modules (TPMs)"</span>, <span class="seriesInfo">RFC 9684</span>, <span class="seriesInfo">DOI 10.17487/RFC9684</span>, <time datetime="2024-12" class="refDate">December 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9684">https://www.rfc-editor.org/rfc/rfc9684</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9907">[RFC9907]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="seriesInfo">BCP 216</span>, <span class="seriesInfo">RFC 9907</span>, <span class="seriesInfo">DOI 10.17487/RFC9907</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9907">https://www.rfc-editor.org/rfc/rfc9907</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="TPM2.0">[TPM2.0]</dt>
       <dd>

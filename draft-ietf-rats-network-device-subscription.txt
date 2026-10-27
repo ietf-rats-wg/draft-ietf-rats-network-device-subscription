@@ -99,7 +99,8 @@ Table of Contents
    8.  Security Considerations
      8.1.  Remote ATttestation procedureS (RATS)
      8.2.  Yet Another Next Generation (YANG)
-     8.3.  Other
+     8.3.  YANG Management Security
+     8.4.  Security Considerations of Streaming Attestation
    9.  IANA Considerations
    10. References
      10.1.  Normative References
@@ -1203,10 +1204,67 @@ Table of Contents
    guidance on identifying sensitive writable subtrees and sensitive
    readable nodes.
 
-8.3.  Other
+8.3.  YANG Management Security
 
-   There are no additional security considerations introduced by this
-   document.
+   The ietf-tpm-remote-attestation-stream YANG module is intended to be
+   accessed using YANG-based management protocols such as NETCONF
+   [RFC6241] and RESTCONF [RFC8040].  Management access to the module
+   needs to provide confidentiality, integrity protection, and mutual
+   authentication.  The Network Configuration Access Control Model
+   (NACM) [RFC8341] can be used to restrict access to the configuration,
+   operations, and notification content defined or augmented by this
+   module.
+
+   The writable data nodes introduced by this module include
+   <marshalling-period>, <tpm12-subscribed-signature-scheme>, <tpm20-
+   subscribed-signature-scheme>, <tpm20-subscription-heartbeat>,
+   <subscription-aik>, <tpm12-pcr-index>, and <tpm20-pcr-index>.
+   Unauthorized modification of these nodes could alter which Evidence
+   is available, the rate at which Evidence is delivered, or the keys
+   and algorithms associated with attestation.  Write access to these
+   nodes therefore needs to be restricted to authorized administrators.
+
+   The <pcr-extend>, <tpm12-attestation>, and <tpm20-attestation>
+   notifications can expose integrity measurements, PCR values, Event
+   Log information, and details of the Attester's hardware and software
+   state.  This information can reveal security-relevant platform
+   configuration.  Read and subscription access to these notifications
+   therefore needs to be restricted to authorized Verifiers and other
+   authorized consumers.
+
+   The augmentation to the <establish-subscription> RPC creates long-
+   lived subscription state and can cause continuing TPM operations and
+   notification traffic.  Unauthorized or excessive subscription
+   requests can therefore consume processing, TPM, memory, and network
+   resources.  Implementations need to authenticate and authorize
+   subscription requests and should apply appropriate resource limits.
+
+   This security analysis follows the YANG security guidance in
+   [RFC9907].
+
+8.4.  Security Considerations of Streaming Attestation
+
+   Moving from request/response polling to a long-lived subscription
+   changes the consequences of lost, delayed, or suppressed messages.
+   In particular, the absence of a new notification is not Evidence that
+   the Attester's state has remained unchanged.
+
+   If a Verifier does not receive a required attestation notification or
+   heartbeat within the interval required by this specification, the
+   Verifier can no longer establish freshness using that expected
+   notification.  The Verifier needs to obtain fresh Evidence, for
+   example through a new TPM Quote or a newly established subscription,
+   before treating subsequent appraisal results as fresh.
+
+   An attacker that can cause repeated measured events can also increase
+   the rate of <pcr-extend> and attestation notifications.  This can
+   increase processing and network load at both the Attester and
+   Verifier.  Existing authorization, transport-security, and resource-
+   management protections therefore remain important even when an
+   attacker cannot forge TPM-signed Evidence.
+
+   The security considerations of [RFC9684], [RFC9683], [RFC8639], and
+   the YANG modules reused by this specification also apply.
 
 9.  IANA Considerations
 
@@ -1257,9 +1315,23 @@ Table of Contents
               DOI 10.17487/RFC6020, October 2010,
               <https://www.rfc-editor.org/rfc/rfc6020>.
 
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6241>.
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
+              Access Control Model", STD 91, RFC 8341,
+              DOI 10.17487/RFC8341, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8341>.
 
    [RFC8639]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Subscription to YANG Notifications",
@@ -1283,6 +1355,11 @@ Table of Contents
               (CHARRA) Procedures Using Trusted Platform Modules
               (TPMs)", RFC 9684, DOI 10.17487/RFC9684, December 2024,
               <https://www.rfc-editor.org/rfc/rfc9684>.
+
+   [RFC9907]  Bierman, A., Boucadair, M., Ed., and Q. Wu, "Guidelines
+              for Authors and Reviewers of Documents Containing YANG
+              Data Models", BCP 216, RFC 9907, DOI 10.17487/RFC9907,
+              March 2026, <https://www.rfc-editor.org/rfc/rfc9907>.
 
    [TPM2.0]   TCG, "TPM 2.0 Library Specification", n.d.,
               <https://trustedcomputinggroup.org/resource/tpm-library-
