@@ -59,11 +59,13 @@ module ietf-tpm-remote-attestation-stream {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
      itself for full legal notices.";
   
-  revision 2026-06-16 {
+  revision 2026-10-28 {
     description
-      "Final Version";    
-    reference 
-      "draft-ietf-rats-network-device-subscription";
+      "Initial Version";
+    reference
+      "RFC XXXX: Attestation Event Stream Subscription.
+       RFC Editor: Please replace XXXX with the RFC number assigned to
+       this document.";
   }
    
   /*
@@ -86,13 +88,17 @@ module ietf-tpm-remote-attestation-stream {
       "Allows an Attester to push verifiable, current TPM PCR values 
       even when there have been no recent changes to PCRs.";    
     leaf tpm20-subscription-heartbeat {
-      type uint16;
+      type uint16 {
+        range "1..max";
+      }
       units "seconds";
       description
-        "Number of seconds before the Attestation stream should send
-        a new notification with a fresh quote.  This allows
-        confirmation that the PCR values haven't changed since the
-        last tpm20-attestation.";
+        "Maximum number of seconds between tpm20-attestation
+        notifications for each requested PCR. This platform-wide
+        setting applies to all active TPM 2.0 attestation subscriptions.
+        When this leaf is configured, the Attester sends each requested
+        PCR at least once per interval, including when its value has not
+        changed.";
     }
   }
   
@@ -176,7 +182,7 @@ module ietf-tpm-remote-attestation-stream {
           case netequip-boot-event-log {
             if-feature "tpm:netequip_boot";
             description
-              "IMA event log format";
+              "Network equipment boot event log format";
             uses tpm:network-equipment-boot-event-log;
           }
         }       
@@ -199,11 +205,17 @@ module ietf-tpm-remote-attestation-stream {
     uses tpm:tpm12-attestation;
     uses tpm:tpm12-hash-algo;
     list unsigned-pcr-values {
-      description  
-        "Allows notifications to be filtered by PCR number or
-        PCR value based on via YANG related mechanisms such as PATH.
-        This is done without requiring the filtering structure to be
-        applied against TCG structured data.";  
+      description
+        "Allows notifications to be filtered by PCR number or PCR
+        value using XPath expressions as defined in Section 6.4 of
+        RFC 7950. Exposing these values as separate YANG nodes permits
+        filtering without inspecting the TPM-encoded attestation
+        structures defined in RFC 9684.";
+      reference
+        "RFC 7950: The YANG 1.1 Data Modeling Language, Section 6.4;
+         RFC 9684: A YANG Data Model for Challenge-Response-Based
+         Remote Attestation (CHARRA) Procedures Using Trusted Platform
+         Modules (TPMs).";
       leaf-list pcr-index {
         type tpm:pcr;
         min-elements 1;
@@ -238,10 +250,12 @@ module ietf-tpm-remote-attestation-stream {
         "Allows a TPM quote to be associated with a certificate.";
     }            
     uses tpm:tpm20-attestation {
-      description  
-        "Provides the attestation info.  Also ensures PCRs can be
-        XPATH (see Section 6.4. of RFC6010) filtered by refining
-        the unsigned data so that it appears,";
+      description
+        "Provides the attestation information and exposes the unsigned
+        PCR values as YANG nodes, allowing XPath filtering as described
+        in Section 6.4 of RFC 7950.";
+      reference
+        "RFC 7950: The YANG 1.1 Data Modeling Language, Section 6.4.";
       refine unsigned-pcr-values {
         min-elements 1;
       }
