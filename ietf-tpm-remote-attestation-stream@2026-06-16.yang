@@ -25,8 +25,7 @@ module ietf-tpm-remote-attestation-stream {
       }
    
   organization 
-    organization
-      "IETF RATS (Remote ATtestation procedureS) Working Group";
+    "IETF RATS (Remote ATtestation procedureS) Working Group";
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/rats/>
      WG List:  <mailto:rats@ietf.org>
