@@ -834,7 +834,7 @@ Table of Contents
    number assigned to this document, update the revision date to the
    publication date, and remove this note.
 
-   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-06-16.yang
+   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-10-28.yang
    module ietf-tpm-remote-attestation-stream {
      yang-version 1.1;
      namespace
