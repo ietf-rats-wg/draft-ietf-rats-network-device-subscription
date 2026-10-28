@@ -466,7 +466,7 @@ This YANG module imports modules from {{-charra}} and {{RFC8639}}.
 RFC Editor: Please replace "XXXX" in the YANG module with the RFC number assigned to this document, update the revision date to the publication date, and remove this note.
 
 ~~~~ YANG
-<CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-06-16.yang
+<CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-10-28.yang
 {::include ietf-tpm-remote-attestation-stream@2026-06-16.yang}
 <CODE ENDS>
 ~~~~
