@@ -5,10 +5,10 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                                 E. Voit
-Expires: 30 April 2027                                             Cisco
+Expires: 7 May 2027                                                Cisco
                                                                   W. Pan
                                                                   Huawei
-                                                         27 October 2026
+                                                         3 November 2026
 
 
                  Attestation Event Stream Subscription
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 April 2027.
+   This Internet-Draft will expire on 7 May 2027.
 
 Copyright Notice
 
@@ -844,8 +844,7 @@ Table of Contents
          }
 
      organization
-       organization
-         "IETF RATS (Remote ATtestation procedureS) Working Group";
+       "IETF RATS (Remote ATtestation procedureS) Working Group";
      contact
        "WG Web:   <https://datatracker.ietf.org/wg/rats/>
         WG List:  <mailto:rats@ietf.org>
@@ -878,11 +877,13 @@ Table of Contents
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
         itself for full legal notices.";
 
-     revision 2026-06-16 {
+     revision 2026-10-28 {
        description
-         "Final Version";
+         "Initial Version";
        reference
-         "draft-ietf-rats-network-device-subscription";
+         "RFC XXXX: Attestation Event Stream Subscription.
+          RFC Editor: Please replace XXXX with the RFC number assigned to
+          this document.";
      }
 
      /*
@@ -905,13 +906,17 @@ Table of Contents
          "Allows an Attester to push verifiable, current TPM PCR values
          even when there have been no recent changes to PCRs.";
        leaf tpm20-subscription-heartbeat {
-         type uint16;
+         type uint16 {
+           range "1..max";
+         }
          units "seconds";
          description
-           "Number of seconds before the Attestation stream should send
-           a new notification with a fresh quote.  This allows
-           confirmation that the PCR values haven't changed since the
-           last tpm20-attestation.";
+           "Maximum number of seconds between tpm20-attestation
+           notifications for each requested PCR. This platform-wide
+           setting applies to all active TPM 2.0 attestation subscriptions.
+           When this leaf is configured, the Attester sends each requested
+           PCR at least once per interval, including when its value has not
+           changed.";
        }
      }
 
@@ -995,7 +1000,7 @@ Table of Contents
              case netequip-boot-event-log {
                if-feature "tpm:netequip_boot";
                description
-                 "IMA event log format";
+                 "Network equipment boot event log format";
                uses tpm:network-equipment-boot-event-log;
              }
            }
@@ -1019,10 +1024,16 @@ Table of Contents
        uses tpm:tpm12-hash-algo;
        list unsigned-pcr-values {
          description
-           "Allows notifications to be filtered by PCR number or
-           PCR value based on via YANG related mechanisms such as PATH.
-           This is done without requiring the filtering structure to be
-           applied against TCG structured data.";
+           "Allows notifications to be filtered by PCR number or PCR
+           value using XPath expressions as defined in Section 6.4 of
+           RFC 7950. Exposing these values as separate YANG nodes permits
+           filtering without inspecting the TPM-encoded attestation
+           structures defined in RFC 9684.";
+         reference
+           "RFC 7950: The YANG 1.1 Data Modeling Language, Section 6.4;
+            RFC 9684: A YANG Data Model for Challenge-Response-Based
+            Remote Attestation (CHARRA) Procedures Using Trusted Platform
+            Modules (TPMs).";
          leaf-list pcr-index {
            type tpm:pcr;
            min-elements 1;
@@ -1058,9 +1069,11 @@ Table of Contents
        }
        uses tpm:tpm20-attestation {
          description
-           "Provides the attestation info.  Also ensures PCRs can be
-           XPATH (see Section 6.4. of RFC6010) filtered by refining
-           the unsigned data so that it appears,";
+           "Provides the attestation information and exposes the unsigned
+           PCR values as YANG nodes, allowing XPath filtering as described
+           in Section 6.4 of RFC 7950.";
+         reference
+           "RFC 7950: The YANG 1.1 Data Modeling Language, Section 6.4.";
          refine unsigned-pcr-values {
            min-elements 1;
          }
@@ -1297,9 +1310,9 @@ Table of Contents
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
               Interaction Models for Remote Attestation Procedures",
               Work in Progress, Internet-Draft, draft-ietf-rats-
-              reference-interaction-models-18, 17 September 2026,
+              reference-interaction-models-20, 28 October 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              reference-interaction-models-18>.
+              reference-interaction-models-20>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,

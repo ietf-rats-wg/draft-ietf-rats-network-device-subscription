@@ -13,23 +13,23 @@
 Specifically, this document defines a YANG module that augments the YANG module for Trusted Platform Module (TPM)-based Challenge-Response Remote Attestation (CHARRA), enabling subscription to RATS Conceptual Messages of the Evidence type and auxiliary Event Logs as part of that Evidence.
 The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TPM 2.0 (or equivalent hardware implementation providing the same protected capabilities as a TPM) must be available on the Attester on which the YANG server is running. 
     " name="description">
-<meta content="xml2rfc 3.34.1" name="generator">
+<meta content="xml2rfc 3.35.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-rats-network-device-subscription-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.1
-    Python 3.14.8
-    ConfigArgParse 1.8.0
+  xml2rfc 3.35.0
+    Python 3.14.10
+    ConfigArgParse 1.9.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.13.4
+    platformdirs 4.14.3
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.9.2
+    wcwidth 0.9.4
 -->
 <link href="draft-ietf-rats-network-device-subscription.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1045,11 +1045,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">RATS YANG Subscription</td>
-<td class="right">October 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 30 April 2027</td>
+<td class="center">Expires 7 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1062,12 @@ svg {
 <dd class="internet-draft">draft-ietf-rats-network-device-subscription-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-27" class="published">27 October 2026</time>
+<time datetime="2026-11-03" class="published">3 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-30">30 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-07">7 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1122,7 +1122,7 @@ The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TP
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 30 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1284,7 +1284,7 @@ The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TP
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> and <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> define the operational prerequisites and a YANG Model for acquiring Evidence from a network device containing at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations providing the same protected capabilities <span>[<a href="#TCG-Glossary" class="cite xref">TCG-Glossary</a>]</span> as a TPM).
-However, these documents are based on the challenge-response interaction model (CHARRA in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which has limitations.
+However, these documents are based on the challenge-response interaction model (CHARRA in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which has limitations.
 One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
 This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as Verifiers or a Relying Parties, can be unacceptably long.
 It is common to convey Conceptual Messages ad-hoc or periodically via requests.
@@ -1305,7 +1305,7 @@ This is particularly important for Conceptual Messages, such as Evidence, that d
 This new Event Stream is defined in this document and is provided by the producer of Conceptual Messages (the publisher).
 As covered by this document, via a Verifier's subscription to an Attester's Evidence, the Attester will continuously stream a requested set of freshly generated Evidence to the subscribing Verifier.
 For example, when a network device's Evidence changes following events such as booting, updating, control unit failover, plugging in or out of forwarding units, an attack, or certificate lifetime change, the network device will generate fresh Evidence available to the subscribing Verifier.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">The second adverse effect stems from the use of nonces in the challenge-response interaction model <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> realized in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> (CHARRA).
+<p id="section-1-5">The second adverse effect stems from the use of nonces in the challenge-response interaction model <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> realized in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> (CHARRA).
 According to CHARRA, an Attester must wait for a new nonce from a Verifier before generating a new TPM Quote.
 To address delays resulting from this wait, this specification allows freshness to be asserted asynchronously via the streaming attestation interaction model <span>[<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>.
 To convey a RATS Conceptual Message, an initial nonce is provided when subscribing to an Event Stream.<a href="#section-1-5" class="pilcrow">¶</a></p>
@@ -1314,7 +1314,7 @@ All of these methods are out-of-band of an established subscription to YANG Noti
 Once a subscription has been set up using an initial nonce, two alternative methods can be used to provide freshness handles for the subscription going forward:<a href="#section-1-6" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-1-7">
 <li id="section-1-7.1">
-          <p id="section-1-7.1.1">A central provider supplies new, fresh handles (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain, as described in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> and facilitated by the Uni-Directional Remote Attestation described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-7.2" class="relref">Section 7.2</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), or<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
+          <p id="section-1-7.1.1">A central provider supplies new, fresh handles (e.g., via a Handle Provider that distributes Epoch IDs to all entities in a domain, as described in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> and facilitated by the Uni-Directional Remote Attestation described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-7.2" class="relref">Section 7.2</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), or<a href="#section-1-7.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-1-7.2">
           <p id="section-1-7.2.1">A handle can be updated by sending out-of-band TPM Quote requests periodically or ad-hoc, as facilitated by CHARRA.<a href="#section-1-7.2.1" class="pilcrow">¶</a></p>
@@ -1323,7 +1323,7 @@ Once a subscription has been set up using an initial nonce, two alternative meth
 <aside id="section-1-8">
         <p id="section-1-8.1">The YANG statement that specifies the content of the freshness handle in CHARRA is called "nonce".
 As this specification's YANG module is based on CHARRA, the "nonce" information element name is inherited.
-This inconveniently overloads the term's original meaning because the value is now used as a freshness handle in Streaming Remote Attestation (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-7.3" class="relref">Section 7.3</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>).<a href="#section-1-8.1" class="pilcrow">¶</a></p>
+This inconveniently overloads the term's original meaning because the value is now used as a freshness handle in Streaming Remote Attestation (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-7.3" class="relref">Section 7.3</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>).<a href="#section-1-8.1" class="pilcrow">¶</a></p>
 </aside>
 <p id="section-1-9">Both approaches assume that clock drift can occur between the entities involved.
 Consequently, other conditions arising in different application scenarios ought to be considered in the same way. For example, the time of Claims collection ought to be taken into account as it potentially impacts the freshness of Evidence.<a href="#section-1-9" class="pilcrow">¶</a></p>
@@ -1355,7 +1355,7 @@ appear in all capitals, as shown here.<a href="#section-2.1-1" class="pilcrow">�
       <h2 id="name-operational-model">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-operational-model" class="section-name selfRef">Operational Model</a>
       </h2>
-<p id="section-3-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>. The operational model and corresponding sequence diagram described in this section is based on <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. The basis for interoperability required for additional types of Event Streams is covered in <a href="#otherstreams" class="auto internal xref">Section 6</a>. The following subsection focuses on subscription to YANG Notifications to the &lt;attestation&gt; Event Stream.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> describes the conveyance of TPM-based Evidence from a Verifier to an Attester using the CHARRA interaction model <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>. The operational model and corresponding sequence diagram described in this section is based on <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. The basis for interoperability required for additional types of Event Streams is covered in <a href="#otherstreams" class="auto internal xref">Section 6</a>. The following subsection focuses on subscription to YANG Notifications to the &lt;attestation&gt; Event Stream.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="sequence-diagrams">
 <section id="section-3.1">
         <h3 id="name-sequence-diagrams">
@@ -1369,13 +1369,13 @@ The contents of the &lt;attestation&gt; Event Stream are defined below within <a
           <h4 id="name-binding-to-the-streaming-re">
 <a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-binding-to-the-streaming-re" class="section-name selfRef">Binding to the Streaming Remote Attestation Model</a>
           </h4>
-<p id="section-3.1.1-1">The following identifies how the abstract parameters of Streaming Remote Attestation without a Broker, as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-7.3.1" class="relref">Section 7.3.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>, are represented by the CHARRA and YANG elements used by this specification. This binding does not redefine the terminology of either source specification.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-1">The following identifies how the abstract parameters of Streaming Remote Attestation without a Broker, as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-7.3.1" class="relref">Section 7.3.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>, are represented by the CHARRA and YANG elements used by this specification. This binding does not redefine the terminology of either source specification.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.1-2">The protocol bindings used by <a href="#term-sequence" class="auto internal xref">Figure 1</a> are as follows:<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1.1-3.1">
               <p id="section-3.1.1-3.1.1"><code>handle</code> is represented by the CHARRA information element named <code>nonce</code>. For the initial Evidence, this element carries the fresh
 Verifier-generated nonce supplied with the subscription. For subsequent Evidence, the same information element carries the
-freshness handle applicable to Streaming Remote Attestation, as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> and <a href="#freshness-handles" class="auto internal xref">Section 3.2</a>.<a href="#section-3.1.1-3.1.1" class="pilcrow">¶</a></p>
+freshness handle applicable to Streaming Remote Attestation, as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span> and <a href="#freshness-handles" class="auto internal xref">Section 3.2</a>.<a href="#section-3.1.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.1-3.2">
               <p id="section-3.1.1-3.2.1"><code>attEnvIDs</code> is represented by <code>TpmName</code>, a TPM "name" text string selected from the <code>tpms</code> Container, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span><a href="#section-3.1.1-3.2.1" class="pilcrow">¶</a></p>
@@ -1572,7 +1572,7 @@ freshness handle applicable to Streaming Remote Attestation, as described in <sp
           </h4>
 <p id="section-3.1.2-1"><span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> defines "Relevant Events over Time" in RATS which also provides the input for Figure 3 of <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>.
 The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party.
-The action of conveying "collectClaims", which is defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>, is not defined by <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>.
+The action of conveying "collectClaims", which is defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>, is not defined by <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>.
 As a result, that action cannot be matched to a specified event time.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
 <span id="name-yang-subscription-model-for-"></span><div id="time-sequence">
 <figure id="figure-2">
@@ -1732,7 +1732,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
                   <p id="section-3.1.2-3.5.2.2.1">a signed TPM Quote showing the result the PCR extension, and<a href="#section-3.1.2-3.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-3.1.2-3.5.2.3">
-                  <p id="section-3.1.2-3.5.2.3.1">a nonce value (see 'handle' above or <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which is either the initially received nonce or a more recently received nonce value, for example, a nonce value extracted or derived from an Epoch ID (see <span><a href="https://rfc-editor.org/rfc/rfc9334#section-10.3" class="relref">Section 10.3</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>) that contains a new nonce value or equivalent qualified data used as a nonce value.<a href="#section-3.1.2-3.5.2.3.1" class="pilcrow">¶</a></p>
+                  <p id="section-3.1.2-3.5.2.3.1">a nonce value (see 'handle' above or <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which is either the initially received nonce or a more recently received nonce value, for example, a nonce value extracted or derived from an Epoch ID (see <span><a href="https://rfc-editor.org/rfc/rfc9334#section-10.3" class="relref">Section 10.3</a> of [<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>) that contains a new nonce value or equivalent qualified data used as a nonce value.<a href="#section-3.1.2-3.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
@@ -2082,8 +2082,7 @@ module ietf-tpm-remote-attestation-stream {
       }
 
   organization
-    organization
-      "IETF RATS (Remote ATtestation procedureS) Working Group";
+    "IETF RATS (Remote ATtestation procedureS) Working Group";
   contact
     "WG Web:   &lt;https://datatracker.ietf.org/wg/rats/&gt;
      WG List:  &lt;mailto:rats@ietf.org&gt;
@@ -2116,11 +2115,13 @@ module ietf-tpm-remote-attestation-stream {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
      itself for full legal notices.";
 
-  revision 2026-06-16 {
+  revision 2026-10-28 {
     description
-      "Final Version";
+      "Initial Version";
     reference
-      "draft-ietf-rats-network-device-subscription";
+      "RFC XXXX: Attestation Event Stream Subscription.
+       RFC Editor: Please replace XXXX with the RFC number assigned to
+       this document.";
   }
 
   /*
@@ -2143,13 +2144,17 @@ module ietf-tpm-remote-attestation-stream {
       "Allows an Attester to push verifiable, current TPM PCR values
       even when there have been no recent changes to PCRs.";
     leaf tpm20-subscription-heartbeat {
-      type uint16;
+      type uint16 {
+        range "1..max";
+      }
       units "seconds";
       description
-        "Number of seconds before the Attestation stream should send
-        a new notification with a fresh quote.  This allows
-        confirmation that the PCR values haven't changed since the
-        last tpm20-attestation.";
+        "Maximum number of seconds between tpm20-attestation
+        notifications for each requested PCR. This platform-wide
+        setting applies to all active TPM 2.0 attestation subscriptions.
+        When this leaf is configured, the Attester sends each requested
+        PCR at least once per interval, including when its value has not
+        changed.";
     }
   }
 
@@ -2233,7 +2238,7 @@ module ietf-tpm-remote-attestation-stream {
           case netequip-boot-event-log {
             if-feature "tpm:netequip_boot";
             description
-              "IMA event log format";
+              "Network equipment boot event log format";
             uses tpm:network-equipment-boot-event-log;
           }
         }
@@ -2257,10 +2262,16 @@ module ietf-tpm-remote-attestation-stream {
     uses tpm:tpm12-hash-algo;
     list unsigned-pcr-values {
       description
-        "Allows notifications to be filtered by PCR number or
-        PCR value based on via YANG related mechanisms such as PATH.
-        This is done without requiring the filtering structure to be
-        applied against TCG structured data.";
+        "Allows notifications to be filtered by PCR number or PCR
+        value using XPath expressions as defined in Section 6.4 of
+        RFC 7950. Exposing these values as separate YANG nodes permits
+        filtering without inspecting the TPM-encoded attestation
+        structures defined in RFC 9684.";
+      reference
+        "RFC 7950: The YANG 1.1 Data Modeling Language, Section 6.4;
+         RFC 9684: A YANG Data Model for Challenge-Response-Based
+         Remote Attestation (CHARRA) Procedures Using Trusted Platform
+         Modules (TPMs).";
       leaf-list pcr-index {
         type tpm:pcr;
         min-elements 1;
@@ -2296,9 +2307,11 @@ module ietf-tpm-remote-attestation-stream {
     }
     uses tpm:tpm20-attestation {
       description
-        "Provides the attestation info.  Also ensures PCRs can be
-        XPATH (see Section 6.4. of RFC6010) filtered by refining
-        the unsigned data so that it appears,";
+        "Provides the attestation information and exposes the unsigned
+        PCR values as YANG nodes, allowing XPath filtering as described
+        in Section 6.4 of RFC 7950.";
+      reference
+        "RFC 7950: The YANG 1.1 Data Modeling Language, Section 6.4.";
       refine unsigned-pcr-values {
         min-elements 1;
       }
@@ -2539,7 +2552,7 @@ registry <span>[<a href="#yang-parameters" class="cite xref">yang-parameters</a>
 <dl class="references">
 <dt id="I-D.ietf-rats-reference-interaction-models">[I-D.ietf-rats-reference-interaction-models]</dt>
         <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">E. Voit</span>, <span class="refTitle">"Reference Interaction Models for Remote Attestation Procedures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-reference-interaction-models-18</span>, <time datetime="2026-09-17" class="refDate">17 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18">https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-18</a>&gt;</span>. </dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Eckel, M.</span>, <span class="refAuthor">Pan, W.</span>, and <span class="refAuthor">E. Voit</span>, <span class="refTitle">"Reference Interaction Models for Remote Attestation Procedures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-reference-interaction-models-20</span>, <time datetime="2026-10-28" class="refDate">28 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20">https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
