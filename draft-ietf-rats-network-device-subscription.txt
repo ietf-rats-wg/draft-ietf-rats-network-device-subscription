@@ -121,7 +121,7 @@ Table of Contents
    request signed Evidence from a separate Attester containing a TPM.
    This means that the interval between a security-relevant change event
    occurring and the event becoming visible to the interested RATS
-   entities, such as Verifiers or a Relying Parties, can be unacceptably
+   entities, such as Verifiers or Relying Parties, can be unacceptably
    long.  It is common to convey Conceptual Messages ad-hoc or
    periodically via requests.  As new technologies emerge, some of these
    solutions require Conceptual Messages to be conveyed from one RATS
@@ -266,8 +266,12 @@ Table of Contents
    *  claimsSelection is substituted with PcrSelection, an optional
       "pcr-index" from either the tpm12-challenge-response-attestation
       RPC or the tpm20-challenge-response-attestation RPC as specified
-      in [RFC9684].  If none of the TPM's Platform Configration
-      Registers (PCR) are selected, all PCR banks are returned.
+      in [RFC9684].  For these challenge-response RPCs, if none of the
+      TPM's Platform Configuration Registers (PCR) are selected, all PCR
+      banks are returned.  This behavior does not apply to
+      subscriptions: an <establish-subscription> to the <attestation>
+      Event Stream MUST include at least one <pcr-index> (see
+      Section 5).
 
    *  claims is substituted with PcrQuotes, which is the "output" of
       either the tpm12-challenge-response-attestation RPC or the tpm20-
@@ -352,7 +356,7 @@ Table of Contents
 
    [RFC9334] defines "Relevant Events over Time" in RATS which also
    provides the input for Figure 3 of [RFC9683].  The following sequence
-   diagram focusses on matching the defined events with the interactions
+   diagram focuses on matching the defined events with the interactions
    between the Attester and the Verifying Relying Party.  The action of
    conveying "collectClaims", which is defined in Section 6 of
    [I-D.ietf-rats-reference-interaction-models], is not defined by
@@ -442,9 +446,9 @@ Table of Contents
          have been generated based on the nonce value provided at
          time(NS).
 
-   *  time(VG',EG') – this occurs when a PCR is extended subsequent to
-      time(EG).  Immediately after the extension, the following
-      information needs to be pushed to the Verifier:
+   *  time(VG',EG') – this occurs when a PCR is extended after time(EG).
+      Immediately after the extension, the following information needs
+      to be pushed to the Verifier:
 
       -  any values extended into a PCR of interest,
 
@@ -475,10 +479,14 @@ Table of Contents
    subscription each notification was sent.  However, this time is not
    returned as part of the signed results of the TPM Quote and therefore
    is not as trustworthy as the objects included in the TPM Quote.
-   Therefore, a Verifier MUST periodically issue a new nonce and receive
-   this nonce within a TPM quote response in order to ensure the
-   freshness of the results.  This can be done using the <tpm12-
-   challenge-response-attestation> RPC from [RFC9684].
+   Therefore, a Verifier MUST obtain a TPM Quote containing a new
+   Verifier-provided nonce at an interval no longer than the maximum
+   Evidence age permitted by its Appraisal Policy.  Selecting that
+   interval is a Verifier policy decision; it is independent of <tpm20-
+   subscription-heartbeat>, which bounds how often notifications are
+   sent but does not itself provide freshness.  A fresh nonce can be
+   obtained using the <tpm12-challenge-response-attestation> RPC from
+   [RFC9684].
 
 3.2.2.  TPM 2 Quote
 
@@ -487,13 +495,13 @@ Table of Contents
    thereby are trustworthy.  By including an initial nonce in the
    [RFC8639] subscription request, fresh values for these counters are
    pushed to the Verifier as part of the first TPM Quote.  In order to
-   assess the freshness of the TPM Quotes that the Attester continuesly
-   generates over time, the Verifier can aquire separate TPM Quotes via
-   the <tpm12-challenge-response-attestation> RPC from [RFC9684] out-of-
+   assess the freshness of the TPM Quotes that the Attester continuously
+   generates over time, the Verifier can acquire separate TPM Quotes via
+   the <tpm20-challenge-response-attestation> RPC from [RFC9684] out-of-
    band.  These separate TPM Quotes include fresh time-related counters
    that can be appraised for freshness based on the predictable
    incrementing of these time-related counters.  An example for how that
-   can be realized is illustared in [I-D.birkholz-rats-tuda].
+   can be realized is illustrated in [I-D.birkholz-rats-tuda].
 
    The relevant internal time-related counters defined within [TPM2.0]
    can be seen within <tpms-clock-info>.  These counters include the
@@ -536,8 +544,8 @@ Table of Contents
    The <attestation> Event Stream is an [RFC8639] compliant Event Stream
    which is defined within this section and within the YANG Module of
    [RFC9684].  This Event Stream contains YANG notifications which carry
-   Evidence to assists a Verifier in appraising the Trustworthiness
-   Level of an Attester.  Data Nodes within Section 4.6 allow the
+   Evidence to assist a Verifier in appraising the Trustworthiness Level
+   of an Attester.  Data Nodes within Section 4.6 allow the
    configuration of this Event Stream's contents on an Attester.
 
    This <attestation> Event Stream can only be exposed on Attesters
@@ -549,14 +557,14 @@ Table of Contents
    To establish a subscription to an Attester in a way which provides
    provably fresh Evidence, initial randomness must be provided to the
    Attester.  This is done via the augmentation of a <nonce-value> into
-   [RFC8639] the <establish-subscription> RPC.  Additionally, a Verifier
+   [RFC8639]'s <establish-subscription> RPC.  Additionally, a Verifier
    must ask for PCRs of interest from a platform.
 
      augment /sn:establish-subscription/sn:input:
        +---w nonce-value    binary
        +---w pcr-index*     tpm:pcr
 
-   The result of the subscription will be that passing of the following
+   The result of the subscription will be the passing of the following
    information:
 
    1.  <tpm12-attestation> and <tpm20-attestation> notifications which
@@ -602,7 +610,7 @@ Table of Contents
    <replay-completed> notification.  For more on this sequence, see
    Section 2.4.2.1 of [RFC8639].
 
-   After the <replay-complete> notification is provided, a TPM Quote
+   After the <replay-completed> notification is provided, a TPM Quote
    will be requested and the result passed to the Verifier via a
    <tpm12-attestation> and <tpm20-attestation> notification.  If there
    have been any additional extend operations which have changed a
@@ -618,12 +626,18 @@ Table of Contents
 
 4.2.1.  TPM2 Heartbeat
 
-   For TPM 2.0, every requested PCR MUST be sent within an
-   <tpm20-attestation> and no less frequent than once per heartbeat
-   interval.  This MAY be done with a single <tpm20-attestation>
-   notification that includes all requested PCRs inside every heartbeat
-   interval.  This MAY be done with several <tpm20-attestation>
-   notifications at different times during a heartbeat interval.
+   For TPM 2.0, when <tpm20-subscription-heartbeat> is configured, every
+   requested PCR MUST be sent within an <tpm20-attestation> and no less
+   frequent than once per heartbeat interval.  This MAY be done with a
+   single <tpm20-attestation> notification that includes all requested
+   PCRs inside every heartbeat interval.  This MAY be done with several
+   <tpm20-attestation> notifications at different times during a
+   heartbeat interval.  When <tpm20-subscription-heartbeat> is not
+   configured, <tpm20-attestation> notifications are only sent as a
+   result of PCR extensions.  The heartbeat interval is configured on
+   the Attester for the <attestation> Event Stream (see Section 4.6),
+   not per subscription, and applies independently to each TPM on the
+   Attester.
 
 4.3.  YANG Notifications Placed on the <attestation> Event Stream
 
@@ -777,7 +791,7 @@ Table of Contents
 
 4.6.  Configuring the <attestation> Event Stream
 
-   Figure 3 is tree diagram which exposes the operator configurable
+   Figure 3 is a tree diagram which exposes the operator configurable
    elements of the <attestation> Event Stream.  This allows an Attester
    to select what information should be available on the stream.  A
    fetch operation also allows an external device such as a Verifier to
@@ -816,7 +830,11 @@ Table of Contents
 
    This YANG module imports modules from [RFC9684] and [RFC8639].
 
-   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-06-16.yang
+   RFC Editor: Please replace "XXXX" in the YANG module with the RFC
+   number assigned to this document, update the revision date to the
+   publication date, and remove this note.
+
+   <CODE BEGINS> ietf-tpm-remote-attestation-stream@2026-10-28.yang
    module ietf-tpm-remote-attestation-stream {
      yang-version 1.1;
      namespace
@@ -1208,14 +1226,12 @@ Table of Contents
 
 8.2.  Yet Another Next Generation (YANG)
 
-   The security requirements (Section 4.2.5 of [RFC7923]) and the
-   security considerations (Section 5 of [RFC7923]) from RFC7923
-   (Requirements for Subscription to YANG Datastores) apply.
-   Subscription to YANG Notifications for Datastore Updates ([RFC8641])
-   illustrates specific security considerations concerning YANG
-   Notifications for Datastore Updates.  For example, it provides
-   guidance on identifying sensitive writable subtrees and sensitive
-   readable nodes.
+   The security requirements and security considerations of [RFC7923]
+   (Sections 4.2.5 and 5, respectively) apply.  Subscription to YANG
+   Notifications for Datastore Updates ([RFC8641]) illustrates specific
+   security considerations concerning YANG Notifications for Datastore
+   Updates.  For example, it provides guidance on identifying sensitive
+   writable subtrees and sensitive readable nodes.
 
 8.3.  YANG Management Security
 
@@ -1404,6 +1420,12 @@ Table of Contents
               TCG, "TCG Glossary Version 1.1", May 2017,
               <https://trustedcomputinggroup.org/wp-content/uploads/TCG-
               Glossary-V1.1-Rev-1.0.pdf>.
+
+   [W3C.REC-xpath-19991116]
+              Clark, J., Ed. and S. DeRose, Ed., "XML Path Language
+              (XPath) Version 1.0", W3C REC REC-xpath-19991116, W3C REC-
+              xpath-19991116, 16 November 1999,
+              <https://www.w3.org/TR/1999/REC-xpath-19991116/>.
 
    [xml-registry]
               "IETF XML Registry", n.d.,

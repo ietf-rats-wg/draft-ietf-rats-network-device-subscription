@@ -1286,7 +1286,7 @@ The module defined requires at least one Trusted Platform Module (TPM) 1.2 or TP
 <p id="section-1-1"><span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span> and <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> define the operational prerequisites and a YANG Model for acquiring Evidence from a network device containing at least one TPM 1.2 or TPM 2.0 (or equivalent hardware implementations providing the same protected capabilities <span>[<a href="#TCG-Glossary" class="cite xref">TCG-Glossary</a>]</span> as a TPM).
 However, these documents are based on the challenge-response interaction model (CHARRA in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-7.1" class="relref">Section 7.1</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>), which has limitations.
 One such limitation is that it is the responsibility of a Verifier to request signed Evidence from a separate Attester containing a TPM.
-This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as Verifiers or a Relying Parties, can be unacceptably long.
+This means that the interval between a security-relevant change event occurring and the event becoming visible to the interested RATS entities, such as Verifiers or Relying Parties, can be unacceptably long.
 It is common to convey Conceptual Messages ad-hoc or periodically via requests.
 As new technologies emerge, some of these solutions require Conceptual Messages to be conveyed from one RATS entity to another without the need for continuous polling.
 Subscription to YANG Notifications <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> provides a set of standardized tools to facilitate these emerging requirements.
@@ -1381,7 +1381,7 @@ freshness handle applicable to Streaming Remote Attestation, as described in <sp
               <p id="section-3.1.1-3.2.1"><code>attEnvIDs</code> is represented by <code>TpmName</code>, a TPM "name" text string selected from the <code>tpms</code> Container, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span><a href="#section-3.1.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.1-3.3">
-              <p id="section-3.1.1-3.3.1"><code>claimsSelection</code> is substituted with <code>PcrSelection</code>, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. If none of the TPM's Platform Configration Registers (PCR) are selected, all PCR banks are returned.<a href="#section-3.1.1-3.3.1" class="pilcrow">¶</a></p>
+              <p id="section-3.1.1-3.3.1"><code>claimsSelection</code> is substituted with <code>PcrSelection</code>, an optional "pcr-index" from either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. For these challenge-response RPCs, if none of the TPM's Platform Configuration Registers (PCR) are selected, all PCR banks are returned. This behavior does not apply to subscriptions: an &lt;establish-subscription&gt; to the &lt;attestation&gt; Event Stream <span class="bcp14">MUST</span> include at least one &lt;pcr-index&gt; (see <a href="#YANG-Module" class="auto internal xref">Section 5</a>).<a href="#section-3.1.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.1-3.4">
               <p id="section-3.1.1-3.4.1"><code>claims</code> is substituted with <code>PcrQuotes</code>, which is the "output" of either the tpm12-challenge-response-attestation RPC or the tpm20-challenge-response-attestation RPC, as specified in <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. Unlike event logs, there is no delta to a previous iteration of PCR Quotes during a subscription; all new (selected) Quotes are conveyed as fresh Evidence.<a href="#section-3.1.1-3.4.1" class="pilcrow">¶</a></p>
@@ -1571,7 +1571,7 @@ freshness handle applicable to Streaming Remote Attestation, as described in <sp
 <a href="#section-3.1.2" class="section-number selfRef">3.1.2. </a><a href="#name-time-considerations-mapping" class="section-name selfRef">Time Considerations Mapping</a>
           </h4>
 <p id="section-3.1.2-1"><span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> defines "Relevant Events over Time" in RATS which also provides the input for Figure 3 of <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>.
-The following sequence diagram focusses on matching the defined events with the interactions between the Attester and the Verifying Relying Party.
+The following sequence diagram focuses on matching the defined events with the interactions between the Attester and the Verifying Relying Party.
 The action of conveying "collectClaims", which is defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-reference-interaction-models-20#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-rats-reference-interaction-models" class="cite xref">I-D.ietf-rats-reference-interaction-models</a>]</span>, is not defined by <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>.
 As a result, that action cannot be matched to a specified event time.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
 <span id="name-yang-subscription-model-for-"></span><div id="time-sequence">
@@ -1723,7 +1723,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
               </ul>
 </li>
             <li class="normal" id="section-3.1.2-3.5">
-              <p id="section-3.1.2-3.5.1">time(VG',EG') – this occurs when a PCR is extended subsequent to time(EG). Immediately after the extension, the following information needs to be pushed to the Verifier:<a href="#section-3.1.2-3.5.1" class="pilcrow">¶</a></p>
+              <p id="section-3.1.2-3.5.1">time(VG',EG') – this occurs when a PCR is extended after time(EG). Immediately after the extension, the following information needs to be pushed to the Verifier:<a href="#section-3.1.2-3.5.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1.2-3.5.2.1">
                   <p id="section-3.1.2-3.5.2.1.1">any values extended into a PCR of interest,<a href="#section-3.1.2-3.5.2.1.1" class="pilcrow">¶</a></p>
@@ -1753,7 +1753,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
           <h4 id="name-tpm-12-quote">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-tpm-12-quote" class="section-name selfRef">TPM 1.2 Quote</a>
           </h4>
-<p id="section-3.2.1-1">The <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> notification format includes the &lt;eventTime&gt; object.  This can be used to determine the amount of time after the initial subscription each notification was sent.  However, this time is not returned as part of the signed results of the TPM Quote and therefore is not as trustworthy as the objects included in the TPM Quote.  Therefore, a Verifier <span class="bcp14">MUST</span> periodically issue a new nonce and receive this nonce within a TPM quote response in order to ensure the freshness of the results.  This can be done using the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-1">The <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> notification format includes the &lt;eventTime&gt; object.  This can be used to determine the amount of time after the initial subscription each notification was sent.  However, this time is not returned as part of the signed results of the TPM Quote and therefore is not as trustworthy as the objects included in the TPM Quote.  Therefore, a Verifier <span class="bcp14">MUST</span> obtain a TPM Quote containing a new Verifier-provided nonce at an interval no longer than the maximum Evidence age permitted by its Appraisal Policy.  Selecting that interval is a Verifier policy decision; it is independent of &lt;tpm20-subscription-heartbeat&gt;, which bounds how often notifications are sent but does not itself provide freshness.  A fresh nonce can be obtained using the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tpm-2-quote">
@@ -1761,7 +1761,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
           <h4 id="name-tpm-2-quote">
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-tpm-2-quote" class="section-name selfRef">TPM 2 Quote</a>
           </h4>
-<p id="section-3.2.2-1">When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote and thereby are trustworthy.  By including an initial nonce in the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> subscription request, fresh values for these counters are pushed to the Verifier as part of the first TPM Quote.  In order to assess the freshness of the TPM Quotes that the Attester continuesly generates over time, the Verifier can aquire separate TPM Quotes via the &lt;tpm12-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> out-of-band.  These separate TPM Quotes include fresh time-related counters that can be appraised for freshness based on the predictable incrementing of these time-related counters. An example for how that can be realized is illustared in <span>[<a href="#I-D.birkholz-rats-tuda" class="cite xref">I-D.birkholz-rats-tuda</a>]</span>.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-1">When the Attester includes a TPM2-compliant cryptoprocessor, internal time-related counters are included within the signed TPM Quote and thereby are trustworthy.  By including an initial nonce in the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> subscription request, fresh values for these counters are pushed to the Verifier as part of the first TPM Quote.  In order to assess the freshness of the TPM Quotes that the Attester continuously generates over time, the Verifier can acquire separate TPM Quotes via the &lt;tpm20-challenge-response-attestation&gt; RPC from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> out-of-band.  These separate TPM Quotes include fresh time-related counters that can be appraised for freshness based on the predictable incrementing of these time-related counters. An example for how that can be realized is illustrated in <span>[<a href="#I-D.birkholz-rats-tuda" class="cite xref">I-D.birkholz-rats-tuda</a>]</span>.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-2">The relevant internal time-related counters defined within <span>[<a href="#TPM2.0" class="cite xref">TPM2.0</a>]</span> can be seen within &lt;tpms-clock-info&gt;.   These counters include the &lt;clock&gt;, &lt;reset-counter&gt;, and &lt;restart-counter&gt; objects.  The rules for appraising these objects are as follows:<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2.2-3.1">
@@ -1826,14 +1826,14 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
       <h2 id="name-remote-attestation-event-st">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-remote-attestation-event-st" class="section-name selfRef">Remote Attestation Event Stream</a>
       </h2>
-<p id="section-4-1">The &lt;attestation&gt; Event Stream is an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant Event Stream which is defined within this section and within the YANG Module of <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. This Event Stream contains YANG notifications which carry Evidence to assists a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within <a href="#configuring" class="auto internal xref">Section 4.6</a> allow the configuration of this Event Stream's contents on an Attester.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">The &lt;attestation&gt; Event Stream is an <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> compliant Event Stream which is defined within this section and within the YANG Module of <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. This Event Stream contains YANG notifications which carry Evidence to assist a Verifier in appraising the Trustworthiness Level of an Attester. Data Nodes within <a href="#configuring" class="auto internal xref">Section 4.6</a> allow the configuration of this Event Stream's contents on an Attester.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">This &lt;attestation&gt; Event Stream can only be exposed on Attesters supporting <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>. As with <span>[<a href="#RFC9683" class="cite xref">RFC9683</a>]</span>, it is up to the Verifier to understand which types of cryptoprocessors and keys are acceptable.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <div id="subscription-to-the-attestation-event-stream">
 <section id="section-4.1">
         <h3 id="name-subscription-to-the-attesta">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-subscription-to-the-attesta" class="section-name selfRef">Subscription to the &lt;attestation&gt; Event Stream</a>
         </h3>
-<p id="section-4.1-1">To establish a subscription to an Attester in a way which provides provably fresh Evidence, initial randomness must be provided to the Attester. This is done via the augmentation of a &lt;nonce-value&gt; into <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> the &lt;establish-subscription&gt; RPC. Additionally, a Verifier must ask for PCRs of interest from a platform.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">To establish a subscription to an Attester in a way which provides provably fresh Evidence, initial randomness must be provided to the Attester. This is done via the augmentation of a &lt;nonce-value&gt; into <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>'s &lt;establish-subscription&gt; RPC. Additionally, a Verifier must ask for PCRs of interest from a platform.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1-2">
 <pre>
   augment /sn:establish-subscription/sn:input:
@@ -1841,7 +1841,7 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
     +---w pcr-index*     tpm:pcr
 </pre><a href="#section-4.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1-3">The result of the subscription will be that passing of the following information:<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">The result of the subscription will be the passing of the following information:<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4.1-4">
 <li id="section-4.1-4.1">
             <p id="section-4.1-4.1.1">&lt;tpm12-attestation&gt; and &lt;tpm20-attestation&gt; notifications which include the provided &lt;nonce-value&gt;.  These attestation notifications <span class="bcp14">MUST</span> at least include every &lt;pcr-index&gt; as requested in the RPC.<a href="#section-4.1-4.1.1" class="pilcrow">¶</a></p>
@@ -1864,14 +1864,14 @@ As a result, that action cannot be matched to a specified event time.<a href="#s
 <p id="section-4.2-1">Unless it is relying on Reference Values for TPM Quotes only, a Verifier will need to acquire a history of PCR extensions since the Attester has been booted.  This history may be requested from the Attester as part of the &lt;establish-subscription&gt; RPC.  This request is accomplished by placing a very old &lt;replay-start-time&gt; within the original RPC request.  As the very old &lt;replay-start-time&gt; will pre-date the time of Attester boot, a &lt;replay-start-time-revision&gt; will be returned in the &lt;establish-subscription&gt; RPC response, indicating when the Attester booted.  Immediately following the response (and before the notifications above) one or more &lt;pcr-extend&gt; notifications which document all extend operations which have occurred for the requested PCRs since boot will be sent.  Multiple extend operations to a single PCR index on a single TPM can be included within a single notification.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">Note that if a Verifier has a partial history of extensions, the &lt;replay-start-time&gt; can be adjusted so that already known extensions are not forwarded.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3">The end of this history replay will be indicated with the <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span> &lt;replay-completed&gt; notification.  For more on this sequence, see Section 2.4.2.1 of <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">After the &lt;replay-complete&gt; notification is provided, a TPM Quote will be requested and the result passed to the Verifier via a &lt;tpm12-attestation&gt; and &lt;tpm20-attestation&gt; notification.  If there have been any additional extend operations which have changed a subscribed PCR value in this quote, these <span class="bcp14">MUST</span> be pushed to the Verifier before the &lt;tpm12-attestation&gt; and &lt;tpm20-attestation&gt; notification.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">After the &lt;replay-completed&gt; notification is provided, a TPM Quote will be requested and the result passed to the Verifier via a &lt;tpm12-attestation&gt; and &lt;tpm20-attestation&gt; notification.  If there have been any additional extend operations which have changed a subscribed PCR value in this quote, these <span class="bcp14">MUST</span> be pushed to the Verifier before the &lt;tpm12-attestation&gt; and &lt;tpm20-attestation&gt; notification.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 <p id="section-4.2-5">At this point, the Verifier has sufficient Evidence to appraise the reported extend operations for each PCR, as well as to compare a Reference Value derived from the replay of the Event Log history of extensions of the PCR value against those extensions signed by the TPM in its most recent Quote.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 <div id="tpm2-heartbeat">
 <section id="section-4.2.1">
           <h4 id="name-tpm2-heartbeat">
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-tpm2-heartbeat" class="section-name selfRef">TPM2 Heartbeat</a>
           </h4>
-<p id="section-4.2.1-1">For TPM 2.0, every requested PCR <span class="bcp14">MUST</span> be sent within an &lt;tpm20-attestation&gt; and no less frequent than once per heartbeat interval.   This <span class="bcp14">MAY</span> be done with a single &lt;tpm20-attestation&gt; notification that includes all requested PCRs inside every heartbeat interval.  This <span class="bcp14">MAY</span> be done with several &lt;tpm20-attestation&gt; notifications at different times during a heartbeat interval.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-1">For TPM 2.0, when &lt;tpm20-subscription-heartbeat&gt; is configured, every requested PCR <span class="bcp14">MUST</span> be sent within an &lt;tpm20-attestation&gt; and no less frequent than once per heartbeat interval.   This <span class="bcp14">MAY</span> be done with a single &lt;tpm20-attestation&gt; notification that includes all requested PCRs inside every heartbeat interval.  This <span class="bcp14">MAY</span> be done with several &lt;tpm20-attestation&gt; notifications at different times during a heartbeat interval.  When &lt;tpm20-subscription-heartbeat&gt; is not configured, &lt;tpm20-attestation&gt; notifications are only sent as a result of PCR extensions.  The heartbeat interval is configured on the Attester for the &lt;attestation&gt; Event Stream (see <a href="#configuring" class="auto internal xref">Section 4.6</a>), not per subscription, and applies independently to each TPM on the Attester.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2010,7 +2010,7 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
         <h3 id="name-configuring-the-attestation">
 <a href="#section-4.6" class="section-number selfRef">4.6. </a><a href="#name-configuring-the-attestation" class="section-name selfRef">Configuring the &lt;attestation&gt; Event Stream</a>
         </h3>
-<p id="section-4.6-1"><a href="#attestationconfig" class="auto internal xref">Figure 3</a> is tree diagram which exposes the operator configurable elements of the &lt;attestation&gt; Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of the stream.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
+<p id="section-4.6-1"><a href="#attestationconfig" class="auto internal xref">Figure 3</a> is a tree diagram which exposes the operator configurable elements of the &lt;attestation&gt; Event Stream. This allows an Attester to select what information should be available on the stream. A fetch operation also allows an external device such as a Verifier to understand the current configuration of the stream.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
 <p id="section-4.6-2">Almost all YANG objects below are defined via reference from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span>. However, there is one object which is new in this model. &lt;tpm2-heartbeat&gt; defines the maximum amount of time which should pass before a subscriber to the Event Stream should get a &lt;tpm20-attestation&gt; notification from devices which contain a TPM2.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
 <span id="name-configuring-the-attestation-"></span><div id="attestationconfig">
 <figure id="figure-3">
@@ -2052,9 +2052,10 @@ The format of any included &lt;event-details&gt; is identified by the &lt;event-
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-yang-module" class="section-name selfRef">YANG Module</a>
       </h2>
 <p id="section-5-1">This YANG module imports modules from <span>[<a href="#RFC9684" class="cite xref">RFC9684</a>]</span> and <span>[<a href="#RFC8639" class="cite xref">RFC8639</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<div class="breakable lang-YANG sourcecode" id="section-5-2">
+<p id="section-5-2">RFC Editor: Please replace "XXXX" in the YANG module with the RFC number assigned to this document, update the revision date to the publication date, and remove this note.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<div class="breakable lang-YANG sourcecode" id="section-5-3">
 <pre>
-&lt;CODE BEGINS&gt; ietf-tpm-remote-attestation-stream@2026-06-16.yang
+&lt;CODE BEGINS&gt; ietf-tpm-remote-attestation-stream@2026-10-28.yang
 module ietf-tpm-remote-attestation-stream {
   yang-version 1.1;
   namespace
@@ -2413,7 +2414,7 @@ module ietf-tpm-remote-attestation-stream {
   }
 }
 &lt;CODE ENDS&gt;
-</pre><a href="#section-5-2" class="pilcrow">¶</a>
+</pre><a href="#section-5-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2455,7 +2456,7 @@ Additionally, the security considerations from <span>[<a href="#RFC8641" class="
         <h3 id="name-yet-another-next-generation">
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-yet-another-next-generation" class="section-name selfRef">Yet Another Next Generation (YANG)</a>
         </h3>
-<p id="section-8.2-1">The security requirements (<span><a href="https://rfc-editor.org/rfc/rfc7923#section-4.2.5" class="relref">Section 4.2.5</a> of [<a href="#RFC7923" class="cite xref">RFC7923</a>]</span>) and the security considerations (<span><a href="https://rfc-editor.org/rfc/rfc7923#section-5" class="relref">Section 5</a> of [<a href="#RFC7923" class="cite xref">RFC7923</a>]</span>) from RFC7923 (Requirements for Subscription to YANG Datastores) apply.
+<p id="section-8.2-1">The security requirements and security considerations of <span>[<a href="#RFC7923" class="cite xref">RFC7923</a>]</span> (Sections 4.2.5 and 5, respectively) apply.
 Subscription to YANG Notifications for Datastore Updates (<span>[<a href="#RFC8641" class="cite xref">RFC8641</a>]</span>) illustrates specific security considerations concerning YANG Notifications for Datastore Updates. For example, it provides guidance on identifying sensitive writable subtrees and sensitive readable nodes.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2634,6 +2635,10 @@ registry <span>[<a href="#yang-parameters" class="cite xref">yang-parameters</a>
 <dt id="TCG-Glossary">[TCG-Glossary]</dt>
         <dd>
 <span class="refAuthor">TCG</span>, <span class="refTitle">"TCG Glossary Version 1.1"</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://trustedcomputinggroup.org/wp-content/uploads/TCG-Glossary-V1.1-Rev-1.0.pdf">https://trustedcomputinggroup.org/wp-content/uploads/TCG-Glossary-V1.1-Rev-1.0.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="W3C.REC-xpath-19991116">[W3C.REC-xpath-19991116]</dt>
+        <dd>
+<span class="refAuthor">Clark, J., Ed.</span> and <span class="refAuthor">S. DeRose, Ed.</span>, <span class="refTitle">"XML Path Language (XPath) Version 1.0"</span>, <span class="seriesInfo">W3C REC REC-xpath-19991116</span>, <span class="seriesInfo">W3C REC-xpath-19991116</span>, <time datetime="1999-11-16" class="refDate">16 November 1999</time>, <span>&lt;<a href="https://www.w3.org/TR/1999/REC-xpath-19991116/">https://www.w3.org/TR/1999/REC-xpath-19991116/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="xml-registry">[xml-registry]</dt>
         <dd>
